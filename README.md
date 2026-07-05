@@ -25,7 +25,7 @@
 
 ```bash
 cd simulations
-pip install numpy scipy matplotlib
+pip install -r ../requirements.txt
 python ch_gpe_casimir_gap.py
 python control_channel_analysis.py --demo
 ```
@@ -46,4 +46,6 @@ Figures for Overleaf live in [`docs/overleaf/figures/`](docs/overleaf/figures/).
 
 ## License
 
-Add a license file before wide redistribution (e.g. MIT or CC-BY-4.0 for docs + MIT for code).
+[MIT License](LICENSE) — Copyright (c) 2026 George McNally.
+
+The Paper 1 preprint in `docs/overleaf/` may additionally be shared under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/) on arXiv or OSF at the author’s discretion.

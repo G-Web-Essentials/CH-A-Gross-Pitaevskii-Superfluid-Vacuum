@@ -1,0 +1,7 @@
+# Core: GPE gap scans, threshold analysis, protocol verdicts
+numpy>=1.24
+scipy>=1.10
+matplotlib>=3.7
+
+# Optional: Fermi GRB dispersion pipelines (network required to fetch data)
+astropy>=5.3

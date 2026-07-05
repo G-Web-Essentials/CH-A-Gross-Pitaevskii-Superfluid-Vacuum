@@ -14,7 +14,7 @@ Integration:
   eikonal  — fast weak-field line integral (default)
   geodesic — Hamilton ray ODE (solve_ivp) cross-check
 
-See docs/ch-universal-laws-plain-english.md §3.2 and chronos-hydrodynamics-paper §5.2.
+See docs/ch-universal-laws-plain-english.md §3.2.
 """
 
 from __future__ import annotations

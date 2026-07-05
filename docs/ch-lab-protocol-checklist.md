@@ -7,7 +7,7 @@
 - [Testable predictions §7](./supersolid-vacuum-testable-predictions.md)
 
 **Analysis script:** `simulations/control_channel_analysis.py`  
-**Overleaf paper outline:** [ch-overleaf-paper.md](./ch-overleaf-paper.md)
+**Paper 1 (preprint):** [docs/overleaf/main.tex](./overleaf/main.tex)
 
 ---
 

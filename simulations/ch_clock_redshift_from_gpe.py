@@ -13,7 +13,7 @@ Models (ω normalized to bulk reference ω_ref = 1 at ρ → ρ_ref):
 
 Redshift (emitter at r, observer at infinity):  z = ω(∞)/ω(r) − 1.
 
-See docs/ch-universal-laws-plain-english.md §2.4 and chronos-hydrodynamics-paper §5.1.
+See docs/ch-universal-laws-plain-english.md §2.4.
 """
 
 from __future__ import annotations

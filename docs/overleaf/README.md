@@ -31,6 +31,7 @@ cp simulations/output/fermi_grb090510_lat_extended_beta_real.png docs/overleaf/f
 cp simulations/output/ch_gpe_casimir_gap.png docs/overleaf/figures/
 cp simulations/output/control_channel_analysis.png docs/overleaf/figures/
 cp simulations/output/ch_threshold_power_study.png docs/overleaf/figures/
+cp simulations/output/ch_sphere_plate_full_gp_overlay.png docs/overleaf/figures/
 ```
 
 If figures are missing, the document still compiles (placeholders show).
@@ -58,4 +59,4 @@ pdflatex universal-laws
 ## Source markdown
 
 Plain-English universal laws source: `../ch-universal-laws-plain-english.md`  
-Extended outline: `../ch-overleaf-paper.md`
+Paper 1 (preprint source): `main.tex`

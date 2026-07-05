@@ -6,7 +6,7 @@
 
 - [Supersolid vacuum testable predictions](./supersolid-vacuum-testable-predictions.md) — Prediction #7 summary
 - [CH mathematical framework](./ch-mathematical-framework.md) — GPE, \(\chi\), \(\beta_{\mathrm{eff}}\)
-- [Chronos-Hydrodynamics paper](./chronos-hydrodynamics-paper.md) — overview and experimental program
+- [Paper 1 preprint](./overleaf/main.tex) — overview and experimental program
 
 **Companion scripts:** `simulations/gradient_threshold_sim.py`, `casimir_ripple_sim.py`, `mach_zehnder_visibility_sim.py`, `ch_dispersion_core.py`
 

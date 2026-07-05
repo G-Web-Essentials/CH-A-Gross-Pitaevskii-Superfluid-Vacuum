@@ -9,6 +9,7 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{enumitem}
+\usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{siunitx}
 \usepackage[backend=biber,style=numeric,sorting=none,maxbibnames=99]{biblatex}
@@ -188,6 +189,9 @@ Only a fraction $\varepsilon \sim \rho_\Lambda/\rho_{\mathrm{in}}$ of inertial d
 This is a mechanism sketch, not a fitted cosmology; $\varepsilon$ is not determined by the lab protocol in this paper.
 
 \subsection{Gradient gate}
+
+$|\nabla\rho|$ is the magnitude of the spatial gradient of the vacuum density $\rho = |\psi|^2$ (Eq.~\ref{eq:madelung}): it measures how sharply $\rho$ changes from place to place (large near boundaries and defects, $\approx 0$ in uniform void).
+CH links Casimir ripple $\alpha_{\mathrm{eff}}$, interferometric dip $\Delta V$, and dispersion $\beta_{\mathrm{eff}}$ to $|\nabla\rho|$ through the gate $\chi(|\nabla\rho|)$ (Eqs.~\ref{eq:chi} and \ref{eq:gated}).
 
 The gate width $w$ sets how sharply observables turn on in $\log_{10}(|\nabla\rho|/|\nabla\rho|_c)$; our analysis code uses $w \approx 0.35$ by default~\cite{CHSpaceFabric2026}.
 \begin{equation}
@@ -906,6 +910,7 @@ Code and protocol scripts: \url{https://github.com/G-Web-Essentials/CH-A-Gross-P
     \midrule
     $\psi$ & Vacuum order parameter; $\rho = |\psi|^2$ \\
     $\rho_{\mathrm{in}}$ & Inertial superfluid density (GPE bulk scale) \\
+    $|\nabla\rho|$ & Magnitude of $\nabla\rho$; how sharply $\rho$ varies in space (Eq.~\ref{eq:madelung}; gradient-gate subsection) \\
     $\xi$ & Healing length; hypothesized $\mathcal{O}(10)$--$100$~nm in lab forecasts \\
     $m_{\mathrm{grain}}$ & $\hbar c_s/(c^2\xi)$; inertial mass of a vacuum grain \\
     $|\nabla\rho|_c$ & $\rho_{\mathrm{in}}/\xi \approx c^2/G$; gradient gate scale \\

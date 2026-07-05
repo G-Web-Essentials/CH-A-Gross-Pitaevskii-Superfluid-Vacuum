@@ -1,6 +1,6 @@
 # Chronos-Hydrodynamics (CH): Mathematical Framework (v1.0)
 
-**Overview paper:** [chronos-hydrodynamics-paper.md](./chronos-hydrodynamics-paper.md)
+**Overview paper:** [overleaf/main.tex](./overleaf/main.tex) (Paper 1 preprint)
 
 Corrected core equations for the CH vacuum hypothesis. This document **replaces** the inconsistent forms:
 

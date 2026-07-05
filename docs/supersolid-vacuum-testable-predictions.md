@@ -2,7 +2,7 @@
 
 Hypothesis: quantum phenomena such as interference and entanglement are not independent particle effects, but excitations and correlations in a **structured vacuum medium** — hypothetically a Bose–Einstein-condensate-like ground state of space.
 
-**Chronos-Hydrodynamics (CH) framing:** uniform vacuum is invisible (predictions #1–#6 often null); **gradient-gated** supersolid effects appear when \(|\nabla\rho| > |\nabla\rho|_c\) — see **#7** and [ch-mathematical-framework.md](./ch-mathematical-framework.md). **Full paper:** [chronos-hydrodynamics-paper.md](./chronos-hydrodynamics-paper.md).
+**Chronos-Hydrodynamics (CH) framing:** uniform vacuum is invisible (predictions #1–#6 often null); **gradient-gated** supersolid effects appear when \(|\nabla\rho| > |\nabla\rho|_c\) — see **#7** and [ch-mathematical-framework.md](./ch-mathematical-framework.md). **Paper 1 (preprint):** [overleaf/main.tex](./overleaf/main.tex).
 
 This document lists seven testable predictions that could distinguish that hypothesis from standard quantum field theory (QFT), the mathematics for each, and whether a **laptop simulation or analysis** (MATLAB, Python, Julia, etc.) is feasible.
 

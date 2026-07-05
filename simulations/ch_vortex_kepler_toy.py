@@ -2,7 +2,7 @@
 """
 CH Kepler / vortex correspondence toy — quantized circulation vs smooth orbits.
 
-CH sketch (chronos-hydrodynamics-paper §5.3): superfluid circulation
+CH sketch (docs/ch-universal-laws-plain-english.md §3.4): superfluid circulation
     Γ = ∮ v·dl = n h / m_grain,   n ∈ ℤ
 Macroscopic bodies speculatively lock to vortex filaments in a point-defect
 potential Φ = −GM/r. For large n, discrete circulation levels crowd together
