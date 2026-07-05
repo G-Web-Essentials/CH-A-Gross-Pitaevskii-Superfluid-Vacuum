@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# LaTeX build artifacts (if compiling locally)
+docs/overleaf/*.aux
+docs/overleaf/*.bbl
+docs/overleaf/*.blg
+docs/overleaf/*.log
+docs/overleaf/*.out
+docs/overleaf/*.bcf
+docs/overleaf/*.run.xml
+docs/overleaf/*.synctex.gz
+docs/overleaf/*.fdb_latexmk
+docs/overleaf/*.fls
+
+# Fermi downloads (large; re-fetch with scripts)
+simulations/data/fermi/

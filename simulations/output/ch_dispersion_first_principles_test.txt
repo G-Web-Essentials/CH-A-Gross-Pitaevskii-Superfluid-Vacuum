@@ -1,0 +1,15 @@
+xi_m=0.001
+rho_in=1.346590921500109e+24
+e_xi_gev=1.9732698033839643e-13
+beta_max=1.3487732293926947e+62
+grad_rho_crit=1.346590921500109e+27
+beta_fermi_bound=525184472619557.5
+xi_crit_always_on_m=1.9732698033839643e-27
+scenario=Cosmological void|grad=0.0|chi=0.0|beta_eff=0.0|dt31gev=0.0|PASS — χ ≈ 0 (quiet vacuum)
+scenario=Earth surface|grad=294272127.21590716|chi=0.0|beta_eff=0.0|dt31gev=0.0|PASS — χ ≈ 0 (quiet vacuum)
+scenario=Solar limb|grad=8209761857.576958|chi=0.0|beta_eff=0.0|dt31gev=0.0|PASS — χ ≈ 0 (quiet vacuum)
+scenario=Neutron star|grad=3.866469444444445e+19|chi=0.0|beta_eff=0.0|dt31gev=0.0|PASS — χ ≈ 0 (quiet vacuum)
+scenario=Cluster lens|grad=0.041759683205444785|chi=0.0|beta_eff=0.0|dt31gev=0.0|PASS — χ ≈ 0 (quiet vacuum)
+scenario=10 r_s|grad=4.5595536011770665e+18|chi=0.0|beta_eff=0.0|dt31gev=0.0|PASS — χ ≈ 0 (quiet vacuum)
+scenario=At |∇ρ|_c|grad=1.346590921500109e+27|chi=0.5|beta_eff=6.743866146963474e+61|dt31gev=6.174346642137262e+19|FAIL — measurable dispersion (At |∇ρ|_c)
+scenario=2×|∇ρ|_c|grad=2.693181843000218e+27|chi=0.848150912916779|beta_eff=1.1439632458271263e+62|dt31gev=1.0473555482386735e+20|FAIL — measurable dispersion (2×|∇ρ|_c)

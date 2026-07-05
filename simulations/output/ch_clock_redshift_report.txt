@@ -1,0 +1,12 @@
+Clock profile: analytic (1−r_s/r)²
+Reference: ω_ref at outer radius
+r_s = 5.0000e-08 m
+  [sqrt_rho] z(2 r_s)=9.8785e-01, z(10 r_s)=1.0896e-01, z_max=9.8785e-01
+  [mu_local] z(2 r_s)=-9.9466e-01, z(10 r_s)=-9.7898e-01, z_max=0.0000e+00
+  [phi_ch] z(2 r_s)=9.8785e-01, z(10 r_s)=1.0896e-01, z_max=9.8785e-01
+  [gr_static] z(2 r_s)=4.0991e-01, z(10 r_s)=5.3073e-02, z_max=9.0398e+00
+
+Clock profile: gap d=150 nm
+Reference: ω_ref at mid-gap z = 7.515e-08 m
+  [sqrt_rho] z_wall_max=7.3800e+01, z_mid=0.0000e+00
+  [mu_local] z_wall_max=4.4050e+05, z_mid=0.0000e+00

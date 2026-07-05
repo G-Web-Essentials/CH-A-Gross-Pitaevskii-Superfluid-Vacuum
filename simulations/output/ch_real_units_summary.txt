@@ -1,0 +1,10 @@
+CH real-units analysis
+G_meas = 6.6743e-11
+rho_Lambda = 9.9e-27 kg/m^3
+
+Planck scale: xi=1.616e-35 m, rho_in=2.176e-08, epsilon=4.549e-19, m_grain=2.177e-08 kg
+1 nm: xi=1.000e-09 m, rho_in=1.347e+18, epsilon=7.352e-45, m_grain=3.518e-34 kg
+150 nm (Casimir demo scale): xi=1.500e-07 m, rho_in=2.020e+20, epsilon=4.901e-47, m_grain=2.345e-36 kg
+1 mm: xi=1.000e-03 m, rho_in=1.347e+24, epsilon=7.352e-51, m_grain=3.518e-40 kg
+Schwarzschild Moon ~0.11 mm: xi=1.100e-04 m, rho_in=1.481e+23, epsilon=6.684e-50, m_grain=3.198e-39 kg
+1 m: xi=1.000e+00 m, rho_in=1.347e+27, epsilon=7.352e-54, m_grain=3.518e-43 kg

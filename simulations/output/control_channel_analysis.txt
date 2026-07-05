@@ -1,0 +1,9 @@
+CH lab protocol analysis
+verdict: CONSISTENT WITH GRADIENT-GATED CH
+
+Signal 'Signal: Casimir α': Δχ²=192.46 (threshold)
+Signal 'Signal: MZ ΔV': Δχ²=243.85 (threshold)
+Signal k_c values: [9.810085351579625, 10.175798438685309] (ratio=1.04, need ≤2.0)
+Control 'Control (expect flat)': Δχ²=1.33 (flat OK)
+Joint signal fit: Δχ²=435.51
+Signal threshold + flat control + k_c agreement.

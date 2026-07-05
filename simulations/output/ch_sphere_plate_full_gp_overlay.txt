@@ -1,0 +1,11 @@
+CH sphere-plate: full GP vs Thomas-Fermi overlay
+xi = 5.000e-08 m, d_min = 1.000e-07 m
+n_R = 6
+
+Radial rim: median rel err = 18.35%, max = 23.02%
+Wall:       max rel err = 94.03%
+Pass 20% band on radial (max): NO
+
+Interpretation:
+  - Agreement within ~10-20%: Tier-C curvature forecasts can cite full GP.
+  - Larger mismatch at small R or d~xi: refine grid (nr,nz) or fix ansatz in protocol.

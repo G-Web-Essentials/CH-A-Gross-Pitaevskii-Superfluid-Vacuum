@@ -1,0 +1,461 @@
+% Chronos-Hydrodynamics — Universal Laws (companion document)
+% Compiler: pdfLaTeX
+% Standalone conceptual guide; upload alongside main.tex to Overleaf.
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{siunitx}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  citecolor=blue!60!black,
+  urlcolor=blue!60!black
+}
+
+\title{%
+  Chronos-Hydrodynamics:\\
+  Universal Laws in Plain English%
+}
+\author{%
+  George McNally\\[0.25em]
+  \small Independent Researcher%
+}
+\date{30 June 2026}
+
+\begin{document}
+
+\maketitle
+
+\noindent\textbf{Purpose.}
+Explain how familiar ``laws of nature'' are reinterpreted inside \textbf{Chronos-Hydrodynamics (CH)}---without heavy derivations.
+This is a \textbf{conceptual} guide for readers who were not involved in building the framework.
+It is \textbf{not} a proof that CH is correct.
+
+\medskip
+\noindent\textbf{Related repository documents:}
+\texttt{ch-mathematical-framework.md},
+\texttt{supersolid-vacuum-testable-predictions.md},
+\texttt{overleaf/main.tex} (lab protocol paper),
+\texttt{simulations/README.md}.
+
+\tableofcontents
+\newpage
+
+\section{The one-paragraph picture of CH}
+\label{sec:picture}
+
+\textbf{Chronos-Hydrodynamics} says space is a \textbf{super-dense superfluid} (a Bose--Einstein condensate obeying the Gross--Pitaevskii equation).
+What we call empty vacuum is the bulk fluid at density $\rho_{\mathrm{in}}$.
+\textbf{Matter is not placed in space}---it is \textbf{missing fluid}: stable regions where $\rho$ is lower than bulk (defects).
+\textbf{Gravity, time, and the speed of light} are not separate miracles; they are how that fluid responds when defects disturb $\rho$ and phase~$S$.
+In \textbf{uniform, calm} regions a \textbf{gradient gate} $\chi \approx 0$ keeps supersolid-linked effects \textbf{off}, so decades of null precision tests are expected---not embarrassing.
+The vacuum only ``shows its hand'' where \textbf{density gradients} are large (Casimir walls at nm gaps, etc.).
+That is what the lab program tests.
+
+\section{What ``density'' means (not planets)}
+\label{sec:density}
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{Everyday density vs.\ CH vacuum density.}
+  \begin{tabular}{@{}ll@{}}
+    \toprule
+    Everyday thing & CH picture \\
+    \midrule
+    Air, water, rock & Ordinary matter = \textbf{defect patterns} (depletion) in the vacuum fluid \\
+    Vacuum & Bulk superfluid at $\rho \approx \rho_{\mathrm{in}}$ \\
+    $\rho_{\mathrm{in}}$ scale & $\sim 10^{19}$--$10^{24}\,\si{\kilogram\per\meter\cubed}$ depending on $\xi$---\textbf{far denser than neutron stars} \\
+    What the lab measures & \textbf{How fast $\rho$ changes} near boundaries ($|\nabla\rho|$), not object weight \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\textbf{Gradient gating:} many CH effects scale as $\chi(|\nabla\rho|)$, which is $\approx 0$ when gradients are tiny and $\approx 1$ when $|\nabla\rho| \gtrsim |\nabla\rho|_c = \rho_{\mathrm{in}}/\xi$.
+
+\section{Universal laws in simple English}
+\label{sec:laws}
+
+\subsection{Gravity}
+\label{sec:gravity}
+
+\textbf{Standard view:} Mass curves spacetime; other mass follows geodesics.
+
+\textbf{CH view:} Mass is a \textbf{defect} (hole in $\rho$).
+The surrounding superfluid responds with \textbf{pressure gradients} and \textbf{quantum potential} $Q$ from the Madelung form of $\psi$.
+Far from the defect, that response \textbf{matches} Newton: $|\mathbf{a}| \approx GM/r^2$.
+
+\medskip
+\noindent\textbf{One-paragraph summary.}
+\emph{In CH, gravity is the long-range hydrodynamic response to matter-as-defect: stable regions of depleted vacuum density in an ultra-dense superfluid space.
+Pressure gradients and the quantum potential of the $\rho$ field produce accelerations that match Newton's $GM/r^2$ in the far field; $G$ itself emerges from vacuum parameters $(\xi, \rho_{\mathrm{in}}, c_s, \alpha_G)$.
+You do not feel the bulk fluid in uniform space because gradient gating keeps it quiet; you feel the pattern of missing fluid that we call mass.}
+
+\medskip
+\noindent\textbf{Status in repo:} Spherical GPE + defect sketches (\texttt{ch\_gpe\_gravity.py}); Newton matching with $\alpha_G$ calibration---\textbf{matching}, not full 3D derivation.
+
+\subsection{Newton's constant $G$}
+
+\textbf{Standard view:} Fundamental constant of nature.
+
+\textbf{CH view:} \textbf{Emergent} from fluid properties:
+\begin{equation}
+  G = \alpha_G \,\frac{c_s^2\,\xi}{\rho_{\mathrm{in}}}.
+\end{equation}
+\begin{itemize}[leftmargin=*]
+  \item $\xi$ = healing length (vacuum ``grain size,'' often hypothesized $\sim 10$--$100$~nm in lab forecasts)
+  \item $\rho_{\mathrm{in}}$ = bulk inertial density of the vacuum
+  \item $\alpha_G$ = dimensionless matching factor (order unity in sketches; calibration in gravity demos)
+\end{itemize}
+
+\textbf{Plain English:} $G$ tells you how stiff and dense the vacuum fluid is, not a dial unrelated to anything else.
+
+\textbf{Simulation:} \texttt{ch\_real\_units\_analysis.py}, \texttt{ch\_xi\_prediction.py} (fix $\xi$ $\to$ predict $\rho_{\mathrm{in}}$, check vs $G_{\mathrm{meas}}$).
+
+\subsection{Speed of light $c$}
+
+\textbf{Standard view:} Universal speed limit; constant of nature.
+
+\textbf{CH view:} \textbf{Low-energy acoustic speed} of the vacuum superfluid:
+\begin{equation}
+  c = c_s = \sqrt{\frac{dP}{d\rho}}.
+\end{equation}
+Photons and massless excitations are \textbf{phonon-like} disturbances on the condensate.
+Lorentz symmetry is \textbf{emergent} in the comoving, low-energy limit---not postulated for the raw superfluid at all scales.
+
+\textbf{Gradient gating link:} high-energy dispersion $\beta_{\mathrm{eff}} = \beta_{\max}\chi$ can violate exact Lorentz invariance \textbf{only where $\chi > 0$}; void paths stay null (GRB tests).
+
+\textbf{Simulation:} \texttt{dispersion\_grb\_sim.py}, \texttt{fermi\_grb090510\_*}, \texttt{ch\_dispersion\_fermi\_combined.py}.
+
+\subsection{Time and clocks}
+
+\textbf{Standard view:} Time is a parameter in which physics happens.
+
+\textbf{CH view:} \textbf{Time is local phase evolution} of $\psi = \sqrt{\rho}\,e^{iS}$:
+\begin{itemize}[leftmargin=*]
+  \item Clock rate $\propto \omega = \partial S/\partial t$
+  \item Near mass, \textbf{$\rho$ is depleted} (matter = defect) and the \textbf{acoustic metric / effective potential $\Phi$} change how phase and excitations propagate $\to$ \textbf{gravitational time dilation} (slower clocks in stronger gravity)
+\end{itemize}
+
+\textbf{``Chronos''} in the name = time tied to condensate phase, not an external clock.
+
+\paragraph{What each symbol means (plain English).}
+\begin{description}[style=nextline, leftmargin=1.5em, font=\normalfont]
+  \item[$\psi$ (psi)]
+    The \textbf{vacuum order parameter}: a complex field that describes the state of the condensate at each point in space (and time).
+    Think of it as the ``wavefunction of space itself'' in CH---not a particle sitting in space, but the medium's quantum state.
+  \item[$\rho$ (rho)]
+    \textbf{Condensate density} $= |\psi|^2$: how much vacuum fluid is present at a point.
+    Bulk quiet vacuum has $\rho \approx \rho_{\mathrm{in}}$; defects (matter) are regions where $\rho$ is \textbf{lower} than bulk.
+  \item[$S$ (phase)]
+    The \textbf{phase angle} of $\psi$ in the complex plane.
+    Where $\psi$ is like a rotating arrow, $S$ is how far that arrow has turned---it sets interference fringes and local ``clock'' ticks.
+  \item[$\sqrt{\rho}\,e^{iS}$]
+    \textbf{Polar form} of $\psi$: amplitude $\sqrt{\rho}$ (how big the wave is) times $e^{iS}$ (a unit rotation by angle $S$).
+    The factor $i=\sqrt{-1}$ is what makes $\psi$ a \textbf{wave} (superpositions and interference), not just a real density.
+  \item[$\omega$ (omega)]
+    \textbf{Local frequency}: how many radians of phase $S$ advance per second at a fixed place---``how fast the vacuum clock ticks'' there.
+  \item[$\partial S/\partial t$]
+    The \textbf{time derivative of phase}: the rate at which $S$ changes while you sit at one location.
+    CH identifies this with $\omega$---so \emph{time passage is literally phase winding} of the condensate.
+  \item[Clock rate $\propto \omega$]
+    Any physical clock (atoms, light, oscillators) ultimately counts stable phase cycles of underlying fields.
+    If $\omega$ is smaller, fewer cycles per second $\to$ the clock runs \textbf{slow} compared to a reference far away---this is \textbf{time dilation}.
+  \item[Depletion near mass]
+    Matter = \textbf{lower} $\rho$ than bulk; metric and $\Phi$ still slow clocks (like GR redshift)---do not read this as ``denser fluid near planets.''
+  \item[Flow $\mathbf{v}$]
+    Different flow also changes the acoustic metric; static defect sketches often set $\mathbf{v}=0$.
+  \item[$\chi(k)$]
+    The \textbf{gradient gate} (between 0 and 1) when the lab knob is set to $k$ (e.g.\ Casimir gap $d$).
+    $\chi \approx 0$: quiet bulk-like vacuum at that setting; $\chi \approx 1$: strong boundary gradients, gated CH effects ``on.''
+  \item[$k$]
+    The \textbf{experimental knob} you scan---typically $k = 1/d_{\mathrm{nm}}$ for gap $d$, or $k = 1/R_{\mu\mathrm{m}}$ for curvature $R$.
+  \item[$k_c$]
+    The \textbf{threshold knob value} from a flat-vs-threshold fit: where $\alpha(k)$ or $\Delta V(k)$ turn on.
+    A future clock test would ask: do clock shifts also turn on at the \textbf{same} $k_c$? That would tie time dilation to the same gradient gate as ripple and visibility.
+\end{description}
+
+\textbf{Status:} Laptop post-processor \texttt{ch\_clock\_redshift\_from\_gpe.py} compares clock proxies ($\sqrt{\rho}$, $\Phi$, GR reference) on matched defect profiles; \textbf{lab test} would be clock shifts correlated with $\chi(k)$ at the same $k_c$ as Casimir ripple (Layer~3).
+Clock and lensing maps need \textbf{not} be the same function of $\rho$ (Section~\ref{sec:numerics-summary}).
+
+\subsection{Quantum mechanics (wave behaviour)}
+
+\textbf{Standard view:} Particles obey Schr\"odinger / QFT equations in spacetime.
+
+\textbf{CH view:} The \textbf{Madelung transformation} rewrites the GPE as continuity + phase equations---quantum \textbf{interference} is phase $S$ of the \textbf{same} $\psi$ that is the vacuum (defects are modulations of it).
+Entanglement is hypothesized as \textbf{medium correlations}, not particles in empty space.
+
+\textbf{Status:} Ontological claim; \textbf{not} a derivation of the Standard Model.
+Prediction~\#2 (sidereal Bell modulation) is optional and secondary in CH.
+
+\textbf{Simulation:} \texttt{bell\_sidereal\_sim.py} (toy CHSH + sidereal).
+
+\subsection{Orbits and Kepler's laws}
+
+\textbf{Standard view:} Inverse-square force $\to$ elliptical orbits.
+
+\textbf{CH view (speculative correspondence):} Superfluid \textbf{circulation is quantized} ($\Gamma = nh/m_{\mathrm{grain}}$).
+CH \textbf{speculates} large bodies lock to vortex structures; in the \textbf{macroscopic limit} discrete steps blur into \textbf{continuous Keplerian} and GR geodesic motion.
+This is a \textbf{correspondence sketch}, not derived from the lab GPE code.
+
+\textbf{Simulation:} \texttt{ch\_vortex\_kepler\_toy.py}---for Earth-scale $n \sim 10^{14}$, ladder spacing $\Delta r/r \sim 10^{-14}$ and orbits track classical Kepler paths; literal low-$n$ vortex radii are nm-scale, \textbf{not} planetary (Section~\ref{sec:numerics-summary}).
+
+\subsection{Cosmological constant / dark energy}
+
+\textbf{Standard view:} $\Lambda$ or dark energy with $\rho_\Lambda \sim 10^{-26}\,\si{\kilogram\per\meter\cubed}$.
+
+\textbf{CH view:} Vacuum has enormous $\rho_{\mathrm{in}}$, but only a fraction \textbf{$\varepsilon \ll 1$} gravitates cosmologically:
+\begin{equation}
+  \rho_{\mathrm{grav}} = \varepsilon\,\rho_{\mathrm{in}}.
+\end{equation}
+
+\textbf{Plain English:} The zero-point catastrophe is reframed as a \textbf{coupling} problem: the energy is there in the fluid, but most of it does not curve space at cosmic scales.
+
+\textbf{Status:} Mechanism sketch only; $\varepsilon$ not derived.
+\textbf{Not testable in a Casimir cell.}
+
+\textbf{Simulation:} \texttt{ch\_real\_units\_analysis.py}, \texttt{ch\_vs\_published\_limits.py} (order-of-magnitude $\varepsilon$ vs $\rho_\Lambda$).
+
+\subsection{Dark matter (speculative)}
+
+\textbf{CH sketch:} Galactic ``missing mass'' as \textbf{Reynolds stress} $\tau_{ij} = \rho\langle u_i u_j\rangle$ from turbulent / vortex motion of the vacuum fluid stirred by galaxies---not a new particle species.
+Solar system stays Newtonian because flows are laminar ($\tau_{ij} \approx 0$).
+
+\textbf{Status:} Phenomenological; no rotation-curve fit in repo.
+
+\subsection{Thermodynamics and the arrow of time}
+
+CH does \textbf{not} yet give a full thermodynamic law (entropy, heat engines) from first principles.
+Informally: dissipation in the condensate (mutual friction, vortex tangles) may relate to irreversibility---\textbf{open theory}, not in simulation suite.
+
+\section{Black holes in CH}
+\label{sec:bh}
+
+\subsection{What a black hole would be (plain English)}
+
+In CH a \textbf{black hole is not a hole in spacetime geometry} as the fundamental object.
+It is an \textbf{extreme defect} in the vacuum fluid:
+\begin{itemize}[leftmargin=*]
+  \item A region where $\rho/\rho_{\mathrm{in}}$ is driven \textbf{very low}---deep depletion sustained by strong sourcing (matter collapse).
+  \item The \textbf{Schwarzschild radius} $r_s = 2GM/c^2$ is still the scale where the \textbf{depletion profile} reaches the fluid analogue of ``empty at the boundary'': in the matching ansatz, $\rho/\rho_{\mathrm{in}} \approx (1 - r_s/r)^2 \to 0$ at $r = r_s$.
+\end{itemize}
+
+So the \textbf{event horizon} is reinterpreted as a \textbf{hydrodynamic boundary} where the condensate density hits zero (or the defect core cannot be described by the far-field tail)---not a magical divide in empty geometry.
+
+\textbf{Inside the horizon:} CH does \textbf{not} yet provide a complete, accepted interior solution (no full nonlinear GPE + quantum back-reaction).
+Speculatively: extreme vortex tangle, phase chaos, or breakdown of the simple Madelung picture---\textbf{open problem}.
+
+\subsection{How it would ``do what it does''}
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{Black-hole phenomena in CH (sketch).}
+  \begin{tabular}{@{}lp{0.62\linewidth}@{}}
+    \toprule
+    Phenomenon & CH interpretation (sketch) \\
+    \midrule
+    Strong gravity & Same defect hydrostatics + $Q$; deeper depletion $\to$ stronger $\Phi$ \\
+    Light bending & \textbf{Effective metric / $\Phi$} channel (not raw $1/\sqrt{\rho}$)---Section~\ref{sec:numerics-summary} \\
+    Time slowing & Phase rate and metric $\Phi$ drop in stronger gravity (acoustic redshift) \\
+    Cannot escape & Excitations pinned to the fluid; below horizon outward acoustic paths trapped in depletion geometry \\
+    Hawking radiation & \textbf{Not derived} in CH docs---needs quantized excitations + horizon-scale dissipation; \textbf{future theory} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Laptop consistency checks (completed)}
+\label{sec:bh-numerics}
+
+The following scripts test \textbf{internal consistency} of the matched exterior picture---they do \textbf{not} prove astrophysical black holes or replace Prediction~\#7.
+
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \caption{Completed laptop checks on defect exteriors (Layers~2--3 sketches).}
+  \begin{tabular}{@{}llp{0.42\linewidth}@{}}
+    \toprule
+    Check & Script & Headline result \\
+    \midrule
+    BH exterior $\rho$, $\Phi$, $g_{\mathrm{eff}}$ vs $r/r_s$ & \texttt{ch\_gpe\_bh\_exterior\_demo.py} & v3 matched BC + Schwarzschild tail; Newton annulus as before \\
+    Clock / redshift proxies & \texttt{ch\_clock\_redshift\_from\_gpe.py} & $\sqrt{\rho}$ and $\Phi$ slow clocks in depletion; not full GR derivation \\
+    Light bending $\Delta\theta(b)$ & \texttt{ch\_acoustic\_light\_bending.py} & Metric/$\Phi$ index \textbf{attracts} ($\sim$1$\times$ repo GR ref.); $n \propto 1/\sqrt{\rho}$ \textbf{repels} \\
+    Kepler / vortex correspondence & \texttt{ch\_vortex\_kepler\_toy.py} & Large $n$ $\to$ smooth orbits; small $n$ $\neq$ planets \\
+    Sphere--plate full GP vs TF & \texttt{run\_sphere\_plate\_full\_gp\_scan.m} + overlay & Radial rim $|\partial\rho/\partial r|$ vs TF: median $\sim$18\%, max $\sim$23\% at $\hat{d}_{\min}=2$; wall not on laptop grid \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+See Section~\ref{sec:numerics-summary} for what these \textbf{support} vs \textbf{rule out}.
+
+\section{Simulation map: what exists vs.\ what to build}
+\label{sec:sim}
+
+\subsection{Already in \texttt{simulations/} (Python)}
+\label{sec:sim-existing}
+
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \caption{Existing simulation scripts mapped to CH laws.}
+  \begin{tabular}{@{}llp{0.38\linewidth}@{}}
+    \toprule
+    Law / object & Script & What it checks \\
+    \midrule
+    Gradient gating / \#7 & \texttt{gradient\_threshold\_*}, \texttt{control\_channel\_analysis.py} & Flat vs threshold; lab protocol \\
+    GPE boundaries & \texttt{ch\_gpe\_core.py}, \texttt{ch\_gpe\_casimir\_gap.py} & $\chi$ vs gap $d$ \\
+    Gravity / defects & \texttt{ch\_gpe\_gravity.py}, demos & Newton factor, $\alpha_G$ calibration \\
+    $G$, $\xi$, $\rho_{\mathrm{in}}$ & \texttt{ch\_xi\_prediction.py}, \texttt{ch\_real\_units\_analysis.py} & Consistency with measured $G$ \\
+    Dispersion / $c$ & \texttt{ch\_dispersion\_*}, \texttt{fermi\_grb090510\_*} & $\beta_{\mathrm{eff}}$ vs Fermi; gated void \\
+    Casimir ripple & \texttt{casimir\_ripple\_sim.py} & $\alpha$ extraction practice \\
+    Visibility & \texttt{mach\_zehnder\_visibility\_sim.py} & $\Delta V$ models \\
+    Fifth force & \texttt{yukawa\_fifth\_force\_sim.py} & \#5 vs E\"ot-Wash \\
+    Sidereal / $c$ anisotropy & \texttt{anisotropy\_sidereal\_sim.py} & \#1 null expectations \\
+    Published bounds & \texttt{ch\_vs\_published\_limits.py} & CH vs real constraints \\
+    BH exterior & \texttt{ch\_gpe\_bh\_exterior\_demo.py} & $\rho$, $\Phi$, $g_{\mathrm{eff}}$ vs $r/r_s$ \\
+    Clock / redshift & \texttt{ch\_clock\_redshift\_from\_gpe.py} & Clock proxies on gravity + gap profiles \\
+    Light bending & \texttt{ch\_acoustic\_light\_bending.py} & Ray trace $n(\rho,\Phi)$; $\Delta\theta(b)$ vs GR \\
+    Kepler / vortex & \texttt{ch\_vortex\_kepler\_toy.py} & Quantized $\Gamma$; large-$n$ smooth-orbit limit \\
+    Sphere--plate full GP & \texttt{run\_sphere\_plate\_full\_gp\_scan.m}, overlay script & MATLAB \texttt{slice1d} GP vs TF radial rim probe \\
+    Sphere--plate TF ansatz & \texttt{ch\_gpe\_sphere\_plate.py} & Curvature knob $R$ (Thomas--Fermi) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Laptop extensions (completed)}
+\label{sec:sim-completed}
+
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \caption{Completed Table~4 laptop extensions (Python).}
+  \begin{tabular}{@{}llp{0.45\linewidth}@{}}
+    \toprule
+    Goal & Script & Notes \\
+    \midrule
+    Black hole exterior & \texttt{ch\_gpe\_bh\_exterior\_demo.py} & Extends \texttt{ch\_gpe\_gravity.py} v3 matched BC \\
+    Acoustic light bending & \texttt{ch\_acoustic\_light\_bending.py} & Geodesic + eikonal; multiple $n(r)$ models \\
+    Clock rate vs $\rho$ & \texttt{ch\_clock\_redshift\_from\_gpe.py} & Post-processes GPE $\rho$, $\Phi$ \\
+    Kepler / vortex toy & \texttt{ch\_vortex\_kepler\_toy.py} & Correspondence only---not GPE-derived orbits \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{What the numerics support and rule out}
+\label{sec:numerics-summary}
+
+These laptop checks ask whether the \textbf{matched defect + acoustic-metric} story hangs together.
+They are \textbf{not} proof of CH and do \textbf{not} replace Prediction~\#7 (Casimir threshold).
+
+\paragraph{Supported (qualitatively).}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Defect gravity matching:} spherical GPE + $\alpha_G$ calibration $\to$ $G_{\mathrm{eff}} \approx G$ in a far-field annulus.
+  \item \textbf{Lensing via metric / $\Phi$:} $n \approx 1 - r_s/r$ or $n = \sqrt{1 + 2\Phi/c^2}$ gives \textbf{attractive} bending at $\sim$order unity vs the repo weak-field reference.
+  \item \textbf{Linked gravity and lensing:} \texttt{phi\_ch} and \texttt{gr\_isotropic} track each other on the analytic Schwarzschild tail.
+  \item \textbf{Chronos / clocks (sketch):} $\sqrt{\rho}$ and $\Phi$ proxies slow clocks in depletion on the analytic tail; lab clocks vs $\chi(k)$ remain untested.
+  \item \textbf{Kepler correspondence:} for $n \sim 10^{14}$ (Earth-scale), $\Delta r/r \sim 10^{-14}$ and orbits look classical.
+  \item \textbf{Sphere--plate curvature (Tier-C):} full axisymmetric GP (\texttt{slice1d}, $\hat{R}\gtrsim 3$) matches Thomas--Fermi on the radial rim probe to median $\sim$18\%, max $\sim$23\% over $R \in [1,100]~\mu\mathrm{m}$ at $d_{\min}=100$~nm, $\xi=50$~nm.
+\end{itemize}
+
+\paragraph{Ruled out or excluded (naive readings).}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Refractive index $n \propto 1/\sqrt{\rho}$} for lensing $\to$ \textbf{wrong sign} (deflects away from mass).
+  \item \textbf{Single $\rho$ formula for clocks and lensing} $\to$ different maps work for each observable.
+  \item \textbf{Literal low-$n$ planetary vortices} $\to$ $n=1$ circular radius is $\sim 10^{-29}$~AU at lab $\xi$, not a planet.
+  \item \textbf{Full GR from GPE alone} $\to$ still uses matched exterior + chosen $n(\Phi)$; not a first-principles derivation.
+  \item \textbf{Laptop full-GP wall $|\nabla\rho|$ at $\hat{d}_{\min}\sim 2$} $\to$ boundary layers unresolved on coarse $z$ grids; Casimir gap uses TF + fine grid in Python.
+\end{itemize}
+
+\paragraph{Still open.}
+BH interior, Hawking, quantitative GR redshift from numerical v3 join, dark-matter Reynolds toy, $\beta_{\mathrm{eff}}(\chi)$ at strong depletion, coupled 2D GP at $\hat{R}\lesssim 3$, and all \textbf{gated lab positives} at $k_c$.
+
+\subsection{Proposed extensions (deferred)}
+\label{sec:sim-proposed}
+
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \caption{Deferred simulation extensions.}
+  \begin{tabular}{@{}lp{0.42\linewidth}l@{}}
+    \toprule
+    Goal & Approach & Tools \\
+    \midrule
+    Dark matter sketch & 2D fluid + stirring; effective $\tau_{ij}$ vs rotation curve & Dedalus / Navier--Stokes \\
+    BH + dispersion & $\beta_{\mathrm{eff}}(\chi)$ near strong depletion (speculative) & Extend \texttt{ch\_dispersion\_core.py} \\
+    ISCO / orbit decay toy & Particle in GPE $\Phi(r)$; Kepler period check & Extend gravity demos \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{External simulation software}
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{External tools and their role in CH work.}
+  \begin{tabular}{@{}llp{0.48\linewidth}@{}}
+    \toprule
+    Software & Good for CH & Notes \\
+    \midrule
+    Python (repo) & GPE 1D, protocol stats, GRB fits & Primary; already integrated \\
+    MATLAB + GPELab & 2D/3D GPE, vortices, defects & Export $\rho$, $\Phi$; compare to Python 1D \\
+    Dedalus & PDEs, GPE with boundaries & Sphere/plate, dynamic GPE \\
+    COMSOL / FEniCS & Weak-form GPE, complex geometries & Real AFM Casimir geometry $\to$ $k \to |\nabla\rho|$ \\
+    LightPipes / Zemax & MZ fringes, not GPE & Optical envelope for \#6; pair with GPE $\chi$ \\
+    Cosmology codes (CLASS, etc.) & $\varepsilon$, expansion & After $\rho_{\mathrm{in}}$, $\varepsilon$ fixed from lab---long horizon \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\noindent\textbf{MATLAB note:} Reimplementing \texttt{ch\_dispersion\_core} + one GPE gap solver in MATLAB is enough to cross-check Python; full protocol can stay in Python.
+
+\subsection{What simulations cannot do}
+
+\begin{itemize}[leftmargin=*]
+  \item Replace \textbf{real Casimir} or \textbf{atom interferometry} data
+  \item \textbf{Prove} CH without pre-registered lab thresholds + controls
+  \item Derive \textbf{fermions}, \textbf{Hawking}, or \textbf{full GR} from GPE alone without new theory
+\end{itemize}
+
+\section{``Possible within real-world physics''}
+\label{sec:plausible}
+
+A CH claim is \textbf{plausible under real physics} when:
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+  \item \textbf{Dimensions match} ($G$, $\beta_{\max}$, $|\nabla\rho|_c$ in SI).
+  \item \textbf{Null tests pass} where $\chi \approx 0$ (GRB, E\"ot-Wash, smooth Casimir).
+  \item \textbf{Gated positives} (if any) share one $k_c$ / $\xi$ across channels.
+  \item \textbf{Gravity matching} works from defect profiles without absurd $\alpha_G$.
+  \item \textbf{Cosmology} does not require $\varepsilon > 1$ or negative $\rho_{\mathrm{in}}$.
+\end{enumerate}
+
+The repo's job is (1)--(2) and \textbf{designing} (3)--(4); cosmology (5) is outline only.
+
+\section{Suggested reading order for newcomers}
+
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+  \item This document (concepts)
+  \item \texttt{ch-gradient-threshold-experiment.md} (what we actually test)
+  \item \texttt{ch-mathematical-framework.md} (equations)
+  \item \texttt{overleaf/main.tex} (full lab protocol and methods)
+  \item Run \texttt{ch\_lab\_pipeline\_demo.py}, \texttt{ch\_gpe\_gravity\_demo.py --v3-only}, and \texttt{ch\_gpe\_bh\_exterior\_demo.py --quick}
+\end{enumerate}
+
+\section{Honest limits}
+
+CH is a \textbf{research framework}, not established physics.
+Gravity demos use \textbf{matched} exteriors and \textbf{calibrated} $\alpha_G$; laptop checks in Section~\ref{sec:numerics-summary} support the \textbf{metric/$\Phi$} branch of emergent gravity and lensing but \textbf{exclude} naive $n \propto 1/\sqrt{\rho}$ lensing.
+Black holes, Hawking radiation, dark matter, and the Standard Model remain \textbf{sketches or open}.
+The \textbf{discriminating near-term test} remains Prediction~\#7: \textbf{flat vs threshold} in Casimir ripple and interferometric visibility when gap or curvature raises $|\nabla\rho|$.
+Everything in this document about universal laws is \textbf{how CH would reinterpret known physics if that wedge test and later layers succeed}---not a claim that they already have.
+
+\vfill
+\noindent\small\textit{Document version 1.2 --- added sphere--plate full GP vs Thomas--Fermi numerics (Sections~\ref{sec:bh-numerics}--\ref{sec:numerics-summary}; radial rim $\sim$20\% agreement). Companion to the CH lab protocol paper (\texttt{main.tex}).}
+
+\end{document}

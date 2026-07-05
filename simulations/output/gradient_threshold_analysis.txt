@@ -1,0 +1,11 @@
+CH gradient threshold analysis
+
+Casimir ripple α
+  null chi2=350.8226
+  threshold chi2=76.8439
+  delta_chi2=273.9787
+
+MZ visibility dip
+  null chi2=527.4337
+  threshold chi2=98.1193
+  delta_chi2=429.3144

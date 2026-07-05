@@ -1,0 +1,958 @@
+% Chronos-Hydrodynamics — Paper 1 (Overleaf)
+% Compiler: pdfLaTeX + Biber
+% Upload with references.bib and figures/ (see README.md)
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{siunitx}
+\usepackage[backend=biber,style=numeric,sorting=none,maxbibnames=99]{biblatex}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  citecolor=blue!60!black,
+  urlcolor=blue!60!black
+}
+
+\addbibresource{references.bib}
+
+\newcommand{\maybeincludegraphics}[2][]{%
+  \IfFileExists{#2}{%
+    \includegraphics[#1]{#2}%
+  }{%
+    \fbox{\parbox[c][0.2\textheight][c]{0.92\linewidth}{\centering\small\texttt{#2}\\[0.5em]Add figure to \texttt{figures/} folder}}%
+  }%
+}
+
+% --- Author block (edit before submission) ---
+\title{%
+  Chronos-Hydrodynamics:\\
+  A Gross--Pitaevskii Superfluid Vacuum---\\
+  Flat vs Threshold Turn-On in Casimir Ripple and Interferometric Visibility%
+}
+\author{%
+  George McNally\\[0.25em]
+  \small Independent Researcher\\[0.15em]
+  \small \href{mailto:george@web-essentials.ie}{george@web-essentials.ie}%
+}
+\date{30 June 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We present \textbf{Chronos-Hydrodynamics (CH)}, a speculative framework in which space is a physical Bose--Einstein condensate obeying the Gross--Pitaevskii equation (GPE).
+Matter is a localized defect in the vacuum density field; gravity, time, and the effective metric emerge from hydrodynamic variables $(\rho, \mathbf{v}, S)$.
+A central design feature is \textbf{gradient gating}: in uniform, low-gradient vacuum the condensate is \textbf{observationally invisible}, explaining widespread null results in precision tests of empty space.
+Supersolid-linked observables turn on only when $|\nabla\rho|$ exceeds a critical scale $|\nabla\rho|_c$.
+
+We derive dimensionally consistent relations including $G = \alpha_G c_s^2 \xi / \rho_{\mathrm{in}}$ and $\beta_{\max} = \tfrac{3}{2}\xi^2/\hbar^2$, introduce a two-component density to address the cosmological-constant problem, and outline seven testable predictions.
+Analysis of real Fermi LAT data for GRB~090510 yields null quadratic dispersion ($p \approx 0.56$), consistent with gradient-gated CH on void paths but \textbf{not} distinguishable from standard quantum field theory (QFT) there.
+
+The \textbf{primary CH-specific test} is Prediction~\#7: scan a laboratory knob that raises $|\nabla\rho|$ (Casimir gap $d$, sphere radius $R$) and compare \textbf{flat} (QFT) vs \textbf{threshold} (CH) models for Casimir ripple amplitude $\alpha_{\mathrm{eff}}$ and interferometric visibility dip $\Delta V$.
+We provide GPE boundary simulations, a pre-registered lab protocol, and open-source analysis code that returns confirm\,/\,rule-out\,/\,inconclusive verdicts from $(k, O, \sigma)$ data.
+\end{abstract}
+
+\noindent\textbf{Keywords:} emergent gravity; Gross--Pitaevskii equation; superfluid vacuum; Casimir effect; gradient threshold; falsifiability
+
+\section{Introduction}
+\label{sec:intro}
+
+\subsection{What we believe (postulates)}
+
+CH is \textbf{not} established physics.
+It is a \textbf{research framework} with explicit postulates:
+\begin{enumerate}[label=\textbf{\arabic*.}, leftmargin=*]
+  \item \textbf{Ontological:} Space is a complex order parameter $\psi(\mathbf{x},t)$ in a macroscopic quantum state (BEC).
+  \item \textbf{Dynamical:} $\psi$ obeys the GPE; Madelung variables $(\rho, S)$ are fundamental hydrodynamic fields.
+  \item \textbf{Matter:} Mass is a \textbf{localized defect} (depletion) in $\rho$, not an object in passive space.
+  \item \textbf{Invisibility:} Uniform $\rho$ with $|\nabla\rho| \approx 0$ yields \textbf{no observable structure}.
+  \item \textbf{Gradient gating:} Large $|\nabla\rho|$ drives supersolid order; observables scale with $\chi(|\nabla\rho|)$.
+  \item \textbf{Emergence:} $G$, $c$, and clock rates derive from $(\rho_{\mathrm{in}}, \xi, c_s, m_{\mathrm{grain}})$.
+  \item \textbf{Covariance:} Low-energy excitations see an \textbf{acoustic metric}; Lorentz symmetry is emergent in the comoving limit.
+\end{enumerate}
+
+\subsection{What we do not claim}
+
+\begin{itemize}[leftmargin=*]
+  \item A complete Standard Model embedding or fermion derivation.
+  \item That GRB nulls \textbf{prove} CH (they are also expected in QFT).
+  \item That laptop simulations replace laboratory hardware.
+  \item Numerological identities such as $m_{\mathrm{vac}} = h$ (replaced by $m_{\mathrm{grain}} = \hbar\omega_0/c^2$).
+\end{itemize}
+
+\subsection{Scope of this manuscript}
+
+Most precision tests probe \textbf{uniform} vacuum and return \textbf{null}---which CH interprets as \textbf{by design}, not as falsification.
+The falsifiable claim is \textbf{gradient-correlated turn-on} (Prediction~\#7).
+This paper unifies theory, completed astrophysical null analysis, GPE knob maps, lab protocol, and analysis software for publication or collaboration outreach.
+
+\subsection{Motivation: the empty stage problem}
+
+General relativity treats spacetime as dynamic geometry; quantum field theory (QFT) treats the vacuum as the ground state of fields with enormous zero-point energy---naively $\sim 10^{120}$ times larger than the observed cosmological constant $\rho_\Lambda$.
+Neither picture offers a \textbf{mechanical} substrate whose local state could explain why empty space is so quiet in precision tests.
+
+\textbf{Chronos-Hydrodynamics (CH)} proposes a fourth picture: space is a material \textbf{Bose--Einstein condensate (BEC)} whose Madelung fields $(\rho, \mathbf{v}, S)$ carry both hydrodynamics and an emergent acoustic metric~\cite{Unruh1981,Visser1995,Volovik2003}.
+Matter is not embedded in passive space but modeled as a \textbf{localized defect} (density depletion) in $\rho$.
+The key experimental design choice is \textbf{gradient gating}: in uniform vacuum ($|\nabla\rho| \approx 0$) the condensate is dynamically quiet and \textbf{observationally invisible}; supersolid-linked effects turn on only when $|\nabla\rho|$ exceeds $|\nabla\rho|_c$.
+That is why void-path GRB timing and smooth Casimir forces are \textbf{expected nulls}, not surprises---and why the discriminating test must \textbf{raise} $|\nabla\rho|$ in the laboratory.
+
+\subsection{Related work and what is new}
+
+CH builds on the Madelung hydrodynamic form of quantum mechanics~\cite{Madelung1927}, the Gross--Pitaevskii description of weakly interacting BECs~\cite{Gross1961,Pitaevskii1961}, and the \textbf{analog gravity} program in which phonons on a fluid see an emergent Lorentzian metric~\cite{Unruh1981,Visser1995}.
+Volovik's superfluid analogies to particle physics~\cite{Volovik2003} motivate a material vacuum, but CH differs in four ways:
+\begin{enumerate}[label=(\roman*), leftmargin=*]
+  \item \textbf{Gradient gating} --- supersolid order is local ($\chi(|\nabla\rho|)$), not a global lattice visible everywhere.
+  \item \textbf{Two-component density} --- only a fraction $\varepsilon \ll 1$ of inertial $\rho_{\mathrm{in}}$ gravitates at cosmological scales (Section~\ref{sec:theory}).
+  \item \textbf{Defect ontology} --- mass is depletion in $\rho$, not an external label in empty space.
+  \item \textbf{Pre-registered protocol} --- Prediction~\#7 compares flat vs threshold $O(k)$ with a mandatory flat \textbf{control channel} (Section~\ref{sec:protocol}).
+\end{enumerate}
+
+\subsection{Contributions of this manuscript}
+
+For a reader who was not involved in our development process, this paper provides:
+\begin{itemize}[leftmargin=*]
+  \item Explicit postulates, limitations, and equations linking GPE fields to gated observables (Section~\ref{sec:theory}--\ref{sec:observables}).
+  \item A completed reanalysis of real Fermi LAT extended data for GRB~090510, with honest interpretation of what null timing does and does \textbf{not} constrain (Section~\ref{sec:grb-methods}).
+  \item GPE boundary estimates showing which laboratory knobs can approach $|\nabla\rho|_c$ (Section~\ref{sec:gpe}).
+  \item A full Prediction~\#7 protocol: knob definitions, fit models, sample-size requirements, and automated verdict logic (Section~\ref{sec:protocol}; Appendix~\ref{app:fits}).
+  \item A lab-to-theory bridge: measured $k_c$ $\to$ proposed $\xi$ identifications and spherical defect gravity forecasts with self-consistent $\alpha_G$ calibration (Section~\ref{sec:lab-xi-bridge}).
+  \item Open-source scripts that implement every analysis step cited here~\cite{CHSpaceFabric2026}.
+\end{itemize}
+
+\section{Theory: Gross--Pitaevskii vacuum}
+\label{sec:theory}
+
+\subsection{Fundamental equation}
+
+The vacuum order parameter $\psi(\mathbf{x},t)$ satisfies
+\begin{equation}
+  i\hbar \frac{\partial\psi}{\partial t}
+  = \left(-\frac{\hbar^2}{2m_{\mathrm{grain}}}\nabla^2 + V_{\mathrm{ext}} + g|\psi|^2\right)\psi.
+  \label{eq:gpe}
+\end{equation}
+
+\textbf{Madelung transformation:}
+\begin{equation}
+  \psi = \sqrt{\rho}\, e^{iS/\hbar}, \qquad
+  \rho = |\psi|^2, \qquad
+  \mathbf{v} = \frac{1}{\rho}\nabla S.
+  \label{eq:madelung}
+\end{equation}
+
+The \textbf{quantum potential} (central to the emergent-gravity sketch) is
+\begin{equation}
+  Q = -\frac{\hbar^2}{2m_{\mathrm{grain}}}\frac{\nabla^2\sqrt{\rho}}{\sqrt{\rho}}.
+  \label{eq:quantum-potential}
+\end{equation}
+In the Madelung form, $Q$ appears in the quantum Hamilton--Jacobi equation alongside classical pressure and external potentials.
+CH's Newtonian matching sketch (not derived fully here) identifies the gravitational potential with gradients of $\rho$ and $Q$ around localized defects: matter is a \textbf{displacement} of the vacuum density field, and $G$ is a proportionality constant linking that displacement scale to observed free-fall (Eq.~\ref{eq:G}).
+
+\subsection{Grain scale and healing length}
+
+\begin{align}
+  \omega_0 &\equiv \frac{c_s}{\xi}, &
+  m_{\mathrm{grain}} &= \frac{\hbar\omega_0}{c^2} = \frac{\hbar c_s}{c^2\xi},
+  \label{eq:grain} \\
+  c_s &= \sqrt{\frac{g\rho_{\mathrm{in}}}{m_{\mathrm{grain}}}}, &
+  \xi &= \frac{\hbar}{\sqrt{2 m_{\mathrm{grain}} g \rho_{\mathrm{in}}}}.
+  \label{eq:healing}
+\end{align}
+
+\subsection{Emergent Newton constant}
+
+\begin{equation}
+  \boxed{G = \frac{\alpha_G\, c_s^2\, \xi}{\rho_{\mathrm{in}}}}
+  \label{eq:G}
+\end{equation}
+
+With measured $G$ and a hypothesized $\xi$, this fixes $\rho_{\mathrm{in}}$ (or vice versa).
+$\alpha_G$ is a dimensionless coupling (often set to unity in sketches).
+
+\subsection{Two-component density}
+
+To address the cosmological-constant problem,
+\begin{equation}
+  \rho_{\mathrm{total}} = \rho_{\mathrm{in}} + \delta\rho_{\mathrm{defect}}, \qquad
+  \rho_{\mathrm{grav}} = \varepsilon\,\rho_{\mathrm{in}} + \delta\rho_{\mathrm{grav}}.
+  \label{eq:two-component}
+\end{equation}
+Only a fraction $\varepsilon \sim \rho_\Lambda/\rho_{\mathrm{in}}$ of inertial density gravitates at cosmological scales, addressing the $10^{120}$ discrepancy \textbf{if} $\rho_{\mathrm{in}}$ is large and $\varepsilon \ll 1$.
+This is a mechanism sketch, not a fitted cosmology; $\varepsilon$ is not determined by the lab protocol in this paper.
+
+\subsection{Gradient gate}
+
+The gate width $w$ sets how sharply observables turn on in $\log_{10}(|\nabla\rho|/|\nabla\rho|_c)$; our analysis code uses $w \approx 0.35$ by default~\cite{CHSpaceFabric2026}.
+\begin{equation}
+  \chi(|\nabla\rho|) = \frac{1}{2}\left[1 + \tanh\!\left(\frac{\log_{10}(|\nabla\rho|/|\nabla\rho|_c)}{w}\right)\right],
+  \label{eq:chi}
+\end{equation}
+\begin{equation}
+  |\nabla\rho|_c = \frac{\rho_{\mathrm{in}}}{\xi}
+  \quad\Rightarrow\quad
+  |\nabla\rho|_c = \frac{c^2}{G} \approx 1.3\times 10^{27}\,\si{\kilogram\per\meter\tothe{4}}
+  \label{eq:grad-crit}
+\end{equation}
+when $G = \alpha_G c_s^2 \xi/\rho_{\mathrm{in}}$ with $\alpha_G = 1$, $c_s = c$.
+\textbf{Intuition:} $|\nabla\rho|_c$ is the density gradient at which the healing length $\xi$ becomes comparable to the scale of variation in $\rho$---the natural boundary between ``uniform fluid'' and ``structured'' vacuum.
+Tidal gradients from a lead brick are $\sim 10^{-22}$ of this scale; Casimir walls at gap $d \sim \xi$ can approach $\mathcal{O}(1)$ (Section~\ref{sec:gpe}).
+
+\textbf{Gated observables:}
+\begin{equation}
+  \alpha_{\mathrm{eff}} = \alpha_{\max}\,\chi, \qquad
+  \Delta V = \Delta V_{\max}\,\chi, \qquad
+  \beta_{\mathrm{eff}} = \beta_{\max}\,\chi.
+  \label{eq:gated}
+\end{equation}
+
+\textbf{Dispersion ceiling} (Prediction~\#4):
+\begin{equation}
+  \beta_{\max} = \frac{3}{2}\,\frac{\xi^2}{\hbar^2}.
+  \label{eq:beta-max}
+\end{equation}
+Here $\beta_{\max}$ is the maximum quadratic Lorentz-violation coefficient in the arrival-time law $\Delta t \approx (D/c^3)\,\beta_{\mathrm{eff}}\,E^2$ (Section~\ref{sec:grb-methods}).
+For $\xi \sim 50$~nm, $\beta_{\max} \sim 10^{20}$\,s\,GeV$^{-2}$---orders of magnitude above Fermi bounds---so an \textbf{always-on} CH dispersion is excluded; gradient gating sends $\beta_{\mathrm{eff}} = \beta_{\max}\chi \to 0$ on void paths.
+
+\section{From theory to bench observables}
+\label{sec:observables}
+
+This section states the \textbf{measurement links} a skeptical experimentalist needs: how abstract GPE fields become numbers read off an AFM or interferometer.
+
+\subsection{Casimir ripple amplitude $\alpha$ (Prediction~\#3)}
+
+Standard Casimir theory gives a smooth $1/d^4$ force between parallel conductors~\cite{Casimir1948}.
+CH \textbf{parameterizes} (does not derive from GPE) a gated multiplicative ripple on the normalized force:
+\begin{equation}
+  \frac{F(d)}{F_{\mathrm{Cas}}(d)} = 1 + \alpha_{\mathrm{eff}}(k)\,
+  \cos\!\left(\frac{2\pi d}{a_{\mathrm{vac}}} + \phi\right),
+  \label{eq:casimir-ripple}
+\end{equation}
+where $a_{\mathrm{vac}}$ is a vacuum lattice scale (fit parameter) and $\alpha_{\mathrm{eff}} = \alpha_{\max}\,\chi(|\nabla\rho|(k))$.
+\textbf{Extraction:} scan gap $d$, divide measured force by the QED Casimir prediction $F_{\mathrm{Cas}}(d)$, fit the oscillatory residual for amplitude $\alpha$ (practice pipeline: \texttt{casimir\_ripple\_sim.py}).
+QFT predicts $\alpha_{\mathrm{eff}} = 0$ within noise; CH predicts $\alpha_{\mathrm{eff}}$ rises when the knob $k$ raises $|\nabla\rho|$ past $|\nabla\rho|_c$.
+
+\subsection{Mach--Zehnder visibility dip $\Delta V$ (Prediction~\#6)}
+
+Standard environmental decoherence gives visibility $V(\Delta L) = e^{-\Gamma\Delta L}$ for path-length difference $\Delta L$.
+CH adds a gated residual wobble after subtracting that envelope:
+\begin{equation}
+  V_{\mathrm{meas}}(\Delta L) = e^{-\Gamma\Delta L}\left[1 + \varepsilon_{\mathrm{vac}}\,\chi\cos\!\left(\frac{2\pi\Delta L}{a_{\mathrm{vac}}}\right)\right],
+  \qquad
+  \Delta V(k) = \Delta V_{\max}\,\chi(|\nabla\rho|(k)).
+  \label{eq:mz-vis}
+\end{equation}
+\textbf{Extraction:} scan $\Delta L$, fit $e^{-\Gamma\Delta L}$ to the envelope, define $\Delta V$ as the peak-to-peak residual visibility (practice: \texttt{mach\_zehnder\_visibility\_sim.py}).
+
+\subsection{Photon dispersion $\beta_{\mathrm{eff}}$ (Prediction~\#4)}
+
+On a cosmological path of length $D$, a quadratic energy-dependent arrival-time offset is parameterized by
+\begin{equation}
+  t(E) = t_0 + \frac{D}{c^3}\,\beta_{\mathrm{eff}}\,E^2,
+  \label{eq:dispersion}
+\end{equation}
+with $E$ in joules in the fit code ($E_{\mathrm{GeV}} \times 1.602\times 10^{-10}$~J).
+Void paths have $\chi \approx 0$ so $\beta_{\mathrm{eff}} \approx 0$ even when $\beta_{\max}$ is huge (Eq.~\ref{eq:beta-max}).
+
+\subsection{Knob $k$ and observable $O(k)$ (Prediction~\#7)}
+
+Prediction~\#7 does \textbf{not} re-use the ripple fit of Eq.~\ref{eq:casimir-ripple} directly; it compares the \textbf{scalar amplitudes} $\alpha(k)$ and $\Delta V(k)$ (already extracted per $k$) against a shared threshold in $k$-space:
+\begin{equation}
+  O_{\mathrm{QFT}}(k) = c_0, \qquad
+  O_{\mathrm{CH}}(k) = c_0 + A\,\mathcal{S}(k - k_c;\,\delta k),
+  \label{eq:threshold-fit}
+\end{equation}
+where $\mathcal{S}(x) = \tfrac{1}{2}[1 + \tanh(x/\delta k)]$ is a smooth step and $\delta k \approx 0.08\,(k_{\max}-k_{\min})$ in the reference analysis.
+The critical knob value $k_c$ is the laboratory proxy for the gradient gate; consistency requires the \textbf{same} $k_c$ (within a factor of 2) for $\alpha$ and $\Delta V$ if both are measured.
+
+\subsection{Secondary predictions (\#1, \#2, \#5)}
+
+For completeness: \textbf{\#1} tests sidereal modulation of an effective speed of light (null expected in uniform $\rho$).
+\textbf{\#2} tests whether Bell correlators vary with sidereal phase (optional; not central to CH).
+\textbf{\#5} tests short-range Yukawa deviations from $1/r^2$ gravity inside cavities (localized gradients only).
+These are listed for completeness; the present protocol prioritizes \#3, \#6, and \#7.
+
+\section{Predictions}
+\label{sec:predictions}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Seven CH predictions: uniform vs high-$|\nabla\rho|$ environments.}
+  \label{tab:predictions}
+  \small
+  \begin{tabular}{@{}clccc@{}}
+    \toprule
+    \# & Observable & QFT (uniform) & CH (high $|\nabla\rho|$) & Priority \\
+    \midrule
+    1 & Sidereal $c$ anisotropy & Null & Unlikely & Secondary \\
+    2 & Bell $S$ vs sidereal & Null & Optional & Secondary \\
+    3 & Casimir $F/F_{\mathrm{Cas}}$ ripple & Null & $\alpha_{\mathrm{eff}}=\alpha_{\max}\chi$ & Primary \\
+    4 & GRB photon dispersion & Null & $\beta_{\mathrm{eff}}\approx 0$ (void) & Astro null \\
+    5 & Yukawa fifth force & Null in cavity & Localized & Secondary \\
+    6 & Fringe visibility wobble & Decoherence only & $\Delta V=\Delta V_{\max}\chi$ & Primary \\
+    \textbf{7} & $O(k)$ vs gradient knob & \textbf{Flat} & \textbf{Threshold} & \textbf{Discriminating} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Predictions \#1--\#6 are often \textbf{null in quiet labs}; \#7 asks whether they \textbf{turn on together} when a knob raises $|\nabla\rho|$.
+Table~\ref{tab:predictions} summarizes all seven; Sections~\ref{sec:observables} and~\ref{sec:protocol} define how \#3, \#6, and \#7 are measured and compared.
+
+\subsection{GRB~090510: three dispersion models}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Void-path dispersion models vs Fermi LAT extended analysis of GRB~090510.}
+  \label{tab:grb}
+  \begin{tabular}{@{}lll@{}}
+    \toprule
+    Model & Void-path prediction & GRB~090510 result \\
+    \midrule
+    QFT + GR & $\beta = 0$ & Consistent (null, $p \approx 0.56$) \\
+    Naive always-on CH & $\beta = \beta_{\max}$ (huge) & \textbf{Excluded} \\
+    Gradient-gated CH & $\beta_{\mathrm{eff}} \approx 0$ & Consistent (not proof) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Completed pipeline: 28 photons with $E \geq \SI{1}{GeV}$, $E_{\max} \approx \SI{30}{GeV}$, $\beta_{95} \approx 2\times 10^{16}$~\cite{AmelinoCamelia2009,Vasileiou2013,CHSpaceFabric2026}.
+
+\subsection{GRB analysis methods and interpretation}
+\label{sec:grb-methods}
+
+\textbf{Data and cuts.}
+We use Fermi \textbf{LAT extended} event data (TRANSIENT class) for trigger bn090510016 ($z=0.903$), queried from the Fermi LAT Data Server~\cite{CHSpaceFabric2026}.
+Photons are selected in a $\pm 12^\circ$ ROI, arrival times within 10~s of trigger, and $E \geq 1$~GeV, yielding $n=28$ events ($E_{\max} \approx 29.9$~GeV).
+GBM-only ($n=41$) and LAT LLE ($n=19$) pipelines are also implemented for cross-checks; the extended LAT sample is closest to the high-energy literature on this burst~\cite{AmelinoCamelia2009,Vasileiou2013}.
+
+\textbf{Fit model.}
+Following the standard quadratic Lorentz-violation test~\cite{AmelinoCamelia2009}, we linearly regress arrival time $t$ against $E^2$ (Eq.~\ref{eq:dispersion}) with $D = D_L(z=0.903) \approx 5.99$~Gpc.
+The slope maps to $\beta = \mathrm{slope} \times c^3/D$; we report the one-sided 95\% upper limit $\beta_{95} = \beta + 1.96\,\sigma_\beta$ when $\beta$ is consistent with zero.
+
+\textbf{Results.}
+Best-fit $\beta$ is consistent with zero ($p \approx 0.56$, reduced $\chi^2 \approx 5.7$).
+The elevated $\chi^2_{\mathrm{red}}$ on $n=28$ photons indicates the linear-in-$E^2$ template fits the burst poorly (intrinsic timing structure, not necessarily Lorentz violation); the null slope is therefore conservative with respect to CH but does not validate the functional form.
+$\beta_{95} \approx 2.1\times 10^{16}$~s\,GeV$^{-2}$ is far below naive $\beta_{\max}$ for any microscopic $\xi$, \textbf{excluding always-on CH dispersion}.
+
+\textbf{What this does not show.}
+A null on a void path does \textbf{not} confirm CH---standard QFT also predicts $\beta = 0$.
+The analysis does \textbf{not} constrain $\xi$ or $\rho_{\mathrm{in}}$ for gradient-gated CH, because $\chi \approx 0$ along the intergalactic path.
+The discriminating test remains Prediction~\#7 in the laboratory.
+
+\textbf{Always-on benchmark.}
+If $\beta = \beta_{\max}$ everywhere with $\xi \lesssim 10^{-15}$~m, Fermi timing would show enormous dispersion; gradient gating is CH's mechanism to retain a large $\beta_{\max}$ while passing void-path tests.
+
+\begin{figure}[htbp]
+  \centering
+  \maybeincludegraphics[width=0.85\linewidth]{figures/fermi_grb090510_lat_extended_beta_real.png}
+  \caption{Real Fermi LAT extended analysis: photon arrival time vs $E^2$ for GRB~090510 ($z=0.903$). Null fit ($p \approx 0.56$) is consistent with QFT and gradient-gated CH on void paths.}
+  \label{fig:grb}
+\end{figure}
+
+\section{GPE boundary program}
+\label{sec:gpe}
+
+Tidal gradients from laboratory masses give $|\nabla\rho|/|\nabla\rho|_c \sim 10^{-22}$---unsuitable as an experimental knob.
+\textbf{Casimir boundaries} impose Dirichlet-like conditions on $\psi$ at conductors and can raise local $|\nabla\rho|$ near walls when the gap $d$ is comparable to the healing length $\xi$.
+
+\subsection{Thomas--Fermi boundary ansatz}
+
+Full numerical GPE solutions with defect sources are future work; for knob planning we use a \textbf{Thomas--Fermi (TF) boundary-layer ansatz} validated against 1D imaginary-time GPE in the companion code~\cite{CHSpaceFabric2026}.
+The ansatz enforces $\rho \to 0$ at walls and bulk $\rho \to \rho_{\mathrm{in}}$ far from boundaries:
+\textbf{1D parallel-plate} ($\hat{d} = d/\xi$):
+\begin{equation}
+  \rho(\hat{z}) \approx \tanh(\hat{z})\,\tanh(\hat{d}-\hat{z}), \qquad
+  \frac{|\nabla\rho|}{|\nabla\rho|_c} = \left|\frac{\partial|\psi|^2}{\partial\hat{z}}\right|.
+  \label{eq:tf-1d}
+\end{equation}
+
+\textbf{2D sphere--plate} ($\hat{h}(\hat{r}) = \hat{d}_{\min} + \hat{r}^2/(2\hat{R})$):
+\begin{equation}
+  \rho(\hat{r},\hat{z}) \approx \tanh(\hat{z})\,\tanh(\hat{h}(\hat{r})-\hat{z}).
+  \label{eq:tf-2d}
+\end{equation}
+At the sphere rim ($\hat{r} \sim 1$), radial gradients scale as $\sim 1/\hat{R}$---so \textbf{curvature radius $R$} is a second knob that modulates wall gradients without changing bulk gap midpoints in wide-gap limits.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Illustrative GPE results ($\xi = \SI{50}{nm}$, wide gap $d \gg \xi$).}
+  \label{tab:gpe}
+  \begin{tabular}{@{}ll@{}}
+    \toprule
+    Location & Role in Prediction~\#7 \\
+    \midrule
+    Gap bulk (central half) & $\chi_{\mathrm{bulk}}$ turns on when $d \lesssim \mathcal{O}(\xi)$ --- \textbf{signal} when scanning $d$ \\
+    Plate wall & $\chi_{\mathrm{wall}}$ saturated, flat vs $d$ --- \textbf{control} on $d$ scan; \textbf{signal} when scanning $R$ \\
+    Tidal / lead brick & $\sim 10^{-22}$ of threshold --- wrong knob \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+  \centering
+  \maybeincludegraphics[width=0.92\linewidth]{figures/ch_gpe_casimir_gap.png}
+  \caption{1D GPE Casimir-gap scan ($\xi = \SI{50}{nm}$): wall vs bulk gradient ratio and $\chi$ vs gap $d$. Bulk $\chi$ uses the central-half maximum (Section~\ref{sec:probe-coupling}), not the geometric midpoint alone.}
+  \label{fig:gpe}
+\end{figure}
+
+\subsection{Probe coupling for gap vs curvature scans}
+\label{sec:probe-coupling}
+
+GPE boundary forecasts attach $\chi$ to \textbf{distinct probe loci}. Prediction~\#7 uses them as follows (code flag \texttt{coupling=mid} maps bulk $\chi$ to both $\alpha$ and $\Delta V$ in gap demos; \texttt{coupling=wall} is the flat control forecast).
+
+\textbf{Gap scan ($d$ knob, signal).}
+Ripple amplitude $\alpha(d)$ from Eq.~\ref{eq:casimir-ripple} is compared against $\chi_{\mathrm{bulk}}(d)$: the gradient gate evaluated at the \textbf{maximum} $|\nabla\rho|$ in the central half of the Thomas--Fermi cavity profile.
+When $d \gg \xi$, wall layers decouple and $\chi_{\mathrm{bulk}} \to 0$ (QFT-flat sector); when $d \lesssim \mathcal{O}(\xi)$, overlapping layers raise bulk gradients and $\chi_{\mathrm{bulk}}$ turns on.
+The geometric gap midpoint is \textbf{not} used: for $\rho \propto \tanh(\hat{z})\tanh(\hat{d}-\hat{z})$ it sits at a symmetry zero when layers overlap.
+
+\textbf{Gap scan (control).}
+$\chi_{\mathrm{wall}}(d)$ is near saturation and flat vs $d$ for $d \gtrsim 2\xi$; register $\alpha$ vs $T$ or duplicate geometries as independent flat controls (Table~\ref{tab:channels}).
+
+\textbf{Curvature scan ($R$ knob, signal).}
+At fixed minimum gap, scan sphere radius $R$ and extract $\alpha$ at the \textbf{wall/rim} where GPE predicts $\chi_{\mathrm{wall}}$ varies with $R$ while bulk midpoints stay in the null sector (Eq.~\ref{eq:tf-2d}).
+
+\subsection{GPE forecasts linked to Prediction~\#7}
+
+With $\xi = \SI{50}{nm}$ and gap scan $d = 40$--$600$~nm ($k = 10^9/d_{[\mathrm{m}]}$), the GPE pipeline (\texttt{ch\_gpe\_to\_threshold\_demo.py}) maps $d \to \chi_{\mathrm{bulk}}$ and $\chi_{\mathrm{wall}}$ and generates synthetic $(k, \alpha, \sigma)$ and $(k, \Delta V, \sigma)$ CSVs.
+Flat vs threshold fits (\texttt{gradient\_threshold\_analysis.py}) on that synthetic data yield $\Delta\chi^2 \approx 274$ ($\alpha$) and $\Delta\chi^2 \approx 429$ ($\Delta V$)---well above the detection cut $\Delta\chi^2 = 9$.
+This demonstrates that \textbf{if} CH gated amplitudes track GPE $\chi$ vs $d$ under the bulk coupling of Section~\ref{sec:probe-coupling}, the protocol has statistical power; it is \textbf{not} a substitute for real lab data.
+
+Curvature scans (\texttt{ch\_gpe\_sphere\_to\_threshold\_demo.py}) produce smaller $\chi$ variations but detectable threshold trends when $R$ is scanned at fixed minimum gap; there the signal channel is \textbf{wall/rim-coupled} $\alpha(R)$ (Section~\ref{sec:probe-coupling}).
+
+\section{Experimental protocol (Prediction \#7)}
+\label{sec:protocol}
+
+\subsection{Scientific question}
+
+As knob $k$ scans (gap $d$ or radius $R$), does observable $O(k)$ stay \textbf{flat} (QFT) or \textbf{turn on} above a threshold (gradient-gated CH)?
+This is a \textbf{model comparison}, not a single null test: both models may fit poorly if systematics dominate.
+
+\subsection{Measurement channels}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Signal vs control channels for Prediction~\#7.}
+  \label{tab:channels}
+  \small
+  \begin{tabular}{@{}llp{0.42\linewidth}@{}}
+    \toprule
+    Channel & Type & How $O$ is obtained \\
+    \midrule
+    $\alpha(k)$ & Signal (gap $d$) & Ripple amplitude from $F(d)/F_{\mathrm{Cas}}(d)$; GPE forecast uses $\chi_{\mathrm{bulk}}(d)$ (Section~\ref{sec:probe-coupling}) \\
+    $\alpha(R)$ & Signal (curvature) & Wall/rim-coupled ripple when scanning $R$ at fixed minimum gap \\
+    $\Delta V(k)$ & Signal & Peak residual visibility after $e^{-\Gamma\Delta L}$ subtraction (Eq.~\ref{eq:mz-vis}) \\
+    $\alpha$ vs $T$ & Control & Same geometry; $T$ is not a CH gradient knob \\
+    $\chi_{\mathrm{wall}}$ vs $d$ & Control & GPE predicts flat $\chi_{\mathrm{wall}}(d)$ when scanning gap \\
+    $\alpha$ vs lateral offset & Control & When GPE predicts unchanged $|\nabla\rho|$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\textbf{Confirm CH (eventually):} threshold in $\geq 1$ signal channel, \textbf{same $k_c$} (within factor 2) across signal channels if both are measured, and \textbf{flat control} ($\Delta\chi^2 < 9$ for threshold vs flat on control).
+
+\textbf{Rule out CH (in scanned range):} GPE forecasts turn-on over your $k$ range but data prefer flat $O(k)$, \textbf{or} signal channels disagree on $k_c$ by more than factor 2.
+
+\subsection{Knob definitions}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Laboratory knobs and measurement channels.}
+  \label{tab:knobs}
+  \small
+  \begin{tabular}{@{}llll@{}}
+    \toprule
+    Knob & Definition & Example range & Role \\
+    \midrule
+    Gap $d$ & $k = 10^9/d_{[\mathrm{m}]} = 1/d_{\mathrm{nm}}$ & 40--600 nm & Signal \\
+    Curvature $R$ & $k = 10^6/R_{[\mathrm{m}]} = 1/R_{\mu\mathrm{m}}$ & 0.05--5~\textmu m & Signal \\
+    Temperature $T$ & same $k$ grid as signal run & --- & Control \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Higher $k$ means smaller $d$ or smaller $R$---i.e.\ stronger boundary confinement and (in GPE forecasts) larger $|\nabla\rho|$ near walls.
+
+\subsection{Statistical models and detection cuts}
+
+Each channel carries tuples $(k_i, O_i, \sigma_i)$.
+We fit Eqs.~\ref{eq:threshold-fit} with weighted $\chi^2$:
+\begin{align}
+  \chi^2_{\mathrm{flat}} &= \sum_i \frac{[O_i - c_0]^2}{\sigma_i^2}, \\
+  \chi^2_{\mathrm{thr}} &= \sum_i \frac{[O_i - O_{\mathrm{CH}}(k_i; c_0, A, k_c)]^2}{\sigma_i^2}.
+\end{align}
+\textbf{Detection:} $\Delta\chi^2 = \chi^2_{\mathrm{flat}} - \chi^2_{\mathrm{thr}} \geq 9$ (two extra parameters: amplitude $A$ and $k_c$; $\approx 3\sigma$ rule of thumb).
+\textbf{Joint fit:} when both $\alpha$ and $\Delta V$ are available, refit with a \textbf{shared} $k_c$ and separate amplitudes per channel (\texttt{gradient\_threshold\_analysis.py --joint}).
+
+\textbf{Pre-registered requirements} (complete before data collection):
+\begin{itemize}[leftmargin=*]
+  \item $\geq 10$ distinct $k$ settings spanning the GPE-predicted turn-on range.
+  \item $\geq 20$ independent repeats per $(k, \text{channel})$ when possible.
+  \item Control channel chosen and registered \textbf{before} unblinding signal fits.
+  \item $\Delta\chi^2$ cut $= 9$; $k_c$ agreement factor $= 2$; control pass: $\Delta\chi^2 < 9$.
+\end{itemize}
+
+Full printable checklist: companion document \texttt{ch-lab-protocol-checklist.md}~\cite{CHSpaceFabric2026}.
+
+\subsection{Verdict logic}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Protocol outcomes (implemented in \texttt{control\_channel\_analysis.py}).}
+  \label{tab:verdict}
+  \small
+  \begin{tabular}{@{}p{0.42\linewidth}p{0.48\linewidth}@{}}
+    \toprule
+    Outcome & Interpretation \\
+    \midrule
+    Signal threshold + flat control + same $k_c$ & Consistent with gradient-gated CH \\
+    All flat over GPE turn-on range & CH gradient sector ruled out (in range) \\
+    Different $k_c$ in $\alpha$ vs $\Delta V$ & Single $|\nabla\rho|_c$ excluded \\
+    Control thresholds like signal & Likely systematic \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Hardware tiers}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Tier A:} Dynamic AFM Casimir --- $\alpha$ only (minimum viable; collaboration).
+  \item \textbf{Tier B:} Tier A + matter-wave MZ --- $\alpha + \Delta V$.
+  \item \textbf{Tier C:} Tunable $d$, $R$, and control runs --- full \#7 protocol.
+\end{itemize}
+
+Data format: CSV with header \texttt{k,O,sigma} (one row per $k$ setting after averaging repeats).
+
+\textbf{Analysis command} (replace paths with lab exports):
+\begin{verbatim}
+python3 control_channel_analysis.py \
+  --csv-alpha lab/run001_alpha.csv \
+  --csv-vis   lab/run001_vis.csv \
+  --csv-control lab/run001_control.csv
+\end{verbatim}
+Demo with synthetic data: \texttt{control\_channel\_analysis.py --demo}.
+On demo data the script reports $\Delta\chi^2 \approx 192$ ($\alpha$), $\Delta\chi^2 \approx 244$ ($\Delta V$), control $\Delta\chi^2 \approx 1.3$, joint $\Delta\chi^2 \approx 436$, verdict \texttt{CONSISTENT WITH GRADIENT-GATED CH}~\cite{CHSpaceFabric2026}.
+
+\begin{figure}[htbp]
+  \centering
+  \maybeincludegraphics[width=0.92\linewidth]{figures/control_channel_analysis.png}
+  \caption{Example protocol analysis: signal channels (threshold fit) and control channel (flat). Demo data from \texttt{control\_channel\_analysis.py --demo}.}
+  \label{fig:protocol}
+\end{figure}
+
+\subsection{From protocol $k_c$ to $\xi$ and gravity forecasts}
+\label{sec:lab-xi-bridge}
+
+Prediction~\#7 constrains the \textbf{turn-on knob} $k_c$, not the healing length $\xi$ directly.
+CH does not yet predict $\xi$ uniquely from first principles; instead we implement \textbf{identification hypotheses} that map laboratory outputs to $\xi$ and then to emergent-gravity diagnostics~\cite{CHSpaceFabric2026}.
+
+\textbf{Step 1 --- extract $k_c$.}
+After threshold detection, the joint fit (\texttt{gradient\_threshold\_analysis.py --joint}) returns a shared $k_c$ with per-channel amplitudes.
+For gap scans, $k = 10^9/d_{[\mathrm{m}]} = 1/d_{\mathrm{nm}}$ (Table~\ref{tab:knobs}), so the fitted $k_c$ implies a turn-on gap
+\begin{equation}
+  d_c \approx \frac{1}{k_c}\,\mathrm{nm} = \frac{1}{k_c \times 10^9}\,\mathrm{m}.
+  \label{eq:dc-from-kc}
+\end{equation}
+
+\textbf{Step 2 --- $\xi$ hypotheses.}
+Two mechanisms are cross-checked in \texttt{ch\_xi\_prediction.py}:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Gap turn-on:} $\xi \approx d_c$ where the gradient gate turns on in the scanned knob (Prediction~\#7 $\leftrightarrow$ GPE wall saturation).
+  \item \textbf{Casimir lattice:} $\xi = a_{\mathrm{vac}}/(2\pi)$ from the ripple period $a_{\mathrm{vac}}$ in Eq.~\ref{eq:casimir-ripple} (Prediction~\#3).
+\end{itemize}
+If both are available and agree within a factor of 2, the pipeline reports their geometric mean; otherwise the gap-turn-on value from $k_c$ is used.
+Each hypothesis fixes $(\xi, \rho_{\mathrm{in}})$ via Eq.~\ref{eq:G} with $\alpha_G = 1$ and yields a consistency report ($\beta_{\max}$, always-on Fermi exclusion, gated void PASS).
+
+\textbf{Step 3 --- gravity forecast with $\alpha_G$ calibration.}
+Spherical defect solves (\texttt{ch\_gpe\_gravity.py}, solver \texttt{v3\_sm\_matched}) use a matter sink $S_M$ on an inner domain and a Schwarzschild-matched boundary at $r_{\mathrm{join}}$---no post-hoc density tail patch.
+Exterior Madelung $Q$ contributes negligibly; the hydrostatic $\delta\rho$ channel dominates and, at $\alpha_G = 1$, overshoots Newton's law by many orders of magnitude (the same tension noted in Section~\ref{sec:discussion}).
+Given a fixed density profile, we therefore \textbf{solve for $\alpha_G$} such that the total acceleration satisfies $|a|/(GM/r^2) \approx 1$ in the fit annulus:
+\begin{equation}
+  \alpha_G^{\mathrm{cal}} \approx \frac{1 - F_Q}{F_{\mathrm{hydro}}(\alpha_G=1)},
+  \label{eq:alpha-cal}
+\end{equation}
+where $F_Q$ and $F_{\mathrm{hydro}}$ are the fitted Newton factors from the quantum and hydrostatic channels.
+This is a \textbf{matching calibration}, not a first-principles derivation of $\alpha_G$; it shows how a single lab-fixed $\xi$ propagates to a self-consistent far-field check once the defect profile is known.
+
+\textbf{End-to-end pipeline.}
+\texttt{ch\_lab\_pipeline\_demo.py} runs protocol verdict $\to$ $k_c$ $\to$ $\xi$ $\to$ gravity v3 $\to$ $\alpha_G^{\mathrm{cal}}$ on demo CSVs.
+On synthetic demo data ($k_c \approx 10~\mathrm{nm}^{-1}$, joint $\Delta\chi^2 \approx 436$), gap turn-on gives $\xi \approx 0.1$~nm and calibrated Newton factor $\approx 0.91$~\cite{CHSpaceFabric2026}.
+Casimir-lattice $\xi$ from $a_{\mathrm{vac}} = 150$~nm ($\xi \approx 24$~nm) disagrees with this synthetic $k_c$ by design---illustrating that the two hypotheses must be tested against real data, not assumed identical.
+
+\section{Software and reproducibility}
+\label{sec:software}
+
+All analyses cited in this paper are implemented in the open GitHub repository \url{https://github.com/G-Web-Essentials/CH-A-Gross-Pitaevskii-Superfluid-Vacuum}~\cite{CHSpaceFabric2026}.
+\textbf{Recommended reproduction order} for a skeptical reader:
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+  \item \texttt{fermi\_grb090510\_lat\_extended\_beta\_limit.py} --- download/query LAT extended events, fit $\beta$, reproduce Fig.~\ref{fig:grb}.
+  \item \texttt{ch\_gpe\_casimir\_gap.py} --- wall vs bulk $\chi$ vs $d$ at $\xi = \SI{50}{nm}$ (Fig.~\ref{fig:gpe}).
+  \item \texttt{ch\_gpe\_to\_threshold\_demo.py} --- GPE $\to$ CSV $\to$ $\Delta\chi^2$ for gap knob.
+  \item \texttt{control\_channel\_analysis.py --demo} --- full protocol verdict (Fig.~\ref{fig:protocol}).
+  \item \texttt{ch\_lab\_pipeline\_demo.py} --- $k_c \to \xi$ $\to$ gravity v3 $+$ $\alpha_G$ calibration (Section~\ref{sec:lab-xi-bridge}).
+  \item \texttt{ch\_threshold\_power\_study.py} --- Monte Carlo 90\% power vs $\alpha_{\max}$, $n_k$, $\sigma_\alpha$ (Section~\ref{sec:power-study}).
+\end{enumerate}
+
+Key scripts:
+\begin{itemize}[leftmargin=*]
+  \item \texttt{ch\_dispersion\_fermi\_combined.py} --- real GRB~090510 + $\beta(\xi)$ overlay;
+  \item \texttt{ch\_gpe\_to\_threshold\_demo.py} --- GPE $\to$ CSV $\to$ fit (gap $d$);
+  \item \texttt{ch\_gpe\_sphere\_to\_threshold\_demo.py} --- curvature $R$ pipeline;
+  \item \texttt{gradient\_threshold\_analysis.py} --- flat vs threshold fits;
+  \item \texttt{control\_channel\_analysis.py} --- signal + control verdict;
+  \item \texttt{ch\_xi\_lab\_bridge.py} --- protocol CSVs $\to$ $\xi$ hypotheses $\to$ gravity forecast;
+  \item \texttt{ch\_gpe\_gravity\_demo.py} --- spherical defect v3 $+$ $\alpha_G$ calibration;
+  \item \texttt{ch\_xi\_prediction\_demo.py} --- compare $\xi$ identification mechanisms;
+  \item \texttt{ch\_threshold\_power\_study.py} --- Monte Carlo detection power vs $\alpha_{\max}$, $n_k$, $\sigma$;
+  \item \texttt{casimir\_ripple\_sim.py} --- practice ripple extraction.
+\end{itemize}
+
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Null results and quiet vacuum}
+
+E\"ot-Wash nulls~\cite{Lee2020}, smooth Casimir forces~\cite{Casimir1948}, and GRB timing nulls~\cite{Abdo2009Nature,AmelinoCamelia2009} are \textbf{expected} in uniform $\rho$.
+CH is challenged by \textbf{gradient-correlated} positives, not by another void null.
+
+\subsection{Always-on vs gradient-gated}
+
+Naive $\beta = \beta_{\max}$ everywhere is \textbf{excluded} by Fermi.
+Gradient gating sets $\chi \to 0$ on void paths and $\chi \to 1$ only where $|\nabla\rho|$ is large~\cite{Volovik2003,Unruh1981}.
+
+\subsection{What empirical success would and would not imply}
+\label{sec:implications}
+
+If Prediction~\#7 were confirmed---threshold turn-on in $\alpha(k)$ and/or $\Delta V(k)$, flat control, and consistent $k_c$ across signal channels---the established claim would be \textbf{narrow but profound}: the vacuum exhibits a gradient-gated sector (supersolid-linked observables that QFT does not predict) turning on when boundary physics raises $|\nabla\rho|$ past a single critical scale.
+Shared $k_c$ and agreement with GPE boundary forecasts would support one healing length $\xi$ linking lab turn-on, Casimir ripple period, and emergent-gravity matching sketches (Section~\ref{sec:lab-xi-bridge}).
+
+That result would \textbf{not} by itself validate the full ontological program of Section~\ref{sec:intro}: space as a material BEC, matter as defects in $\rho$, emergent $G$ and clocks, or the two-component cosmological-constant mechanism.
+Those interpretations organize null results in uniform vacuum and motivate the lab knob class, but they remain extensions requiring independent theoretical and empirical work (fermions, unique $\xi$, full defect gravity).
+In short: a positive \#7 would evidence \textbf{gated vacuum structure}, not a complete replacement of QFT and general relativity.
+
+\subsection{Roadmap beyond Prediction~\#7}
+\label{sec:roadmap}
+
+Readers new to this program may wonder: \emph{if the threshold test succeeds, what comes next?}
+CH is intentionally staged.
+Prediction~\#7 (Table~\ref{tab:predictions}) is the \textbf{wedge}---it asks whether any vacuum observable turns on when a laboratory knob raises $|\nabla\rho|$.
+The broader framework in Section~\ref{sec:intro}---material vacuum, defect matter, emergent $G$ and time, cosmological $\varepsilon$---requires \textbf{additional} tests and theory at each layer.
+None of these layers is automatic even after a positive \#7; each must earn its evidence.
+
+\textbf{Layer 1: Gradient-gated vacuum sector (near-term lab).}
+A confirmed \#7 would show that at least one observable ($\alpha$ or $\Delta V$) follows a threshold in knob $k$, with a flat control channel ruling out simple systematics.
+To strengthen the case that the vacuum is \textbf{structured} with a single length scale $\xi$, rather than an arbitrary fit:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Prediction~\#3 + \#7:} Casimir ripple period $a_{\mathrm{vac}}$ (Eq.~\ref{eq:casimir-ripple}) and threshold $k_c$ should map to the \textbf{same} $\xi$ via the identification hypotheses of Section~\ref{sec:lab-xi-bridge} ($\xi \approx d_c$, $\xi = a_{\mathrm{vac}}/(2\pi)$).
+  \item \textbf{Prediction~\#6 + \#7 (Tier~B/C):} Mach--Zehnder visibility dip $\Delta V(k)$ must turn on at the \textbf{same} $k_c$ as $\alpha(k)$ within the pre-registered factor of 2---ruling out channel-specific artifacts.
+  \item \textbf{Curvature knob $R$:} sphere--plate scans (\texttt{ch\_gpe\_sphere\_to\_threshold\_demo.py}; full GP cross-check \texttt{run\_sphere\_plate\_full\_gp\_scan.m}) should reproduce GPE-predicted trends without refitting $\xi$ per geometry; laptop overlay shows radial rim agreement with Thomas--Fermi to $\sim$20\% (Section~\ref{sec:numerics-consistency}).
+  \item \textbf{Prediction~\#5:} short-range Yukawa or fifth-force searches \textbf{inside} high-$\chi$ cavities only; null results elsewhere are expected in CH and help separate gated from always-on sectors.
+\end{itemize}
+Outcome if these pass: a \textbf{gradient-gated supersolid-linked sector} with one healing length $\xi$ is empirically established in boundary-stressed vacuum.
+This is still not proof that space \emph{is} a BEC---only that it \emph{behaves} as if a gated condensate order parameter is active where gradients are large.
+
+\textbf{Layer 2: Emergent Newton constant $G$ (gravitation + numerics).}
+CH relates $G = \alpha_G c_s^2 \xi / \rho_{\mathrm{in}}$ (Eq.~\ref{eq:G}).
+Layer~1 would fix $\xi$ in SI units; $\rho_{\mathrm{in}}$ and $\alpha_G$ then become \textbf{predictions}, not free parameters.
+Further work:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Defect gravity:} full three-dimensional GPE with matter source $S_M(\mathbf{x})$ (beyond the spherical v3 matched-BC sketch) must yield $|a| \approx GM/r^2$ from derived $\alpha_G$, not post-hoc calibration alone (Section~\ref{sec:lab-xi-bridge}).
+  \item \textbf{Mass--deficit check:} integrated density depletion $(1-|\psi|^2)$ over a defect profile should match gravitational mass inferred from torsion-balance or free-fall experiments.
+  \item \textbf{Equivalence principle:} all compositions should couple to the gated sector and to far-field gravity through the same $\rho$-defect picture; precision E\"ot-Wash--type tests constrain species-dependent couplings.
+  \item \textbf{Laptop consistency (done, not proof):} \texttt{ch\_gpe\_bh\_exterior\_demo.py} plots $\rho$, $\Phi$, $g_{\mathrm{eff}}$ through $r_s$ on the v3 matched exterior; see Section~\ref{sec:numerics-consistency}.
+\end{itemize}
+Casimir ripple experiments alone cannot measure $G$; this layer requires \textbf{collaboration with gravitation metrology} tied to the same $\xi$ from Layer~1.
+
+\textbf{Layer 3: Emergent time and dispersion (clocks and high-energy lab).}
+In CH, clocks track local condensate phase evolution (the ``Chronos'' in the name), and $\beta_{\mathrm{eff}} = \beta_{\max}\chi$ (Eq.~\ref{eq:beta-max}) gates Lorentz-violating dispersion.
+Void-path GRB nulls (Section~\ref{sec:grb-methods}) already constrain always-on dispersion; Layer~3 asks for \textbf{positive, gradient-correlated} tests in the laboratory:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Lab dispersion:} energy-dependent photon or particle arrival times in cavities where $\chi(k)$ is raised by the same knob as $\alpha$ and $\Delta V$---a local test of Prediction~\#4, not another intergalactic null.
+  \item \textbf{Clocks vs $\chi$:} optical or matter-wave clock shifts correlated with $k$ and with $\alpha(k)$, $\Delta V(k)$ at the same $k_c$.
+  \item \textbf{Acoustic metric:} low-energy excitations propagating as if on the fluid metric $g_{\mu\nu}(\rho, c_s, \mathbf{v})$ in stressed regions (analog-gravity program~\cite{Unruh1981,Visser1995}).
+  \item \textbf{Laptop consistency (done, not proof):} \texttt{ch\_clock\_redshift\_from\_gpe.py} and \texttt{ch\_acoustic\_light\_bending.py} show metric/$\Phi$ lensing and clock proxies are qualitatively consistent on matched defect exteriors but \textbf{exclude} naive $n \propto 1/\sqrt{\rho}$ lensing; see Section~\ref{sec:numerics-consistency} and companion \texttt{universal-laws.tex}.
+\end{itemize}
+These are longer-horizon than Tier~A Casimir but are the path from ``gated ripple'' to ``time is hydrodynamic.''
+
+\textbf{Layer 4: Defect ontology (matter as depletion in $\rho$).}
+The postulate that electrons and nuclei are \textbf{stable defect patterns} in $\psi$, not objects in passive space, is the deepest ontological claim and the least directly accessible to Casimir hardware.
+Indirect support would require:
+\begin{itemize}[leftmargin=*]
+  \item composition-independent coupling to the gated sector and to emergent gravity (Layer~2);
+  \item GPE defect modes predicting mass scales tied to $\xi$ without per-species fitting;
+  \item eventual theoretical embedding of fermions and gauge fields in $\psi$ (Section~\ref{sec:open-problems} below).
+\end{itemize}
+A positive Layer~1--2 program would make defect ontology \textbf{plausible}; proving it is a separate, multi-decade theory-and-experiment effort.
+
+\textbf{Layer 5: Cosmological $\varepsilon$ (two-component gravity).}
+The split $\rho_{\mathrm{grav}} = \varepsilon \rho_{\mathrm{in}}$ (Eq.~\ref{eq:two-component}) addresses why enormous vacuum energy does not all curve spacetime: only $\varepsilon \ll 1$ gravitates cosmologically.
+This is \textbf{not} testable in a Casimir cell.
+It requires cosmological data---expansion history, CMB, structure formation---with $\rho_{\mathrm{in}}$ and $\varepsilon$ constrained by Layer~1--2 inputs.
+CH would predict an order of magnitude for $\varepsilon \sim \rho_\Lambda / \rho_{\mathrm{in}}$ once $\rho_{\mathrm{in}}$ is fixed; falsification would come from failed cosmological fits, not from Prediction~\#7 alone.
+
+\textbf{Consistency checks (secondary predictions).}
+Predictions~\#1--\#2 (sidereal anisotropy in $c$ or Bell correlators) assume a \textbf{global} lattice visible everywhere.
+CH's gradient-gated design expects these to remain \textbf{null} in quiet laboratories.
+If \#7 passes while \#1--\#2 stay null, that supports local gating over always-on global order; a positive sidereal signal would require reconciling with the gated picture.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{Roadmap from Prediction~\#7 toward the full CH framework (for readers joining the program mid-stream).}
+  \label{tab:roadmap}
+  \begin{tabular}{@{}p{0.17\linewidth}p{0.30\linewidth}p{0.45\linewidth}@{}}
+    \toprule
+    Layer & Goal & Principal further tests \\
+    \midrule
+    0 (this paper) &
+    Threshold vs flat &
+    \#7: $\alpha(k)$, $\Delta V(k)$, control, joint $k_c$ \\
+    1 &
+    Gated sector + $\xi$ &
+    \#3+\#6+\#7 same $k_c$; $R$ scan; \#5 in cavity \\
+    2 &
+    Emergent $G$ &
+    Defect GPE $\to$ Newton; mass deficit; EP tests \\
+    3 &
+    Emergent time &
+    Lab $\beta_{\mathrm{eff}}(k)$; clocks vs $\chi$; acoustic metric \\
+    4 &
+    Defect matter &
+    Composition independence; defect spectrum; SM embedding \\
+    5 &
+    Cosmological $\varepsilon$ &
+    CMB, $H(z)$, $\varepsilon$ from $\rho_{\mathrm{in}}$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\textbf{Practical sequencing.}
+We recommend: Tier~A \#7 $\to$ Tier~B add $\Delta V$ $\to$ lock $\xi$ from ripple + turn-on $\to$ gravitation and dispersion programs in parallel $\to$ cosmology only after $\rho_{\mathrm{in}}$ is constrained.
+Each stage publishes a \textbf{narrower} claim than the full ontology; that discipline keeps the program falsifiable and legible to collaborators who were not involved in its development.
+
+\subsection{Laptop consistency checks (Layers~2--3, not empirical proof)}
+\label{sec:numerics-consistency}
+
+Companion document \texttt{universal-laws.tex} summarizes how familiar laws are reinterpreted in CH.
+The scripts below test \textbf{internal consistency} of matched defect exteriors and acoustic-metric sketches---they do \textbf{not} validate CH empirically and do \textbf{not} substitute for Prediction~\#7.
+
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \caption{Laptop numerics on defect exteriors (June 2026 repo). Outcomes are qualitative consistency checks, not laboratory evidence.}
+  \label{tab:numerics-consistency}
+  \begin{tabular}{@{}llp{0.44\linewidth}@{}}
+    \toprule
+    Script & Layer & Headline outcome \\
+    \midrule
+    \texttt{ch\_gpe\_bh\_exterior\_demo.py} & 2 & $\rho$, $\Phi$, $g_{\mathrm{eff}}$ vs $r/r_s$ on v3 matched BC \\
+    \texttt{ch\_clock\_redshift\_from\_gpe.py} & 3 & $\sqrt{\rho}$, $\Phi$ clock proxies on analytic tail; lab $\chi(k)$ untested \\
+    \texttt{ch\_acoustic\_light\_bending.py} & 3 & Metric/$\Phi$ index attracts ($\sim$1$\times$ weak-field ref.); $n \propto 1/\sqrt{\rho}$ repels \\
+    \texttt{ch\_vortex\_kepler\_toy.py} & 4 sketch & $n \sim 10^{14}$ $\to$ smooth Kepler orbits; low-$n$ $\neq$ planets \\
+    \texttt{run\_sphere\_plate\_full\_gp\_scan.m} & \#7 / Tier-C & Full GP vs TF: radial rim $|\partial\rho/\partial r|$ within $\sim$20\% for $R$ scan ($\hat{d}_{\min}=2$); wall probe not validated on laptop grid \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\noindent\textbf{Supported (qualitatively):} defect Newton matching; attractive lensing via $n(\Phi)$ or $n \approx 1 - r_s/r$; large-$n$ Kepler correspondence; \textbf{sphere--plate curvature:} axisymmetric GP (\texttt{slice1d} mode, $\hat{R}\gtrsim 3$) matches Thomas--Fermi on the radial rim probe to median $\sim$18\%, max $\sim$23\% over $R \in [1,100]~\mu\mathrm{m}$ at $d_{\min}=100$~nm, $\xi=50$~nm (overlay \texttt{ch\_gpe\_sphere\_plate\_full\_gp\_overlay.py}).
+
+\noindent\textbf{Ruled out (naive readings):} refractive index $n \propto 1/\sqrt{\rho}$ for gravitational lensing; a single $\rho$-to-observable map for both clocks and light; literal low-$n$ planetary vortex radii at lab $\xi$; \textbf{laptop full-GP wall $|\nabla\rho|$ at $\hat{d}_{\min}\sim 2$} on coarse $z$ grids (boundary layers unresolved---Casimir gap forecasts use TF + fine $\xi$-grid in Python).
+
+\noindent\textbf{Still open:} full GR from GPE without matched exterior; clocks vs $\chi$ in cavity; BH interior; all gated positives at $k_c$; coupled 2D GP at tight curvature ($\hat{R}\lesssim 3$).
+
+\begin{figure}[htbp]
+  \centering
+  \maybeincludegraphics[width=0.92\linewidth]{figures/ch_sphere_plate_full_gp_overlay.png}
+  \caption{Sphere--plate full GP vs Thomas--Fermi (MATLAB \texttt{run\_sphere\_plate\_full\_gp\_scan.m}, overlay \texttt{ch\_gpe\_sphere\_plate\_full\_gp\_overlay.py}; $d_{\min}=100$~nm, $\xi=50$~nm, $\hat{d}_{\min}=2$). Radial rim probe: median relative error $\sim$18\%, max $\sim$23\%; wall probe not validated on this grid. Source: \texttt{simulations/output/ch\_sphere\_plate\_full\_gp\_overlay.png}.}
+  \label{fig:sphere-plate-gp-overlay}
+\end{figure}
+
+\subsection{Open problems}
+\label{sec:open-problems}
+
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+  \item \textbf{First-principles EM--GPE derivation of the Casimir ripple} (Eq.~\ref{eq:casimir-ripple} is parameterized in this paper; companion roadmap: \texttt{docs/ch-paper2-em-gpe-casimir-derivation.md}).
+  \item Full GPE solution with defect source $S_M(\mathbf{x})$ (v3 uses matched BC continuation; nonlinear 3D solve remains open).
+  \item Fermions and gauge fields from $\psi$.
+  \item Unique prediction of $\xi$ from first principles (identification hypotheses in Section~\ref{sec:lab-xi-bridge} are testable but not yet derived).
+  \item Quantitative map $k \to |\nabla\rho|$ for specific AFM geometries.
+  \item \textbf{First-principles derivation of metric/$\Phi$ lensing and clock maps from the GPE} (laptop scripts use matched exteriors and chosen $n(\Phi)$; naive $n \propto 1/\sqrt{\rho}$ is excluded---Section~\ref{sec:numerics-consistency}; sphere--plate full GP vs TF on radial rim probe is done, wall probe at $\hat{d}_{\min}\sim 2$ is not).
+\end{enumerate}
+
+\subsection{Independent researchers}
+
+Theory, GPE forecasts, protocol, and analysis can be developed independently; Casimir hardware requires collaboration.
+A practical offer: pre-registered analysis and co-authorship in exchange for $F(d)$ data and metadata.
+
+\subsection{When laptop work warrants a lab attempt}
+\label{sec:lab-warrant}
+
+Laptop simulations do \textbf{not} validate CH; they show the discriminating test is well posed and not already excluded in the wrong experimental regime.
+Four independent reasons justify a \textbf{narrow, pre-registered} Tier~A attempt (dynamic AFM Casimir, $\alpha$ channel only):
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{Why the gradient-threshold program warrants a targeted lab collaboration (not a major facility build).}
+  \label{tab:lab-warrant}
+  \begin{tabular}{@{}p{0.14\linewidth}p{0.80\linewidth}@{}}
+    \toprule
+    Lens & Rationale \\
+    \midrule
+    Scientific &
+    CH predicts threshold turn-on correlated across signal channels when the vacuum density gradient exceeds $|\nabla\rho|_c$; QFT predicts flat $O(k)$. This is a direct model comparison, not another void-path null. \\
+    Methodological &
+    Knob definitions, flat vs threshold fits, $\Delta\chi^2 \geq 9$ cut, $k_c$ agreement (factor 2), and mandatory flat control are pre-registerable. Outcomes rule CH in \textbf{or} out in the scanned range. \\
+    Physical &
+    GPE boundary work: tidal gradients $\sim 10^{-22}$ of threshold; Casimir walls at $d \sim \xi$ reach $\chi_{\mathrm{wall}} \sim \tfrac{1}{2}$. If gradient gating is real, gap $d$ (or curvature $R$) is the right knob class. \\
+    Practical &
+    Tier~A ($\alpha(k)$ only) is minimum viable; full Mach--Zehnder interferometry is not required to start. Collaborators export \texttt{k,O,sigma} CSVs; we return a verdict. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\textbf{What is not established:} no positive CH signal in real data; $\xi$ not fixed from first principles; geometry-specific $k \to |\nabla\rho|$ maps remain open; gravity matching is calibration, not derivation; laptop Layer~2--3 checks (Table~\ref{tab:numerics-consistency}) are consistency sketches only.
+
+\subsection{Sensitivity and required scan density}
+\label{sec:power-study}
+
+To translate ``we should try'' into ``we need $N$ shots at these gaps,'' \texttt{ch\_threshold\_power\_study.py} runs Monte Carlo trials on GPE-predicted $\alpha_{\mathrm{eff}}(k) = \alpha_{\max}\chi_{\mathrm{bulk}}(d)$ with realistic ripple uncertainty $\sigma_\alpha$ per shot, $n_{\mathrm{repeat}}$ averages per $k$, and $n_k$ gap settings.
+Detection is declared when $\Delta\chi^2 \geq 9$ (same cut as the protocol).
+Default scan: $\xi = \SI{50}{nm}$, $d = 40$--\SI{600}{nm}$, \textbf{bulk} $\chi$ coupling for the $\alpha(d)$ signal channel ($\chi_{\mathrm{wall}}$ is flat vs $d$ and serves as a control; Section~\ref{sec:probe-coupling}).
+
+Table~\ref{tab:power-study} lists results from a full run ($n_{\mathrm{trials}} = 400$).
+At $\alpha_{\max} = 0.12$ the detection power is $100\%$ with median $\Delta\chi^2 \approx 191$.
+The bracketed minimum $\alpha_{\max}$ for 90\% power is $0.037$ ($\approx 3.7\%$ ripple ceiling) at $\sigma_\alpha = 0.01$; conservative $\sigma_\alpha = 0.02$ raises the ceiling to $0.074$.
+Power remains $\geq 90\%$ for $n_k = 6$--$20$ at $\alpha_{\max} = 0.12$---the limiting factor at moderate noise is $\alpha_{\max}$, not scan density, once $\geq 6$ gap settings span the GPE turn-on.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{Monte Carlo threshold-detection power (\texttt{ch\_threshold\_power\_study.py}, $\xi = \SI{50}{nm}$, $d = 40$--\SI{600}{nm}$, $n_k = 12$, $n_{\mathrm{repeat}} = 20$, $n_{\mathrm{trials}} = 400$, bulk coupling).}
+  \label{tab:power-study}
+  \begin{tabular}{@{}ll@{}}
+    \toprule
+    Quantity & Result \\
+    \midrule
+  $\sigma_\alpha$ per shot & $0.010$ (effective $0.0022$ after 20 repeats) \\
+  Power at $\alpha_{\max} = 0.12$ & $100\%$; median $\Delta\chi^2 \approx 191$ \\
+  Min.\ $\alpha_{\max}$ for 90\% power ($\sigma_\alpha = 0.01$) & $0.037$ \\
+  Min.\ $\alpha_{\max}$ for 90\% power ($\sigma_\alpha = 0.02$) & $0.074$ \\
+  Power vs $n_k$ at $\alpha_{\max} = 0.12$ & $100\%$ for $n_k \in \{6,8,10,12,14,16,20\}$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{GPE-recommended gap scan for Tier~A ($\alpha_{\max} = 0.12$, bulk coupling; subset of 12 log-spaced settings). $\alpha_{\mathrm{eff}}$ peaks near $d \sim \SI{100}{nm}$ and falls monotonically at larger $d$ (no spurious high-$d$ turn-on).}
+  \label{tab:gap-scan}
+  \begin{tabular}{@{}rrr@{}}
+    \toprule
+    $d$ [nm] & $k = 1/d_{\mathrm{nm}}$ [nm$^{-1}$] & $\alpha_{\mathrm{eff}}$ \\
+    \midrule
+    40 & 0.0250 & 0.0087 \\
+    84 & 0.0119 & 0.026 \\
+    107 & 0.0093 & 0.028 \\
+    137 & 0.0073 & 0.025 \\
+    224 & 0.0045 & 0.0076 \\
+    367 & 0.0027 & $\sim 0$ \\
+    600 & 0.0017 & $\sim 0$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+  \centering
+  \maybeincludegraphics[width=0.92\linewidth]{figures/ch_threshold_power_study.png}
+  \caption{Monte Carlo detection power vs $\alpha_{\max}$ and vs number of gap settings $n_k$ (\texttt{ch\_threshold\_power\_study.py}). Dashed line: 90\% power target.}
+  \label{fig:power-study}
+\end{figure}
+
+\textbf{Collaboration ask:} register $\sigma_\alpha$ from pilot $F/F_{\mathrm{Cas}}$ fits, run the power study, then commit to $n_k \geq 10$ gaps and $n_{\mathrm{repeat}} \geq 20$ per $(k,\text{channel})$ before unblinding threshold fits.
+
+\section{Conclusions}
+\label{sec:conclusions}
+
+Chronos-Hydrodynamics proposes a physical BEC vacuum that is \textbf{invisible when uniform} and \textbf{testable when stressed}.
+Astrophysical nulls constrain always-on extensions; Prediction~\#7---threshold behavior in $\alpha$ and $\Delta V$ vs laboratory knobs---is the discriminating test.
+We supply GPE boundary estimates, a pre-registered protocol, real-data null analysis, and open verdict software.
+Confirmation requires collaborative Casimir (and ideally interferometric) data with a flat control channel and consistent $k_c$.
+
+\section*{Acknowledgments}
+
+Computations used open-source Python (\texttt{numpy}, \texttt{matplotlib}) on a laptop workstation.
+Code and protocol scripts: \url{https://github.com/G-Web-Essentials/CH-A-Gross-Pitaevskii-Superfluid-Vacuum}~\cite{CHSpaceFabric2026}.
+
+\printbibliography
+
+\appendix
+
+\section{Symbol table}
+\label{app:symbols}
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \begin{tabular}{@{}ll@{}}
+    \toprule
+    Symbol & Meaning \\
+    \midrule
+    $\psi$ & Vacuum order parameter; $\rho = |\psi|^2$ \\
+    $\rho_{\mathrm{in}}$ & Inertial superfluid density (GPE bulk scale) \\
+    $\xi$ & Healing length; hypothesized $\mathcal{O}(10)$--$100$~nm in lab forecasts \\
+    $m_{\mathrm{grain}}$ & $\hbar c_s/(c^2\xi)$; inertial mass of a vacuum grain \\
+    $|\nabla\rho|_c$ & $\rho_{\mathrm{in}}/\xi \approx c^2/G$; gradient gate scale \\
+    $\chi$ & Gradient gate $\in [0,1]$ (Eq.~\ref{eq:chi}) \\
+    $w$ & Gate width in $\log_{10}(|\nabla\rho|/|\nabla\rho|_c)$; default $\approx 0.35$ \\
+    $\alpha_{\max}$, $\Delta V_{\max}$ & Gated observable ceilings before $\chi$ \\
+    $\alpha_{\mathrm{eff}}$, $\Delta V$ & $\alpha_{\max}\chi$, $\Delta V_{\max}\chi$ \\
+    $\beta_{\max}$ & $(3/2)\xi^2/\hbar^2$; dispersion ceiling \\
+    $\beta_{\mathrm{eff}}$ & $\beta_{\max}\chi$; used in GRB fits \\
+    $k$ & Experimental knob; $10^9/d_{[\mathrm{m}]}$ or $10^6/R_{[\mathrm{m}]}$ \\
+    $k_c$ & Threshold knob value in Eq.~\ref{eq:threshold-fit} \\
+    $O(k)$ & Scalar observable at knob $k$ ($\alpha$ or $\Delta V$ after extraction) \\
+    $\Gamma$ & Environmental decoherence rate in MZ envelope \\
+    $\varepsilon$ & Fraction of $\rho_{\mathrm{in}}$ that gravitates cosmologically \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Fit models and verdict rules}
+\label{app:fits}
+
+\textbf{Flat (QFT) model:} $O(k) = c_0$.
+
+\textbf{Threshold (CH) model:}
+\begin{equation}
+  O(k) = c_0 + A \cdot \tfrac{1}{2}\left[1 + \tanh\!\left(\frac{k - k_c}{\delta k}\right)\right],
+\end{equation}
+with $\delta k = \max[0.08\,(k_{\max}-k_{\min}),\,10^{-12}]$.
+
+\textbf{Joint signal fit:} one $k_c$, separate $(c_0, A)$ per channel.
+
+\textbf{Verdict enum} (\texttt{control\_channel\_analysis.py}):
+\begin{itemize}[leftmargin=*]
+  \item \texttt{CONSISTENT WITH GRADIENT-GATED CH} --- signal threshold(s), flat control, $k_c$ agree.
+  \item \texttt{CH GRADIENT SECTOR RULED OUT (in scanned range)} --- flat preferred where GPE predicted turn-on.
+  \item \texttt{SINGLE $|\nabla\rho|_c$ EXCLUDED} --- signal channels threshold but $k_c$ disagree $>2\times$.
+  \item \texttt{LIKELY SYSTEMATIC} --- control shows threshold like signal.
+  \item \texttt{INCONCLUSIVE} --- insufficient signal or failed control.
+\end{itemize}
+
+\section{Collaboration brief}
+\label{app:collab}
+
+\textbf{Seeking:} Existing or new $F(d)$ Casimir data, $\geq 10$ gap settings, ripple amplitude $\alpha$; optional temperature series as control.
+
+\textbf{Offering:} Pre-registered analysis (\texttt{control\_channel\_analysis.py}), open repository, co-authorship.
+
+\textbf{Not required from lab:} New theory development---only measurements and metadata.
+
+\end{document}

@@ -1,0 +1,38 @@
+CH BH exterior report
+xi_m = 5e-08
+r_join_hat = 12.0
+rs_hat_list = [0.5, 1.0, 2.0, 5.0]
+
+Notes:
+  - r/r_s = 1 marks Schwarzschild radius (horizon in GR; CH exterior matched BC).
+  - Inner domain [0, r_join]: numerical GPE with S_M sink; outer: analytic tail.
+  - sqrt_rho clock proxy tracks depletion; phi_ch uses CH effective potential.
+  - mu_local (1-rho) does NOT match GR redshift sign — included for comparison only.
+Clock profile: v3 rs_hat=0.5
+Reference: ω_ref at r = 1.500e-05 m (outer grid point)
+r_s = 2.5000e-08 m
+  [sqrt_rho] z(2 r_s)=-1.6667e-03, z(10 r_s)=-1.6667e-03, z_max=4.1739e-02
+  [mu_local] z(2 r_s)=3.3296e+03, z(10 r_s)=3.3296e+03, z_max=3.3296e+03
+  [phi_ch] z(2 r_s)=-1.6667e-03, z(10 r_s)=-1.6667e-03, z_max=4.1739e-02
+  [gr_static] z(2 r_s)=4.1245e-01, z(10 r_s)=5.3165e-02, z_max=3.0612e+01
+Clock profile: v3 rs_hat=1.0
+Reference: ω_ref at r = 1.500e-05 m (outer grid point)
+r_s = 5.0000e-08 m
+  [sqrt_rho] z(2 r_s)=-3.3333e-03, z(10 r_s)=-3.3333e-03, z_max=6.1637e+00
+  [mu_local] z(2 r_s)=6.6546e+03, z(10 r_s)=6.6546e+03, z_max=6.6546e+03
+  [phi_ch] z(2 r_s)=-3.3333e-03, z(10 r_s)=-3.3333e-03, z_max=6.1637e+00
+  [gr_static] z(2 r_s)=4.1127e-01, z(10 r_s)=5.2344e-02, z_max=3.0586e+01
+Clock profile: v3 rs_hat=2.0
+Reference: ω_ref at r = 1.500e-05 m (outer grid point)
+r_s = 1.0000e-07 m
+  [sqrt_rho] z(2 r_s)=-6.6667e-03, z(10 r_s)=1.0329e-01, z_max=1.9200e-01
+  [mu_local] z(2 r_s)=1.3288e+04, z(10 r_s)=-9.2983e-01, z_max=1.3288e+04
+  [phi_ch] z(2 r_s)=-6.6667e-03, z(10 r_s)=1.0329e-01, z_max=1.9200e-01
+  [gr_static] z(2 r_s)=4.0890e-01, z(10 r_s)=5.0375e-02, z_max=3.0533e+01
+Clock profile: v3 rs_hat=5.0
+Reference: ω_ref at r = 1.500e-05 m (outer grid point)
+r_s = 2.5000e-07 m
+  [sqrt_rho] z(2 r_s)=-1.6667e-02, z(10 r_s)=9.2508e-02, z_max=6.8571e-01
+  [mu_local] z(2 r_s)=3.3055e+04, z(10 r_s)=-8.2591e-01, z_max=3.3055e+04
+  [phi_ch] z(2 r_s)=-1.6667e-02, z(10 r_s)=9.2508e-02, z_max=6.8571e-01
+  [gr_static] z(2 r_s)=4.0250e-01, z(10 r_s)=4.5231e-02, z_max=3.0374e+01

@@ -1,0 +1,9 @@
+{
+  "result_url": "https://fermi.gsfc.nasa.gov/cgi-bin/ssc/LAT/QueryResults.cgi?id=L260629202814909E9AB033",
+  "event_url": "https://fermi.gsfc.nasa.gov/FTP/fermi/data/lat/queries/L260629202814909E9AB033_EV00.fits",
+  "event_fits": "/Users/georgemcnally/Documents/space-fabric/simulations/data/fermi_grb090510/lat_extended/bn090510016_L260629202814909E9AB033_EV00.fits",
+  "ra_deg": 333.57,
+  "dec_deg": -26.62,
+  "met_start": 263607581.971,
+  "met_stop": 263608181.971
+}

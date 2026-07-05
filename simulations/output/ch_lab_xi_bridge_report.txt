@@ -1,0 +1,60 @@
+========================================================================
+CH LAB → ξ → GRAVITY BRIDGE (demo)
+========================================================================
+Protocol verdict: CONSISTENT WITH GRADIENT-GATED CH
+
+k_c extraction (protocol_joint)
+  k_c = 10.0062 1/nm
+  d_c = 9.9938e-11 m  (0.10 nm)
+  per-channel lab_demo_alpha: k_c=9.8101 1/nm
+  per-channel lab_demo_vis: k_c=10.1758 1/nm
+  joint k_c: 10.0062 1/nm
+
+Consensus ξ (gap_turnon (Casimir lattice disagrees >2×)): 9.9938e-11 m
+
+Mechanism:     gap_turnon
+Input:         d_turnon = 9.9938e-11 (SI)
+Predicted ξ:   9.9938e-11 m
+Rationale:     ξ ≈ d_c where gradient gate turns on in gap scan
+ρ_in:          1.3458e+17 kg/m³
+m_grain:       3.5198e-33 kg
+ω₀:            2.9998e+18 rad/s
+E_ξ:           1.9745e-06 GeV
+|∇ρ|_c:        1.3466e+27 kg/m⁴
+β_max:         1.3471e+48
+ξ_crit (always-on): 1.9733e-27 m
+Always-on vs Fermi: FAIL (β/β_Fermi=2.6e+33)
+Gated void GRB:     PASS (χ≈0)
+G(ξ,ρ_in):     6.6743e-11  (target 6.6743e-11)
+G match:       1.0000
+
+Mechanism:     casimir_lattice
+Input:         a_vac = 1.5000e-07 (SI)
+Predicted ξ:   2.3873e-08 m
+Rationale:     ξ = a_vac/(2π); lattice period from Casimir ripple fit
+ρ_in:          3.2147e+19 kg/m³
+m_grain:       1.4735e-35 kg
+ω₀:            1.2558e+16 rad/s
+E_ξ:           8.2656e-09 GeV
+|∇ρ|_c:        1.3466e+27 kg/m⁴
+β_max:         7.6871e+52
+ξ_crit (always-on): 1.9733e-27 m
+Always-on vs Fermi: FAIL (β/β_Fermi=1.5e+38)
+Gated void GRB:     PASS (χ≈0)
+G(ξ,ρ_in):     6.6743e-11  (target 6.6743e-11)
+G match:       1.0000
+
+Gravity v3 forecast @ ξ = 9.9938e-11 m
+  solver: v3_sm_matched_alpha_cal
+  Newton total (α_G=1):     1.6180e+35
+  Newton total (calibrated): 9.0537e-01
+α_G calibration (defect profile → Newton factor ≈ 1)
+  α_G assumed:              1.0000e+00
+  α_G calibrated:           6.1803e-36
+  α_G hydro-only reference:   1.7599e-33
+  Newton @ assumed α_G:       1.6180e+35
+  Newton Q contribution:      2.1259e-25
+  Newton hydro per unit α_G:  1.6180e+35
+  Newton after calibration:   9.0537e-01
+  G implied (slope × G_meas): 6.0427e-11
+  Mass deficit (profile):     1.5119e-07 kg

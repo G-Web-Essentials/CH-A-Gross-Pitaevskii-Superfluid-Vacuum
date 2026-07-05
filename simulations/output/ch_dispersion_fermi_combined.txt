@@ -1,0 +1,21 @@
+xi_m=0.001
+beta_max=1.3487732293926947e+62
+beta_eff_void=0.0
+beta_fermi_lat=525184472619557.5
+verdict_always_on=FAIL (β/β_Fermi=2.6e+47)
+verdict_gated_void=PASS (χ≈0)
+gbm_beta_95=6.177709357080427e+20
+gbm_beta=1.9798804090147088e+20
+gbm_e_qg_gev=175.4611578591828
+gbm_n_photons=41.0
+gbm_p_value=0.36095132141542763
+lle_beta_95=1.0264937940195715e+18
+lle_beta=-6.113930606394401e+17
+lle_e_qg_gev=4304439053.034899
+lle_n_photons=19.0
+lle_p_value=0.4743588441694714
+ext_beta_95=2.123115228668055e+16
+ext_beta=-9073636606360092.0
+ext_e_qg_gev=29930084591.32375
+ext_n_photons=28.0
+ext_p_value=0.5623668116314634

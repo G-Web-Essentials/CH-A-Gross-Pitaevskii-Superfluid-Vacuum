@@ -1,0 +1,24 @@
+CH Kepler / vortex correspondence toy
+ξ = 5.000e-08 m,  m_grain = 7.035e-36 kg
+κ = h/m_grain = 9.418e+01 m²/s
+
+Quantized circular radius: r_n = (nκ/2π)² / (GM)
+Angular momentum: L_n = μ n ℏ / m_grain
+
+Earth-like classical semi-major a ≈ 1.0003 AU
+Classical L ≈ 2.661e+40 kg m²/s
+Effective n along classical orbit: n_eff ≈ 2.973e+14
+Fractional ladder spacing at that n: Δr/r ≈ 6.728e-15
+
+Interpretation (correspondence only, not GPE derivation):
+  - Small n: discrete circulation levels → visibly distinct radii/orbits
+  - Large n: Δr/r ~ 2/n → 0; classical Keplerian motion recovered
+  - Planetary scale: n ~ 3.0e+14 → smooth orbits expected
+
+Sample quantized circular radii [AU]:
+  n=     1  r_n=1.1317e-29 AU
+  n=     2  r_n=4.5268e-29 AU
+  n=     5  r_n=2.8292e-28 AU
+  n=297258568593626  r_n=1.0000e+00 AU
+
+Status: correspondence sketch; does not prove vortex locking.

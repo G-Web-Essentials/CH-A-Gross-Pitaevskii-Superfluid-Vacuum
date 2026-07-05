@@ -1,0 +1,49 @@
+========================================================================
+CH THRESHOLD POWER STUDY (Prediction #7, Tier A Casimir alpha)
+========================================================================
+xi = 50.0 nm
+Gap range: 40–600 nm
+Coupling: mid (mid-gap chi for gap-d signal; wall for controls)
+sigma_alpha (per shot) = 0.0100
+Repeats per k = 20  =>  sigma_eff = 0.0022
+n_k = 12,  n_MC trials = 400
+Detection cut: delta_chi2 >= 9.0
+
+At alpha_max = 0.120:
+  power = 100.0%
+  median delta_chi2 = 191.4
+
+Minimum alpha_max for 90% power:
+  alpha_max >= 0.0373  (3.73% ripple ceiling)
+  (median delta_chi2 at bracket = 18.7)
+
+Power vs n_k (fixed alpha_max):
+  n_k= 6: power=100.0% <--
+  n_k= 8: power=100.0% <--
+  n_k=10: power=100.0% <--
+  n_k=12: power=100.0% <--
+  n_k=14: power=100.0% <--
+  n_k=16: power=100.0% <--
+  n_k=20: power=100.0% <--
+
+Sigma presets (absolute uncertainty on extracted alpha):
+  optimistic   sigma=0.005  =>  alpha_max >= 0.0188 for 90% power
+  moderate     sigma=0.010  =>  alpha_max >= 0.0373 for 90% power
+  conservative sigma=0.020  =>  alpha_max >= 0.0741 for 90% power
+
+Recommended gap scan (GPE mid-gap alpha signal channel):
+  d [nm]    k [1/nm]   alpha_eff
+     40.0     0.0250   0.00871
+     51.2     0.0195   0.01404
+     65.4     0.0153   0.02039
+     83.7     0.0119   0.02589
+    107.1     0.0093   0.02790
+    137.0     0.0073   0.02454
+    175.2     0.0057   0.01644
+    224.1     0.0045   0.00756
+    286.7     0.0035   0.00215
+    366.7     0.0027   0.00035
+    469.1     0.0021   0.00003
+    600.0     0.0017   0.00000
+
+Interpretation: if GPE chi_mid tracks the real AFM ripple-vs-gap channel, these are the minimum alpha_max and scan density needed for 90% chance that the protocol declares a threshold (delta_chi2 >= 9) before unblinding.

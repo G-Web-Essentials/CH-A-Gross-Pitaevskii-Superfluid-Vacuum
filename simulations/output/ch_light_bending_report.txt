@@ -1,0 +1,22 @@
+Light bending report — M = 6.7330e+19 kg, r_s = 5.0000e-08 m
+Probe b = 2.5000e-06 m (50.0 r_s)
+GR reference α = 4.0000e-02 rad (8250.59 arcsec); full GR (4GM/bc²) = 8.0000e-02 rad
+
+  [gr_isotropic] method=geodesic  α=4.1616e-02 rad (8583.94")  α/α_GR=1.0404  (analytic)
+  [sqrt_rho] method=geodesic  α=-4.4385e-02 rad (-9155.05")  α/α_GR=-1.1096  (analytic)
+  [phi_ch] method=geodesic  α=4.1616e-02 rad (8583.94")  α/α_GR=1.0404  (analytic)
+  [linear_rho] method=geodesic  α=-4.4385e-02 rad (-9155.05")  α/α_GR=-1.1096  (analytic)
+Light bending report — M = 6.7330e+19 kg, r_s = 5.0000e-08 m
+Probe b = 2.5000e-06 m (50.0 r_s)
+GR reference α = 4.0000e-02 rad (8250.59 arcsec); full GR (4GM/bc²) = 8.0000e-02 rad
+
+  [gr_isotropic] method=geodesic  α=4.1332e-02 rad (8525.40")  α/α_GR=1.0333  (v3_sm_matched_alpha_cal)
+  [sqrt_rho] method=geodesic  α=-4.3981e-02 rad (-9071.65")  α/α_GR=-1.0995  (v3_sm_matched_alpha_cal)
+  [phi_ch] method=geodesic  α=4.1332e-02 rad (8525.42")  α/α_GR=1.0333  (v3_sm_matched_alpha_cal)
+  [linear_rho] method=geodesic  α=-4.3983e-02 rad (-9072.12")  α/α_GR=-1.0996  (v3_sm_matched_alpha_cal)
+
+Cross-check at b = 20 r_s (analytic n=1-r_s/r):
+  eikonal  α = 2.083224e-01 rad (42969.574")
+  geodesic α = 9.632745e-02 rad (19868.963")
+  GR       α = 1.000000e-01 rad (20626.481")
+  eik/GR   = 2.0832, geo/GR = 0.9633

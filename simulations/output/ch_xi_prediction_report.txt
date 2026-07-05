@@ -1,0 +1,17 @@
+=== casimir_lattice ===
+Mechanism:     casimir_lattice
+Input:         a_vac = 1.5000e-07 (SI)
+Predicted ξ:   2.3873e-08 m
+Rationale:     ξ = a_vac/(2π); lattice period from Casimir ripple fit
+ρ_in:          3.2147e+19 kg/m³
+m_grain:       1.4735e-35 kg
+ω₀:            1.2558e+16 rad/s
+E_ξ:           8.2656e-09 GeV
+|∇ρ|_c:        1.3466e+27 kg/m⁴
+β_max:         7.6871e+52
+ξ_crit (always-on): 1.9733e-27 m
+Always-on vs Fermi: FAIL (β/β_Fermi=1.5e+38)
+Gated void GRB:     PASS (χ≈0)
+G(ξ,ρ_in):     6.6743e-11  (target 6.6743e-11)
+G match:       1.0000
+
