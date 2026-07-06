@@ -19,7 +19,7 @@ The **discriminating near-term test** is **Prediction #7**: scan a laboratory kn
 | Document | Audience |
 |----------|----------|
 | [**Plain English guide**](docs/ch-universal-laws-plain-english.md) | Newcomers — concepts, universal laws, what numerics support or rule out |
-| [**Paper 1 preprint**](docs/overleaf/main.tex) | Full methods — GRB null, GPE forecasts, lab protocol, power study |
+| [**Paper 1 preprint**](Ch_Chronos_Hydrodynamics.pdf) | Full methods — GRB null, GPE forecasts, lab protocol, power study ([LaTeX source](docs/overleaf/main.tex)) |
 | [**Mathematical framework**](docs/ch-mathematical-framework.md) | Equations — GPE, $\chi$, $G$, dispersion, postulates |
 | [**Seven testable predictions**](docs/supersolid-vacuum-testable-predictions.md) | All predictions #1–#7 with math and laptop feasibility |
 | [**Gradient threshold experiment**](docs/ch-gradient-threshold-experiment.md) | Prediction #7 design — knobs, channels, statistics |
@@ -27,11 +27,13 @@ The **discriminating near-term test** is **Prediction #7**: scan a laboratory kn
 | [**Paper 2 roadmap**](docs/ch-paper2-em-gpe-casimir-derivation.md) | Planned EM–GPE derivation of the Casimir ripple (not blocking Paper 1) |
 | [**Simulations index**](simulations/README.md) | Script list and quick commands |
 
-**Suggested reading order:** Plain English → gradient threshold guide → `main.tex` → run `control_channel_analysis.py --demo`.
+**Suggested reading order:** Plain English → gradient threshold guide → [Paper 1 PDF](Ch_Chronos_Hydrodynamics.pdf) → run `control_channel_analysis.py --demo`.
 
 ## Paper 1 (preprint)
 
-Compile [`docs/overleaf/main.tex`](docs/overleaf/main.tex) with **pdfLaTeX + Biber** (see [`docs/overleaf/README.md`](docs/overleaf/README.md)). Key figures are pre-built in [`docs/overleaf/figures/`](docs/overleaf/figures/).
+**Read:** [`Ch_Chronos_Hydrodynamics.pdf`](Ch_Chronos_Hydrodynamics.pdf) (compiled preprint, June 2026).
+
+**Source:** [`docs/overleaf/main.tex`](docs/overleaf/main.tex) with **pdfLaTeX + Biber** (see [`docs/overleaf/README.md`](docs/overleaf/README.md)). Key figures are pre-built in [`docs/overleaf/figures/`](docs/overleaf/figures/).
 
 ## Paper 2 (planned)
 
@@ -74,7 +76,8 @@ Preprint (Paper 1):
                   Flat vs Threshold Turn-On in Casimir Ripple and Interferometric Visibility},
   year         = {2026},
   howpublished = {GitHub repository},
-  url          = {https://github.com/G-Web-Essentials/CH-A-Gross-Pitaevskii-Superfluid-Vacuum}
+  url          = {https://github.com/G-Web-Essentials/CH-A-Gross-Pitaevskii-Superfluid-Vacuum},
+  note         = {PDF: Ch\_Chronos\_Hydrodynamics.pdf}
 }
 ```
 

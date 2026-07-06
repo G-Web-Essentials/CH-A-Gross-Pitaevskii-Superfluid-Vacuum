@@ -2,7 +2,7 @@
 
 **Purpose:** Explain how familiar “laws of nature” are reinterpreted inside **Chronos-Hydrodynamics (CH)**—without LaTeX-heavy derivations. This is a **conceptual** guide for readers who were not involved in building the framework. It is **not** a proof that CH is correct.
 
-**Related:** [Mathematical framework](./ch-mathematical-framework.md) · [Testable predictions](./supersolid-vacuum-testable-predictions.md) · [Lab protocol paper](./overleaf/main.tex) · [Overleaf PDF source](./overleaf/universal-laws.tex) · [Simulations](../simulations/README.md)
+**Related:** [Mathematical framework](./ch-mathematical-framework.md) · [Testable predictions](./supersolid-vacuum-testable-predictions.md) · [Paper 1 preprint (PDF)](../Ch_Chronos_Hydrodynamics.pdf) · [Paper 1 source](./overleaf/main.tex) · [Overleaf PDF source](./overleaf/universal-laws.tex) · [Simulations](../simulations/README.md)
 
 ---
 
@@ -163,6 +163,22 @@ CH does **not** yet give a full thermodynamic law (entropy, heat engines) from f
 
 ---
 
+### 2.10 Lab planning defaults (not derived)
+
+CH does **not** fix $\xi$, $\alpha_{\max}$, or per-shot ripple uncertainty from first principles. Laptop forecasts, GPE figures, and the power study use **planning defaults** — replace them once collaborators register pilot $F/F_{\mathrm{Cas}}$ fits. Full rationale: [Paper 1 §5.3](../Ch_Chronos_Hydrodynamics.pdf) (or [source](./overleaf/main.tex)).
+
+| Default | Value | Plain English |
+|---------|-------|---------------|
+| Healing length $\xi$ | 50 nm | Mid-range of the hypothesized $\mathcal{O}(10)$–100 nm lab band; **not** a prediction |
+| Gap scan | 40–600 nm | Controllable AFM range; at $\xi = 50$ nm this spans gradient-gate turn-on |
+| Ripple ceiling $\alpha_{\max}$ | 0.12 | Illustrative “visible but subtle” cap for practice fits; lab measures $\alpha$ directly |
+| Per-shot noise $\sigma_\alpha$ | 0.01 | Moderate planning assumption (checklist: 0.005 optimistic, 0.02 conservative) |
+| Gate width $w$ | $\approx 0.35$ | How sharply $\chi$ turns on in $\log_{10}(\lvert\nabla\rho\rvert/\lvert\nabla\rho\rvert_c)$ — analysis choice |
+
+**Do not cite these numbers as CH predictions.** Measured $k_c$ or ripple period $a_{\mathrm{vac}}$ from a real run should supersede them.
+
+---
+
 ## 3. Black holes in CH
 
 ### 3.1 What a black hole would be (plain English)
@@ -305,7 +321,7 @@ The repo’s job is (1)–(2) and **designing** (3)–(4); cosmology (5) is outl
 1. This document (concepts)
 2. [Gradient threshold experiment](./ch-gradient-threshold-experiment.md) (what we actually test)
 3. [Mathematical framework](./ch-mathematical-framework.md) (equations)
-4. [Overleaf protocol paper](./overleaf/main.tex) (full methods)
+4. [Paper 1 preprint (PDF)](../Ch_Chronos_Hydrodynamics.pdf) — full methods; [LaTeX source](./overleaf/main.tex) if you want to compile
 5. Run `ch_lab_pipeline_demo.py`, `ch_gpe_gravity_demo.py --v3-only`, and `ch_gpe_bh_exterior_demo.py --quick`
 
 ---
