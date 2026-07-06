@@ -6,9 +6,9 @@
 
 ## What is CH?
 
-**Chronos-Hydrodynamics** proposes that space is an ultra-dense superfluid obeying the **Gross–Pitaevskii equation (GPE)**. What we call empty vacuum is bulk fluid at density $\rho_{\mathrm{in}}$. **Matter is not placed in space** — it is **missing fluid** (stable defects where $\rho$ is depleted). **Gravity, time, and the speed of light** emerge from how that fluid responds to defects and boundaries.
+**Chronos-Hydrodynamics** proposes that space is an ultra-dense superfluid obeying the **Gross–Pitaevskii equation (GPE)**. What we call empty vacuum is bulk fluid at density $\rho_{\mathrm{in}}$. **Matter is not placed in space** — it is **missing fluid** (stable defects where $\rho$ is depleted). In CH, **gravity** is how the fluid responds to those defects; **time** is how the fluid's phase ticks (and slows near defects); the **speed of light** is the fluid's native wave speed — not three separate miracles, but features of one material vacuum.
 
-A central design feature is **gradient gating**: a gate $\chi(|\nabla\rho|)$ keeps supersolid-linked observables **off** in uniform, low-gradient regions. That is why void-path GRB timing nulls and smooth Casimir forces are **expected**, not embarrassing.
+A central design feature is **gradient gating**: a gate $\chi(|\nabla\rho|)$ keeps supersolid-linked observables **off** in uniform, low-gradient regions. That is why void-path GRB timing nulls and smooth Casimir forces are **expected**, not failures of the theory.
 
 The **discriminating near-term test** is **Prediction #7**: scan a laboratory knob that raises $|\nabla\rho|$ (Casimir gap $d$ or sphere radius $R$) and compare **flat** (standard QFT) vs **threshold turn-on** (CH) models for Casimir ripple amplitude $\alpha$ and Mach–Zehnder visibility dip $\Delta V$, with a mandatory **flat control channel**.
 
