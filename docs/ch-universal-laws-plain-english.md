@@ -14,14 +14,12 @@
 
 ## 1. What “density” means
 
-| Everyday thing | CH picture |
-|----------------|------------|
-| Air, water, rock | Ordinary matter = **defect patterns** (depletion) in the vacuum fluid |
-| Vacuum | Bulk superfluid at $\rho \approx \rho_{\mathrm{in}}$ |
-| $\rho_{\mathrm{in}}$ scale | $\sim 10^{19}$–$10^{24}$ kg/m³ depending on $\xi$—**far denser than neutron stars** |
-| What the lab measures | **How fast $\rho$ changes** near boundaries ($|\nabla\rho|$), not “how heavy is this object” |
+- **Air, water, rock:** Ordinary matter = **defect patterns** (depletion) in the vacuum fluid
+- **Vacuum:** Bulk superfluid at $\rho \approx \rho_{\mathrm{in}}$
+- **$\rho_{\mathrm{in}}$ scale:** $\sim 10^{19}\text{–}10^{24}\ \mathrm{kg/m^3}$ depending on $\xi$ — **far denser than neutron stars**
+- **What the lab measures:** **How fast $\rho$ changes** near boundaries ($\lvert\nabla\rho\rvert$), not “how heavy is this object”
 
-**Gradient gating:** many CH effects scale as $\chi(|\nabla\rho|)$, which is $\approx 0$ when gradients are tiny and $\approx 1$ when $|\nabla\rho| \gtrsim |\nabla\rho|_c = \rho_{\mathrm{in}}/\xi$.
+**Gradient gating:** many CH effects scale as $\chi(\lvert\nabla\rho\rvert)$, which is $\approx 0$ when gradients are tiny and $\approx 1$ when $\lvert\nabla\rho\rvert \gtrsim \lvert\nabla\rho\rvert_c = \rho_{\mathrm{in}}/\xi$.
 
 ---
 
@@ -31,7 +29,7 @@
 
 **Standard view:** Mass curves spacetime; other mass follows geodesics.
 
-**CH view:** Mass is a **defect** (hole in $\rho$). The surrounding superfluid responds with **pressure gradients** and **quantum potential** $Q$ from the Madelung form of $\psi$. Far from the defect, that response **matches** Newton: $|\mathbf{a}| \approx GM/r^2$.
+**CH view:** Mass is a **defect** (hole in $\rho$). The surrounding superfluid responds with **pressure gradients** and **quantum potential** $Q$ from the Madelung form of $\psi$. Far from the defect, that response **matches** Newton: $\lvert\mathbf{a}\rvert \approx GM/r^2$.
 
 **One-paragraph summary:**
 
@@ -198,7 +196,7 @@ The following scripts test **internal consistency** of the matched exterior pict
 | Clock / redshift proxies | `ch_clock_redshift_from_gpe.py` | √ρ and Φ slow clocks in depletion; not full GR derivation |
 | Light bending $\Delta\theta(b)$ | `ch_acoustic_light_bending.py` | Metric/Φ index **attracts** (~1× repo GR ref.); **n ∝ 1/√ρ repels** |
 | Kepler / vortex correspondence | `ch_vortex_kepler_toy.py` | Large $n$ → smooth orbits; small $n$ ≠ planets |
-| Sphere–plate full GP vs TF | `matlab/run_sphere_plate_full_gp_scan.m` + `ch_gpe_sphere_plate_full_gp_overlay.py` | Radial rim $|\partial\rho/\partial r|$ vs TF: median ~18%, max ~23% at $\hat d_{\min}=2$; wall probe not used on laptop grid |
+| Sphere–plate full GP vs TF | `matlab/run_sphere_plate_full_gp_scan.m` + `ch_gpe_sphere_plate_full_gp_overlay.py` | Radial rim $\lvert\partial\rho/\partial r\rvert$ vs TF: median ~18%, max ~23% at $\hat d_{\min}=2$; wall probe not used on laptop grid |
 
 See §4.3 for what these **support** vs **rule out**. Overlay figure: `simulations/output/ch_sphere_plate_full_gp_overlay.png`.
 
@@ -255,7 +253,7 @@ These laptop checks ask whether the **matched defect + acoustic-metric** story h
 - **Single ρ formula for clocks and lensing** → different maps work for each observable.
 - **Literal low-$n$ planetary vortices** → $n=1$ circular radius is $\sim 10^{-29}$ AU at lab $\xi$, not a planet.
 - **Full GR from GPE alone** → still uses matched exterior + chosen $n(\Phi)$; not a first-principles derivation.
-- **Laptop full-GP wall $|\nabla\rho|$ at $\hat d_{\min}\sim 2$** → coarse $z$ grid does not resolve $\xi$-scale boundary layers (~94% vs TF); Casimir gap work uses TF + fine grid in Python, not this probe.
+- **Laptop full-GP wall $\lvert\nabla\rho\rvert$ at $\hat d_{\min}\sim 2$** → coarse $z$ grid does not resolve $\xi$-scale boundary layers (~94% vs TF); Casimir gap work uses TF + fine grid in Python, not this probe.
 
 **Still open:** BH interior, Hawking, quantitative GR redshift from numerical v3 join, dark-matter Reynolds toy, $\beta_{\mathrm{eff}}(\chi)$ at strong depletion, coupled 2D GP at $\hat R \lesssim 3$, and all **gated lab positives** at $k_c$.
 
@@ -274,7 +272,7 @@ These laptop checks ask whether the **matched defect + acoustic-metric** story h
 | **Python (repo)** | GPE 1D, protocol stats, GRB fits | Primary; already integrated |
 | **MATLAB + GPELab** | 2D/3D GPE, vortices, defects | Export $\rho$, $\Phi$; compare to Python 1D |
 | **Dedalus** | PDEs, GPE with boundaries | Sphere/plate, dynamic GPE |
-| **COMSOL / FEniCS** | Weak-form GPE, complex geometries | Real AFM Casimir geometry → $k \to |\nabla\rho|$ |
+| **COMSOL / FEniCS** | Weak-form GPE, complex geometries | Real AFM Casimir geometry → $k \to \lvert\nabla\rho\rvert$ |
 | **LightPipes / Zemax** | MZ fringes, not GPE | Optical **envelope** for #6; pair with GPE $\chi$ |
 | **Cosmology codes (CLASS, etc.)** | $\varepsilon$, expansion | Only after $\rho_{\mathrm{in}}$, $\varepsilon$ fixed from lab—long horizon |
 
@@ -292,7 +290,7 @@ These laptop checks ask whether the **matched defect + acoustic-metric** story h
 
 A CH claim is **plausible under real physics** when:
 
-1. **Dimensions match** ($G$, $\beta_{\max}$, $|\nabla\rho|_c$ in SI).
+1. **Dimensions match** ($G$, $\beta_{\max}$, $\lvert\nabla\rho\rvert_c$ in SI).
 2. **Null tests pass** where $\chi \approx 0$ (GRB, Eöt-Wash, smooth Casimir).
 3. **Gated positives** (if any) share one $k_c$ / $\xi$ across channels.
 4. **Gravity matching** works from defect profiles without absurd $\alpha_G$.
@@ -314,7 +312,7 @@ The repo’s job is (1)–(2) and **designing** (3)–(4); cosmology (5) is outl
 
 ## 7. Honest limits
 
-CH is a **research framework**, not established physics. Gravity demos use **matched** exteriors and **calibrated** $\alpha_G$; laptop checks in §4.3 support the **metric/Φ** branch of emergent gravity and lensing but **exclude** naive $n \propto 1/\sqrt{\rho}$ lensing. Black holes, Hawking radiation, dark matter, and the Standard Model remain **sketches or open**. The **discriminating near-term test** remains Prediction #7: **flat vs threshold** in Casimir ripple and interferometric visibility when gap or curvature raises $|\nabla\rho|$. Everything in this document about universal laws is **how CH would reinterpret known physics if that wedge test and later layers succeed**—not a claim that they already have.
+CH is a **research framework**, not established physics. Gravity demos use **matched** exteriors and **calibrated** $\alpha_G$; laptop checks in §4.3 support the **metric/Φ** branch of emergent gravity and lensing but **exclude** naive $n \propto 1/\sqrt{\rho}$ lensing. Black holes, Hawking radiation, dark matter, and the Standard Model remain **sketches or open**. The **discriminating near-term test** remains Prediction #7: **flat vs threshold** in Casimir ripple and interferometric visibility when gap or curvature raises $\lvert\nabla\rho\rvert$. Everything in this document about universal laws is **how CH would reinterpret known physics if that wedge test and later layers succeed**—not a claim that they already have.
 
 ---
 
