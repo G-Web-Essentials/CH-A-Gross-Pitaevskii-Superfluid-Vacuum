@@ -193,7 +193,7 @@ This is a mechanism sketch, not a fitted cosmology; $\varepsilon$ is not determi
 $|\nabla\rho|$ is the magnitude of the spatial gradient of the vacuum density $\rho = |\psi|^2$ (Eq.~\ref{eq:madelung}): it measures how sharply $\rho$ changes from place to place (large near boundaries and defects, $\approx 0$ in uniform void).
 CH links Casimir ripple $\alpha_{\mathrm{eff}}$, interferometric dip $\Delta V$, and dispersion $\beta_{\mathrm{eff}}$ to $|\nabla\rho|$ through the gate $\chi(|\nabla\rho|)$ (Eqs.~\ref{eq:chi} and \ref{eq:gated}).
 
-The gate width $w$ sets how sharply observables turn on in $\log_{10}(|\nabla\rho|/|\nabla\rho|_c)$; our analysis code uses $w \approx 0.35$ by default~\cite{CHSpaceFabric2026}.
+The gate width $w$ sets how sharply observables turn on in $\log_{10}(|\nabla\rho|/|\nabla\rho|_c)$; our analysis code uses $w \approx 0.35$ by default (Section~\ref{sec:forecast-defaults})~\cite{CHSpaceFabric2026}.
 \begin{equation}
   \chi(|\nabla\rho|) = \frac{1}{2}\left[1 + \tanh\!\left(\frac{\log_{10}(|\nabla\rho|/|\nabla\rho|_c)}{w}\right)\right],
   \label{eq:chi}
@@ -421,14 +421,34 @@ $\chi_{\mathrm{wall}}(d)$ is near saturation and flat vs $d$ for $d \gtrsim 2\xi
 \textbf{Curvature scan ($R$ knob, signal).}
 At fixed minimum gap, scan sphere radius $R$ and extract $\alpha$ at the \textbf{wall/rim} where GPE predicts $\chi_{\mathrm{wall}}$ varies with $R$ while bulk midpoints stay in the null sector (Eq.~\ref{eq:tf-2d}).
 
-\subsection{Forecast default $\xi = 50$~nm}
+\subsection{Forecast and analysis defaults}
+\label{sec:forecast-defaults}
 \label{sec:xi-forecast-default}
 
-CH does not fix $\xi$ ab initio from the GPE alone.
-For laptop forecasts, figures, and the power study we adopt $\xi = \SI{50}{nm}$ as a \textbf{representative value} in the hypothesized lab band $\mathcal{O}(10)$--$100$~nm (symbol table, Appendix~\ref{app:symbols}).
-Casimir gap scans at $d = 40$--$600$~nm then span $\hat{d} = d/\xi \approx 0.8$--$12$, placing gradient-gate turn-on in the accessible protocol range rather than below the minimum gap or in the asymptotically flat sector.
-This is a \textbf{planning scenario}, not a theoretical prediction: measured $k_c$ or $a_{\mathrm{vac}}$ from Eqs.~\ref{eq:casimir-ripple} would replace it via the identification hypotheses of Section~\ref{sec:lab-xi-bridge}.
-The illustrative ripple period $a_{\mathrm{vac}} = 150$~nm used in companion demos implies $\xi \approx a_{\mathrm{vac}}/(2\pi) \approx 24$~nm---the same order of magnitude as the forecast default, but not identical; the two mechanisms must be tested against data, not assumed equal.
+CH does not fix $\xi$, $\alpha_{\max}$, or per-shot ripple uncertainty from first principles.
+For laptop forecasts, figures, and the power study we adopt the following \textbf{planning defaults} (replaceable once collaborators register pilot $F/F_{\mathrm{Cas}}$ fits):
+
+\textbf{Healing length.}
+$\xi = \SI{50}{nm}$ is a representative value in the hypothesized lab band $\mathcal{O}(10)$--$100$~nm (symbol table, Appendix~\ref{app:symbols}).
+Measured $k_c$ or $a_{\mathrm{vac}}$ from Eqs.~\ref{eq:casimir-ripple} would supersede it via Section~\ref{sec:lab-xi-bridge}.
+The illustrative ripple period $a_{\mathrm{vac}} = 150$~nm in companion demos implies $\xi \approx a_{\mathrm{vac}}/(2\pi) \approx 24$~nm---the same order of magnitude, not assumed equal.
+
+\textbf{Gap scan endpoints ($d = 40$--$600$~nm).}
+The lower bound matches the minimum controllable sphere--plate separations in dynamic Casimir AFM work; the upper bound follows the ripple-analysis convention in \texttt{casimir\_ripple\_sim.py} (50--600~nm scan, $\sim 3.7$ periods at $a_{\mathrm{vac}} = 150$~nm).
+At $\xi = \SI{50}{nm}$ this span gives $\hat{d} = d/\xi \approx 0.8$--$12$, placing gradient-gate turn-on inside the protocol range rather than below the minimum gap or in the asymptotically flat sector.
+
+\textbf{Ripple ceiling $\alpha_{\max} = 0.12$.}
+Eq.~\ref{eq:gated} uses $\alpha_{\mathrm{eff}} = \alpha_{\max}\chi$; $\alpha_{\max}$ is an \textbf{illustrative coupling cap}, not a GPE output.
+The value $0.12$ (12\% on $F/F_{\mathrm{Cas}}$) is chosen in \texttt{casimir\_ripple\_sim.py} as ``visible but still subtle'' for practice fits---order-of-magnitude headroom for a gated ripple, not a derived prediction.
+The lab measures $\alpha$ directly; GPE supplies the shape $\chi(d)$, not the absolute scale.
+
+\textbf{Per-shot uncertainty $\sigma_\alpha = 0.01$.}
+The power study (Section~\ref{sec:power-study}) adopts $\sigma_\alpha = 0.01$ on extracted ripple amplitude as a \textbf{moderate} planning assumption (companion checklist: optimistic $0.005$, conservative $0.02$).
+Twenty repeats per gap yield $\sigma_{\mathrm{eff}} \approx 0.0022$; collaborators should register $\sigma_\alpha$ from pilot data and re-run \texttt{ch\_threshold\_power\_study.py} before unblinding.
+
+\textbf{Gate width $w \approx 0.35$.}
+In Eq.~\ref{eq:chi}, $w$ is the transition width in $\log_{10}(|\nabla\rho|/|\nabla\rho|_c)$ for the tanh gate.
+The default $0.35$ gives an $\mathcal{O}(1)$-decade turn-on in $\log_{10}$ gradient ratio and matches the smooth-step width used in threshold fits (Eq.~\ref{eq:threshold-fit}); it is a numerical/analysis choice, not fitted from data in this paper.
 
 \subsection{GPE forecasts linked to Prediction~\#7}
 
@@ -563,7 +583,7 @@ On demo data the script reports $\Delta\chi^2 \approx 192$ ($\alpha$), $\Delta\c
 
 Prediction~\#7 constrains the \textbf{turn-on knob} $k_c$, not the healing length $\xi$ directly.
 CH does not yet predict $\xi$ uniquely from first principles; instead we implement \textbf{identification hypotheses} that map laboratory outputs to $\xi$ and then to emergent-gravity diagnostics~\cite{CHSpaceFabric2026}.
-The value $\xi = \SI{50}{nm}$ used in GPE figures and power forecasts is a planning default only (Section~\ref{sec:xi-forecast-default}).
+The value $\xi = \SI{50}{nm}$ used in GPE figures and power forecasts is a planning default only (Section~\ref{sec:forecast-defaults}).
 
 \textbf{Step 1 --- extract $k_c$.}
 After threshold detection, the joint fit (\texttt{gradient\_threshold\_analysis.py --joint}) returns a shared $k_c$ with per-channel amplitudes.
@@ -837,7 +857,8 @@ Four independent reasons justify a \textbf{narrow, pre-registered} Tier~A attemp
 
 To translate ``we should try'' into ``we need $N$ shots at these gaps,'' \texttt{ch\_threshold\_power\_study.py} runs Monte Carlo trials on GPE-predicted $\alpha_{\mathrm{eff}}(k) = \alpha_{\max}\chi_{\mathrm{bulk}}(d)$ with realistic ripple uncertainty $\sigma_\alpha$ per shot, $n_{\mathrm{repeat}}$ averages per $k$, and $n_k$ gap settings.
 Detection is declared when $\Delta\chi^2 \geq 9$ (same cut as the protocol).
-Default scan: $\xi = \SI{50}{nm}$, $d = 40$--\SI{600}{nm}$, \textbf{bulk} $\chi$ coupling for the $\alpha(d)$ signal channel ($\chi_{\mathrm{wall}}$ is flat vs $d$ and serves as a control; Section~\ref{sec:probe-coupling}).
+Default scan and coupling assumptions ($\xi$, $\alpha_{\max}$, $\sigma_\alpha$, gap range) are defined in Section~\ref{sec:forecast-defaults}.
+\textbf{Bulk} $\chi$ coupling maps $\alpha(d)$ to $\chi_{\mathrm{bulk}}(d)$; $\chi_{\mathrm{wall}}(d)$ is flat vs $d$ and serves as a control forecast (Section~\ref{sec:probe-coupling}).
 
 Table~\ref{tab:power-study} lists results from a full run ($n_{\mathrm{trials}} = 400$).
 At $\alpha_{\max} = 0.12$ the detection power is $100\%$ with median $\Delta\chi^2 \approx 191$.
@@ -925,8 +946,8 @@ Code and protocol scripts: \url{https://github.com/G-Web-Essentials/CH-A-Gross-P
     $m_{\mathrm{grain}}$ & $\hbar c_s/(c^2\xi)$; inertial mass of a vacuum grain \\
     $|\nabla\rho|_c$ & $\rho_{\mathrm{in}}/\xi \approx c^2/G$; gradient gate scale \\
     $\chi$ & Gradient gate $\in [0,1]$ (Eq.~\ref{eq:chi}) \\
-    $w$ & Gate width in $\log_{10}(|\nabla\rho|/|\nabla\rho|_c)$; default $\approx 0.35$ \\
-    $\alpha_{\max}$, $\Delta V_{\max}$ & Gated observable ceilings before $\chi$ \\
+    $w$ & Gate width in $\log_{10}(|\nabla\rho|/|\nabla\rho|_c)$; default $\approx 0.35$ (Section~\ref{sec:forecast-defaults}) \\
+    $\alpha_{\max}$, $\Delta V_{\max}$ & Gated observable ceilings before $\chi$; $\alpha_{\max}=0.12$ is illustrative (Section~\ref{sec:forecast-defaults}) \\
     $\alpha_{\mathrm{eff}}$, $\Delta V$ & $\alpha_{\max}\chi$, $\Delta V_{\max}\chi$ \\
     $\beta_{\max}$ & $(3/2)\xi^2/\hbar^2$; dispersion ceiling \\
     $\beta_{\mathrm{eff}}$ & $\beta_{\max}\chi$; used in GRB fits \\
