@@ -421,6 +421,15 @@ $\chi_{\mathrm{wall}}(d)$ is near saturation and flat vs $d$ for $d \gtrsim 2\xi
 \textbf{Curvature scan ($R$ knob, signal).}
 At fixed minimum gap, scan sphere radius $R$ and extract $\alpha$ at the \textbf{wall/rim} where GPE predicts $\chi_{\mathrm{wall}}$ varies with $R$ while bulk midpoints stay in the null sector (Eq.~\ref{eq:tf-2d}).
 
+\subsection{Forecast default $\xi = 50$~nm}
+\label{sec:xi-forecast-default}
+
+CH does not fix $\xi$ ab initio from the GPE alone.
+For laptop forecasts, figures, and the power study we adopt $\xi = \SI{50}{nm}$ as a \textbf{representative value} in the hypothesized lab band $\mathcal{O}(10)$--$100$~nm (symbol table, Appendix~\ref{app:symbols}).
+Casimir gap scans at $d = 40$--$600$~nm then span $\hat{d} = d/\xi \approx 0.8$--$12$, placing gradient-gate turn-on in the accessible protocol range rather than below the minimum gap or in the asymptotically flat sector.
+This is a \textbf{planning scenario}, not a theoretical prediction: measured $k_c$ or $a_{\mathrm{vac}}$ from Eqs.~\ref{eq:casimir-ripple} would replace it via the identification hypotheses of Section~\ref{sec:lab-xi-bridge}.
+The illustrative ripple period $a_{\mathrm{vac}} = 150$~nm used in companion demos implies $\xi \approx a_{\mathrm{vac}}/(2\pi) \approx 24$~nm---the same order of magnitude as the forecast default, but not identical; the two mechanisms must be tested against data, not assumed equal.
+
 \subsection{GPE forecasts linked to Prediction~\#7}
 
 With $\xi = \SI{50}{nm}$ and gap scan $d = 40$--$600$~nm ($k = 10^9/d_{[\mathrm{m}]}$), the GPE pipeline (\texttt{ch\_gpe\_to\_threshold\_demo.py}) maps $d \to \chi_{\mathrm{bulk}}$ and $\chi_{\mathrm{wall}}$ and generates synthetic $(k, \alpha, \sigma)$ and $(k, \Delta V, \sigma)$ CSVs.
@@ -554,6 +563,7 @@ On demo data the script reports $\Delta\chi^2 \approx 192$ ($\alpha$), $\Delta\c
 
 Prediction~\#7 constrains the \textbf{turn-on knob} $k_c$, not the healing length $\xi$ directly.
 CH does not yet predict $\xi$ uniquely from first principles; instead we implement \textbf{identification hypotheses} that map laboratory outputs to $\xi$ and then to emergent-gravity diagnostics~\cite{CHSpaceFabric2026}.
+The value $\xi = \SI{50}{nm}$ used in GPE figures and power forecasts is a planning default only (Section~\ref{sec:xi-forecast-default}).
 
 \textbf{Step 1 --- extract $k_c$.}
 After threshold detection, the joint fit (\texttt{gradient\_threshold\_analysis.py --joint}) returns a shared $k_c$ with per-channel amplitudes.
