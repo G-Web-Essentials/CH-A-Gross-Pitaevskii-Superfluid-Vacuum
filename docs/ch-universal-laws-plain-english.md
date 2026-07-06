@@ -33,7 +33,9 @@
 
 **CH view:** Mass is a **defect** (hole in $\rho$). The surrounding superfluid responds with **pressure gradients** and **quantum potential** $Q$ from the Madelung form of $\psi$. Far from the defect, that response **matches** Newton: $|\mathbf{a}| \approx GM/r^2$.
 
-**One-paragraph summary:** *In CH, gravity is the long-range hydrodynamic response to matter-as-defect: stable regions of depleted vacuum density in an ultra-dense superfluid space. Pressure gradients and the quantum potential of the $\rho$ field produce accelerations that match Newton’s $GM/r^2$ in the far field; $G$ itself emerges from vacuum parameters $(\xi, \rho_{\mathrm{in}}, c_s, \alpha_G)$. You do not feel the bulk fluid in uniform space because gradient gating keeps it quiet; you feel the pattern of missing fluid that we call mass.*
+**One-paragraph summary:**
+
+> In CH, gravity is the long-range hydrodynamic response to matter-as-defect: stable regions of depleted vacuum density in an ultra-dense superfluid space. Pressure gradients and the quantum potential of the $\rho$ field produce accelerations that match Newton's $GM/r^2$ in the far field; $G$ itself emerges from vacuum parameters $(\xi, \rho_{\mathrm{in}}, c_s, \alpha_G)$. You do not feel the bulk fluid in uniform space because gradient gating keeps it quiet; you feel the pattern of missing fluid that we call mass.
 
 **Status in repo:** Spherical GPE + defect sketches (`ch_gpe_gravity.py`); Newton matching with $\alpha_G$ calibration—**matching**, not full 3D derivation.
 
