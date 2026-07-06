@@ -310,7 +310,7 @@ The repo’s job is (1)–(2) and **designing** (3)–(4); cosmology (5) is outl
 
 ---
 
-## 7. Honest limits (one paragraph)
+## 7. Honest limits
 
 CH is a **research framework**, not established physics. Gravity demos use **matched** exteriors and **calibrated** $\alpha_G$; laptop checks in §4.3 support the **metric/Φ** branch of emergent gravity and lensing but **exclude** naive $n \propto 1/\sqrt{\rho}$ lensing. Black holes, Hawking radiation, dark matter, and the Standard Model remain **sketches or open**. The **discriminating near-term test** remains Prediction #7: **flat vs threshold** in Casimir ripple and interferometric visibility when gap or curvature raises $|\nabla\rho|$. Everything in this document about universal laws is **how CH would reinterpret known physics if that wedge test and later layers succeed**—not a claim that they already have.
 
