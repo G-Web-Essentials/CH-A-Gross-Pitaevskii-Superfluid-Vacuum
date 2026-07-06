@@ -12,7 +12,7 @@
 
 ---
 
-## 1. What “density” means (not planets)
+## 1. What “density” means
 
 | Everyday thing | CH picture |
 |----------------|------------|
