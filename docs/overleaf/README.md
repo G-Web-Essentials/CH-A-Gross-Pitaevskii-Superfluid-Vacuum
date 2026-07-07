@@ -36,6 +36,8 @@ cp simulations/output/ch_sphere_plate_full_gp_overlay.png docs/overleaf/figures/
 
 If figures are missing, the document still compiles (placeholders show).
 
+Figures use LaTeX **floats** (`[htbp]`): they may move to the top or bottom of a page so text is not split awkwardly. `main.tex` uses the `placeins` package and `\FloatBarrier` after each figure so floats do not drift past section breaks. Each figure is placed in the source **immediately after** the paragraph that introduces it. Recompile twice after edits (pdfLaTeX → Biber → pdfLaTeX ×2) so references and float positions settle.
+
 ## Local build
 
 ```bash

@@ -13,6 +13,13 @@
 \usepackage{hyperref}
 \usepackage{siunitx}
 \usepackage[backend=biber,style=numeric,sorting=none,maxbibnames=99]{biblatex}
+\usepackage{placeins}  % \FloatBarrier — keep figures from drifting past section breaks
+
+% Loosen float placement slightly so figures stay nearer their source
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.08}
+\renewcommand{\floatpagefraction}{0.75}
 
 \hypersetup{
   colorlinks=true,
@@ -397,6 +404,7 @@ The discriminating test remains Prediction~\#7 in the laboratory.
 
 \textbf{Always-on benchmark.}
 If $\beta = \beta_{\max}$ everywhere with $\xi \lesssim 10^{-15}$~m, Fermi timing would show enormous dispersion; gradient gating is CH's mechanism to retain a large $\beta_{\max}$ while passing void-path tests.
+Figure~\ref{fig:grb} plots the extended-LAT sample used in that null test.
 
 \begin{figure}[htbp]
   \centering
@@ -404,6 +412,7 @@ If $\beta = \beta_{\max}$ everywhere with $\xi \lesssim 10^{-15}$~m, Fermi timin
   \caption{Real Fermi LAT extended analysis: photon arrival time vs $E^2$ for GRB~090510 ($z=0.903$). Null fit ($p \approx 0.56$) is consistent with QFT and gradient-gated CH on void paths.}
   \label{fig:grb}
 \end{figure}
+\FloatBarrier
 
 \section{GPE boundary program}
 \label{sec:gpe}
@@ -446,13 +455,6 @@ At the sphere rim ($\hat{r} \sim 1$), radial gradients scale as $\sim 1/\hat{R}$
   \end{tabular}
 \end{table}
 
-\begin{figure}[htbp]
-  \centering
-  \maybeincludegraphics[width=0.92\linewidth]{figures/ch_gpe_casimir_gap.png}
-  \caption{1D GPE Casimir-gap scan ($\xi = \SI{50}{nm}$): wall vs bulk gradient ratio and $\chi$ vs gap $d$. Bulk $\chi$ uses the central-half maximum (Section~\ref{sec:probe-coupling}), not the geometric midpoint alone.}
-  \label{fig:gpe}
-\end{figure}
-
 \subsection{Probe coupling for gap vs curvature scans}
 \label{sec:probe-coupling}
 
@@ -470,6 +472,15 @@ $\chi_{\mathrm{wall}}(d)$ is near saturation and flat vs $d$ for $d \gtrsim 2\xi
 
 \textbf{Curvature scan ($R$ knob, signal).}
 At fixed minimum gap, scan sphere radius $R$ and extract $\alpha$ at the \textbf{wall/rim} where GPE predicts $\chi_{\mathrm{wall}}$ varies with $R$ while bulk midpoints stay in the null sector (Eq.~\ref{eq:tf-2d}).
+Figure~\ref{fig:gpe} shows the resulting wall vs bulk $\chi(d)$ at $\xi = \SI{50}{nm}$ once those probe loci are fixed.
+
+\begin{figure}[htbp]
+  \centering
+  \maybeincludegraphics[width=0.92\linewidth]{figures/ch_gpe_casimir_gap.png}
+  \caption{1D GPE Casimir-gap scan ($\xi = \SI{50}{nm}$): wall vs bulk gradient ratio and $\chi$ vs gap $d$. Bulk $\chi$ uses the central-half maximum (Section~\ref{sec:probe-coupling}), not the geometric midpoint alone.}
+  \label{fig:gpe}
+\end{figure}
+\FloatBarrier
 
 \subsection{Forecast and analysis defaults}
 \label{sec:forecast-defaults}
@@ -670,6 +681,7 @@ python3 control_channel_analysis.py \
 \end{verbatim}
 Demo with synthetic data: \texttt{control\_channel\_analysis.py --demo}.
 On demo data the script reports $\Delta\chi^2 \approx 192$ ($\alpha$), $\Delta\chi^2 \approx 244$ ($\Delta V$), control $\Delta\chi^2 \approx 1.3$, joint $\Delta\chi^2 \approx 436$, verdict \texttt{CONSISTENT WITH GRADIENT-GATED CH}~\cite{CHSpaceFabric2026}.
+Figure~\ref{fig:protocol} shows the corresponding signal and control fits on that demo set.
 
 \begin{figure}[htbp]
   \centering
@@ -677,6 +689,7 @@ On demo data the script reports $\Delta\chi^2 \approx 192$ ($\alpha$), $\Delta\c
   \caption{Example protocol analysis: signal channels (threshold fit) and control channel (flat). Demo data from \texttt{control\_channel\_analysis.py --demo}.}
   \label{fig:protocol}
 \end{figure}
+\FloatBarrier
 
 \subsection{From protocol $k_c$ to $\xi$ and gravity forecasts}
 \label{sec:lab-xi-bridge}
@@ -898,11 +911,7 @@ The scripts below test \textbf{internal consistency} of matched defect exteriors
   \end{tabular}
 \end{table}
 
-\noindent\textbf{Supported (qualitatively):} defect Newton matching; attractive lensing via $n(\Phi)$ or $n \approx 1 - r_s/r$; large-$n$ Kepler correspondence; \textbf{sphere--plate curvature:} axisymmetric GP (\texttt{slice1d} mode, $\hat{R}\gtrsim 3$) matches Thomas--Fermi on the radial rim probe to median $\sim$18\%, max $\sim$23\% over $R \in [1,100]~\mu\mathrm{m}$ at $d_{\min}=100$~nm, $\xi=50$~nm (overlay \texttt{ch\_gpe\_sphere\_plate\_full\_gp\_overlay.py}).
-
-\noindent\textbf{Ruled out (naive readings):} refractive index $n \propto 1/\sqrt{\rho}$ for gravitational lensing; a single $\rho$-to-observable map for both clocks and light; literal low-$n$ planetary vortex radii at lab $\xi$; \textbf{laptop full-GP wall $|\nabla\rho|$ at $\hat{d}_{\min}\sim 2$} on coarse $z$ grids (boundary layers unresolved---Casimir gap forecasts use TF + fine $\xi$-grid in Python).
-
-\noindent\textbf{Still open:} full GR from GPE without matched exterior; clocks vs $\chi$ in cavity; BH interior; all gated positives at $k_c$; coupled 2D GP at tight curvature ($\hat{R}\lesssim 3$).
+\noindent\textbf{Supported (qualitatively):} defect Newton matching; attractive lensing via $n(\Phi)$ or $n \approx 1 - r_s/r$; large-$n$ Kepler correspondence; \textbf{sphere--plate curvature:} axisymmetric GP (\texttt{slice1d} mode, $\hat{R}\gtrsim 3$) matches Thomas--Fermi on the radial rim probe to median $\sim$18\%, max $\sim$23\% over $R \in [1,100]~\mu\mathrm{m}$ at $d_{\min}=100$~nm, $\xi=50$~nm (Fig.~\ref{fig:sphere-plate-gp-overlay}).
 
 \begin{figure}[htbp]
   \centering
@@ -910,6 +919,11 @@ The scripts below test \textbf{internal consistency} of matched defect exteriors
   \caption{Sphere--plate full GP vs Thomas--Fermi (MATLAB \texttt{run\_sphere\_plate\_full\_gp\_scan.m}, overlay \texttt{ch\_gpe\_sphere\_plate\_full\_gp\_overlay.py}; $d_{\min}=100$~nm, $\xi=50$~nm, $\hat{d}_{\min}=2$). Radial rim probe: median relative error $\sim$18\%, max $\sim$23\%; wall probe not validated on this grid. Source: \texttt{simulations/output/ch\_sphere\_plate\_full\_gp\_overlay.png}.}
   \label{fig:sphere-plate-gp-overlay}
 \end{figure}
+
+\noindent\textbf{Ruled out (naive readings):} refractive index $n \propto 1/\sqrt{\rho}$ for gravitational lensing; a single $\rho$-to-observable map for both clocks and light; literal low-$n$ planetary vortex radii at lab $\xi$; \textbf{laptop full-GP wall $|\nabla\rho|$ at $\hat{d}_{\min}\sim 2$} on coarse $z$ grids (boundary layers unresolved---Casimir gap forecasts use TF + fine $\xi$-grid in Python).
+
+\noindent\textbf{Still open:} full GR from GPE without matched exterior; clocks vs $\chi$ in cavity; BH interior; all gated positives at $k_c$; coupled 2D GP at tight curvature ($\hat{R}\lesssim 3$).
+\FloatBarrier
 
 \subsection{Open problems}
 \label{sec:open-problems}
@@ -1008,12 +1022,15 @@ Power remains $\geq 90\%$ for $n_k = 6$--$20$ at $\alpha_{\max} = 0.12$---the li
   \end{tabular}
 \end{table}
 
+Table~\ref{tab:gap-scan} lists a representative GPE-recommended scan; Figure~\ref{fig:power-study} shows how detection power scales with $\alpha_{\max}$ and $n_k$ at the planning defaults of Section~\ref{sec:forecast-defaults}.
+
 \begin{figure}[htbp]
   \centering
   \maybeincludegraphics[width=0.92\linewidth]{figures/ch_threshold_power_study.png}
   \caption{Monte Carlo detection power vs $\alpha_{\max}$ and vs number of gap settings $n_k$ (\texttt{ch\_threshold\_power\_study.py}). Dashed line: 90\% power target.}
   \label{fig:power-study}
 \end{figure}
+\FloatBarrier
 
 \textbf{Collaboration ask:} register $\sigma_\alpha$ from pilot $F/F_{\mathrm{Cas}}$ fits, run the power study, then commit to $n_k \geq 10$ gaps and $n_{\mathrm{repeat}} \geq 20$ per $(k,\text{channel})$ before unblinding threshold fits.
 
