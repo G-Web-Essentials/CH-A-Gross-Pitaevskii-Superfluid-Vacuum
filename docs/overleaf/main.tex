@@ -54,7 +54,7 @@ Matter is a localized defect in the vacuum density field; gravity, time, and the
 A central design feature is \textbf{gradient gating}: in uniform, low-gradient vacuum the condensate is \textbf{observationally invisible}, explaining widespread null results in precision tests of empty space.
 Supersolid-linked observables turn on only when $|\nabla\rho|$ exceeds a critical scale $|\nabla\rho|_c$.
 
-We derive dimensionally consistent relations including $G = \alpha_G c_s^2 \xi / \rho_{\mathrm{in}}$ and $\beta_{\max} = \tfrac{3}{2}\xi^2/\hbar^2$, introduce a two-component density to address the cosmological-constant problem, and outline seven testable predictions.
+We introduce dimensionally consistent relations including $G = \alpha_G c_s^2 \xi / \rho_{\mathrm{in}}$ and $\beta_{\max} = \tfrac{3}{2}\xi^2/\hbar^2$, introduce a two-component density to address the cosmological-constant problem, and outline seven testable predictions.
 Analysis of real Fermi LAT data for GRB~090510 yields null quadratic dispersion ($p \approx 0.56$), consistent with gradient-gated CH on void paths but \textbf{not} distinguishable from standard quantum field theory (QFT) there.
 
 The \textbf{primary CH-specific test} is Prediction~\#7: scan a laboratory knob that raises $|\nabla\rho|$ (Casimir gap $d$, sphere radius $R$) and compare \textbf{flat} (QFT) vs \textbf{threshold} (CH) models for Casimir ripple amplitude $\alpha_{\mathrm{eff}}$ and interferometric visibility dip $\Delta V$.
@@ -423,7 +423,6 @@ At fixed minimum gap, scan sphere radius $R$ and extract $\alpha$ at the \textbf
 
 \subsection{Forecast and analysis defaults}
 \label{sec:forecast-defaults}
-\label{sec:xi-forecast-default}
 
 CH does not fix $\xi$, $\alpha_{\max}$, or per-shot ripple uncertainty from first principles.
 For laptop forecasts, figures, and the power study we adopt the following \textbf{planning defaults} (replaceable once collaborators register pilot $F/F_{\mathrm{Cas}}$ fits):
@@ -451,10 +450,13 @@ In Eq.~\ref{eq:chi}, $w$ is the transition width in $\log_{10}(|\nabla\rho|/|\na
 The default $0.35$ gives an $\mathcal{O}(1)$-decade turn-on in $\log_{10}$ gradient ratio and matches the smooth-step width used in threshold fits (Eq.~\ref{eq:threshold-fit}); it is a numerical/analysis choice, not fitted from data in this paper.
 
 \subsection{GPE forecasts linked to Prediction~\#7}
+\label{sec:gpe-p7-forecasts}
 
 With $\xi = \SI{50}{nm}$ and gap scan $d = 40$--$600$~nm ($k = 10^9/d_{[\mathrm{m}]}$), the GPE pipeline (\texttt{ch\_gpe\_to\_threshold\_demo.py}) maps $d \to \chi_{\mathrm{bulk}}$ and $\chi_{\mathrm{wall}}$ and generates synthetic $(k, \alpha, \sigma)$ and $(k, \Delta V, \sigma)$ CSVs.
 Flat vs threshold fits (\texttt{gradient\_threshold\_analysis.py}) on that synthetic data yield $\Delta\chi^2 \approx 274$ ($\alpha$) and $\Delta\chi^2 \approx 429$ ($\Delta V$)---well above the detection cut $\Delta\chi^2 = 9$.
 This demonstrates that \textbf{if} CH gated amplitudes track GPE $\chi$ vs $d$ under the bulk coupling of Section~\ref{sec:probe-coupling}, the protocol has statistical power; it is \textbf{not} a substitute for real lab data.
+GPE $\chi_{\mathrm{bulk}}(d)$ peaks near $d \sim 2\xi$ and falls at both large $d$ (decoupled walls) and the smallest gaps ($d \lesssim \xi$, overlapping boundary layers), whereas the threshold fit in $k$ (Eq.~\ref{eq:threshold-fit}) uses a single monotonic step.
+A downturn at minimum $d$ would not by itself falsify CH but may favor a refined $O(k)$ template if seen in real data.
 
 Curvature scans (\texttt{ch\_gpe\_sphere\_to\_threshold\_demo.py}) produce smaller $\chi$ variations but detectable threshold trends when $R$ is scanned at fixed minimum gap; there the signal channel is \textbf{wall/rim-coupled} $\alpha(R)$ (Section~\ref{sec:probe-coupling}).
 
@@ -596,7 +598,7 @@ For gap scans, $k = 10^9/d_{[\mathrm{m}]} = 1/d_{\mathrm{nm}}$ (Table~\ref{tab:k
 \textbf{Step 2 --- $\xi$ hypotheses.}
 Two mechanisms are cross-checked in \texttt{ch\_xi\_prediction.py}:
 \begin{itemize}[leftmargin=*]
-  \item \textbf{Gap turn-on:} $\xi \approx d_c$ where the gradient gate turns on in the scanned knob (Prediction~\#7 $\leftrightarrow$ GPE wall saturation).
+  \item \textbf{Gap turn-on:} $\xi \approx d_c$ where the gradient gate turns on in the scanned knob (Prediction~\#7 $\leftrightarrow$ GPE bulk turn-on).
   \item \textbf{Casimir lattice:} $\xi = a_{\mathrm{vac}}/(2\pi)$ from the ripple period $a_{\mathrm{vac}}$ in Eq.~\ref{eq:casimir-ripple} (Prediction~\#3).
 \end{itemize}
 If both are available and agree within a factor of 2, the pipeline reports their geometric mean; otherwise the gap-turn-on value from $k_c$ is used.
@@ -886,7 +888,7 @@ Power remains $\geq 90\%$ for $n_k = 6$--$20$ at $\alpha_{\max} = 0.12$---the li
 \begin{table}[htbp]
   \centering
   \small
-  \caption{GPE-recommended gap scan for Tier~A ($\alpha_{\max} = 0.12$, bulk coupling; subset of 12 log-spaced settings). $\alpha_{\mathrm{eff}}$ peaks near $d \sim \SI{100}{nm}$ and falls monotonically at larger $d$ (no spurious high-$d$ turn-on).}
+  \caption{GPE-recommended gap scan for Tier~A ($\alpha_{\max} = 0.12$, bulk coupling; subset of 12 log-spaced settings). $\alpha_{\mathrm{eff}}$ peaks near $d \sim 2\xi$ ($\sim \SI{100}{nm}$ at $\xi = \SI{50}{nm}$), falls at large $d$ (no spurious high-$d$ turn-on), and can dip again at the smallest gaps ($d \lesssim \xi$; Section~\ref{sec:gpe-p7-forecasts}).}
   \label{tab:gap-scan}
   \begin{tabular}{@{}rrr@{}}
     \toprule
