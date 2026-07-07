@@ -247,7 +247,9 @@ For $\xi \sim 50$~nm, $\beta_{\max} \sim 10^{20}$\,s\,GeV$^{-2}$---orders of mag
 \section{From theory to bench observables}
 \label{sec:observables}
 
-This section states the \textbf{measurement links} a skeptical experimentalist needs: how abstract GPE fields become numbers read off an AFM or interferometer.
+Readers new to Chronos-Hydrodynamics should not need prior familiarity with the framework.
+This section states the \textbf{measurement links} a skeptical experimentalist needs: how abstract GPE fields $(\rho, S, \chi)$ become \textbf{numbers} read off an AFM or interferometer, and \textbf{why} each observable is included.
+Predictions \#3, \#6, and \#4 supply the \textbf{extraction definitions}; Prediction~\#7 compares those scalars vs a laboratory knob $k$ that raises $|\nabla\rho|$.
 
 \subsection{Casimir ripple amplitude $\alpha$ (Prediction~\#3)}
 
@@ -262,6 +264,9 @@ where $a_{\mathrm{vac}}$ is a vacuum lattice scale (fit parameter) and $\alpha_{
 \textbf{Extraction:} scan gap $d$, divide measured force by the QED Casimir prediction $F_{\mathrm{Cas}}(d)$, fit the oscillatory residual for amplitude $\alpha$ (practice pipeline: \texttt{casimir\_ripple\_sim.py}).
 QFT predicts $\alpha_{\mathrm{eff}} = 0$ within noise; CH predicts $\alpha_{\mathrm{eff}}$ rises when the knob $k$ raises $|\nabla\rho|$ past $|\nabla\rho|_c$.
 
+\emph{Why this channel:} dynamic AFM Casimir setups already resolve ripple structure on $F/F_{\mathrm{Cas}}$; Tier~A collaboration needs only this scalar $\alpha$ per gap, not new theory apparatus.
+It is the most accessible \textbf{signal} for whether gated vacuum structure turns on with boundary stress.
+
 \subsection{Mach--Zehnder visibility dip $\Delta V$ (Prediction~\#6)}
 
 Standard environmental decoherence gives visibility $V(\Delta L) = e^{-\Gamma\Delta L}$ for path-length difference $\Delta L$.
@@ -274,6 +279,10 @@ CH adds a gated residual wobble after subtracting that envelope:
 \end{equation}
 \textbf{Extraction:} scan $\Delta L$, fit $e^{-\Gamma\Delta L}$ to the envelope, define $\Delta V$ as the peak-to-peak residual visibility (practice: \texttt{mach\_zehnder\_visibility\_sim.py}).
 
+\emph{Why this channel:} if gradient gating is real, it should appear in \textbf{more than one} observable tied to the same $\chi$.
+Requiring $\alpha(k)$ and $\Delta V(k)$ to share a $k_c$ (within factor 2) rules out a Casimir-only artifact.
+Tier~B adds this channel; Tier~A can start with $\alpha$ alone.
+
 \subsection{Photon dispersion $\beta_{\mathrm{eff}}$ (Prediction~\#4)}
 
 On a cosmological path of length $D$, a quadratic energy-dependent arrival-time offset is parameterized by
@@ -283,6 +292,9 @@ On a cosmological path of length $D$, a quadratic energy-dependent arrival-time 
 \end{equation}
 with $E$ in joules in the fit code ($E_{\mathrm{GeV}} \times 1.602\times 10^{-10}$~J).
 Void paths have $\chi \approx 0$ so $\beta_{\mathrm{eff}} \approx 0$ even when $\beta_{\max}$ is huge (Eq.~\ref{eq:beta-max}).
+
+\emph{Why this channel:} GRB timing is a \textbf{void-path null}---it constrains always-on CH extensions but cannot prove gradient gating (Section~\ref{sec:grb-methods}).
+We include it so readers see which predictions are \textbf{astrophysical consistency checks} vs which require the laboratory knob scan.
 
 \subsection{Knob $k$ and observable $O(k)$ (Prediction~\#7)}
 
@@ -295,12 +307,18 @@ Prediction~\#7 does \textbf{not} re-use the ripple fit of Eq.~\ref{eq:casimir-ri
 where $\mathcal{S}(x) = \tfrac{1}{2}[1 + \tanh(x/\delta k)]$ is a smooth step and $\delta k \approx 0.08\,(k_{\max}-k_{\min})$ in the reference analysis.
 The critical knob value $k_c$ is the laboratory proxy for the gradient gate; consistency requires the \textbf{same} $k_c$ (within a factor of 2) for $\alpha$ and $\Delta V$ if both are measured.
 
+\emph{Why this step:} CH and QFT can both accommodate many \textbf{isolated nulls} in uniform vacuum.
+The discriminating question is whether $O(k)$ \textbf{turns on} when $k$ is chosen to raise $|\nabla\rho|$ (gap $d$ or radius $R$) while a \textbf{control} channel stays flat.
+That is a pre-registerable model comparison, not a single one-sided null test.
+
 \subsection{Secondary predictions (\#1, \#2, \#5)}
 
 For completeness: \textbf{\#1} tests sidereal modulation of an effective speed of light (null expected in uniform $\rho$).
 \textbf{\#2} tests whether Bell correlators vary with sidereal phase (optional; not central to CH).
 \textbf{\#5} tests short-range Yukawa deviations from $1/r^2$ gravity inside cavities (localized gradients only).
-These are listed for completeness; the present protocol prioritizes \#3, \#6, and \#7.
+
+\emph{Why list them:} CH's \textbf{gradient-gated} design expects global lattice signatures (\#1--\#2) to remain null in quiet labs while local boundary tests (\#3, \#6, \#7) may turn on.
+The present protocol prioritizes \#3, \#6, and \#7; secondary items are consistency checks for later layers.
 
 \section{Predictions}
 \label{sec:predictions}
@@ -488,7 +506,12 @@ Curvature scans (\texttt{ch\_gpe\_sphere\_to\_threshold\_demo.py}) produce small
 As knob $k$ scans (gap $d$ or radius $R$), does observable $O(k)$ stay \textbf{flat} (QFT) or \textbf{turn on} above a threshold (gradient-gated CH)?
 This is a \textbf{model comparison}, not a single null test: both models may fit poorly if systematics dominate.
 
+\emph{Why this protocol exists:} CH is a new framework; most readers will encounter it first through this paper.
+We therefore separate (i)~\textbf{what to measure} ($\alpha$, $\Delta V$, controls), (ii)~\textbf{how to decide} (flat vs threshold $\chi^2$), and (iii)~\textbf{what would count} as support or refutation---before any collaboration shares data.
+
 \subsection{Measurement channels}
+
+Signal channels test whether $O(k)$ rises when GPE forecasts $\chi$ rises; \textbf{control} channels use knobs that should \emph{not} track $|\nabla\rho|$ in CH (temperature, duplicate geometry) so a threshold in the signal cannot be dismissed as drift or batch error.
 
 \begin{table}[htbp]
   \centering
@@ -533,10 +556,40 @@ This is a \textbf{model comparison}, not a single null test: both models may fit
 
 Higher $k$ means smaller $d$ or smaller $R$---i.e.\ stronger boundary confinement and (in GPE forecasts) larger $|\nabla\rho|$ near walls.
 
+\emph{Why these knobs:} tidal or bulk-mass gradients cannot approach $|\nabla\rho|_c$ in the lab (Section~\ref{sec:gpe}); Casimir sphere--plate separations at nm scale are the practical way to stress the vacuum boundary layer.
+Gap $d$ is the primary Tier~A knob; curvature $R$ is Tier~C.
+
+\subsection{Tier A workflow (minimum viable collaboration)}
+
+The following is the intended path for a group that already has dynamic AFM Casimir capability and can export ripple amplitudes.
+No CH-specific hardware is required beyond a registered scan plan and control run.
+
+\begin{enumerate}[label=\textbf{Step \arabic*:}, leftmargin=*]
+  \item \textbf{Register} gap settings $d_j$ ($\geq 10$ values spanning 40--600~nm, or the collaborator's accessible range), repeats per gap ($\geq 20$ when possible), and the control channel (\textbf{$\alpha$ vs $T$} on the same geometry is the default).
+  \emph{Why:} pre-registration fixes the analysis before any threshold fit is judged.
+
+  \item \textbf{Measure} $F(d)$ at each gap; divide by the QED Casimir prediction $F_{\mathrm{Cas}}(d)$; fit the oscillatory residual for ripple amplitude $\alpha_j$ and uncertainty $\sigma_j$ (Section~\ref{sec:observables}; practice: \texttt{casimir\_ripple\_sim.py}).
+  \emph{Why:} $\alpha$ is the scalar $O$ entered into the protocol; collaborators need not adopt CH theory to produce $(k, O, \sigma)$ rows.
+
+  \item \textbf{Map} $d_j \to k_j = 1/d_{\mathrm{nm}}$ and write one CSV per channel with header \texttt{k,O,sigma} (Table~\ref{tab:knobs}).
+
+  \item \textbf{Run control} on the registered non-gradient knob (e.g.\ temperature series at fixed $d$) and export a second CSV the same way.
+  \emph{Why:} a threshold in $\alpha(k)$ without a flat control is inconclusive (Table~\ref{tab:verdict}).
+
+  \item \textbf{Analyze} with \texttt{control\_channel\_analysis.py} (flat vs threshold on signal; flat mandatory on control).
+  \emph{Why:} the script returns a discrete verdict---confirm / rule out / inconclusive---so interpretation is not ad hoc.
+
+  \item \textbf{Optional follow-up:} if a threshold is detected, run \texttt{gradient\_threshold\_analysis.py --joint} when Tier~B adds $\Delta V$, and \texttt{ch\_xi\_lab\_bridge.py} to map $k_c$ to $\xi$ hypotheses (Section~\ref{sec:lab-xi-bridge}).
+  \emph{Why:} $k_c$ is the immediate laboratory output; $\xi$ identification is a \textbf{second} step that requires both turn-on and (ideally) ripple period $a_{\mathrm{vac}}$.
+\end{enumerate}
+
 \subsection{Statistical models and detection cuts}
 
 Each channel carries tuples $(k_i, O_i, \sigma_i)$.
 We fit Eqs.~\ref{eq:threshold-fit} with weighted $\chi^2$:
+
+\emph{Why $\chi^2$ model comparison:} a single ``detection'' of ripple at one gap is insufficient---CH predicts a \textbf{correlated} turn-on across the knob scan, while QFT predicts a flat $O(k)$ within noise.
+Comparing nested flat and threshold models with a fixed $\Delta\chi^2$ cut makes that distinction explicit.
 \begin{align}
   \chi^2_{\mathrm{flat}} &= \sum_i \frac{[O_i - c_0]^2}{\sigma_i^2}, \\
   \chi^2_{\mathrm{thr}} &= \sum_i \frac{[O_i - O_{\mathrm{CH}}(k_i; c_0, A, k_c)]^2}{\sigma_i^2}.
@@ -554,7 +607,23 @@ We fit Eqs.~\ref{eq:threshold-fit} with weighted $\chi^2$:
 
 Full printable checklist: companion document \texttt{ch-lab-protocol-checklist.md}~\cite{CHSpaceFabric2026}.
 
+\subsection{Systematics and limitations}
+\label{sec:systematics}
+
+\emph{Why discuss systematics before data:} CH is untested; collaborators and referees will ask whether a threshold in $\alpha(k)$ could arise without gradient gating.
+We list known risks qualitatively; the \textbf{flat control channel} is the primary guard, not post-hoc cuts.
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Surface roughness and patch charge} can add apparent ripple on $F/F_{\mathrm{Cas}}$; registering the same fit pipeline on control geometries and on literature $F_{\mathrm{Cas}}$ normalization reduces but does not remove this.
+  \item \textbf{Thermal drift and piezo creep} during long gap scans can mimic a slow trend in $O(k)$; repeats per $k$ and the temperature control series discriminate drift from knob-correlated turn-on.
+  \item \textbf{Electrostatic patches} couple to gap; CH does not predict a unique separation of Casimir vs patch at a single $d$---the protocol relies on \textbf{shape} of $O(k)$ vs $k$, not a single point.
+  \item \textbf{Thomas--Fermi GPE forecasts} (Section~\ref{sec:gpe}) are planning guides, not substitutes for geometry-specific $k \to |\nabla\rho|$ maps; a downturn at the smallest gaps is allowed (Section~\ref{sec:gpe-p7-forecasts}).
+\end{itemize}
+
 \subsection{Verdict logic}
+
+The table below is the operational definition of ``consistent with CH'' for Prediction~\#7.
+\emph{Why multiple outcomes:} a single p-value on one channel would not establish a gradient-gated \textbf{sector}; we require threshold + flat control + (when available) consistent $k_c$ across channels.
 
 \begin{table}[htbp]
   \centering
