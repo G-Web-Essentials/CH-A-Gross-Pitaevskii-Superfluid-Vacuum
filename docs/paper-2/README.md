@@ -1,6 +1,6 @@
-# Paper 2 — EM–GPE Casimir ripple derivation
+# Paper 2 — EM–GPE derivation
 
-Companion to Paper 1: derives (or motivates) the gated Casimir ripple that Paper 1 parameterizes for Prediction #7.
+EM–GPE derivation of the gated Casimir ripple — companion to Paper 1 ([`../paper-1/`](../paper-1/)). Motivates the ripple form that Paper 1 parameterizes for Prediction #7.
 
 ## Source
 

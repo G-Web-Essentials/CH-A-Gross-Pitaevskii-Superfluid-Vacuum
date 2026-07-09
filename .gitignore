@@ -15,17 +15,17 @@ venv/
 .vscode/
 
 # LaTeX build artifacts (if compiling locally)
-docs/overleaf/*.aux
-docs/overleaf/*.bbl
-docs/overleaf/*.blg
-docs/overleaf/*.log
-docs/overleaf/*.out
-docs/overleaf/*.bcf
-docs/overleaf/*.run.xml
-docs/overleaf/*.synctex.gz
-docs/overleaf/*.fdb_latexmk
-docs/overleaf/*.fls
-docs/overleaf/*.pdf
+docs/paper-1/overleaf/*.aux
+docs/paper-1/overleaf/*.bbl
+docs/paper-1/overleaf/*.blg
+docs/paper-1/overleaf/*.log
+docs/paper-1/overleaf/*.out
+docs/paper-1/overleaf/*.bcf
+docs/paper-1/overleaf/*.run.xml
+docs/paper-1/overleaf/*.synctex.gz
+docs/paper-1/overleaf/*.fdb_latexmk
+docs/paper-1/overleaf/*.fls
+docs/paper-1/overleaf/*.pdf
 
 # Paper 2 LaTeX build artifacts
 docs/paper-2/overleaf/*.aux
@@ -40,7 +40,7 @@ docs/paper-2/overleaf/*.fdb_latexmk
 docs/paper-2/overleaf/*.fls
 docs/paper-2/overleaf/*.pdf
 
-# Preprint PDFs (compile from docs/overleaf/main.tex locally)
+# Preprint PDFs (compile from docs/paper-1/overleaf/main.tex locally)
 /*.pdf
 
 # Local-only: example papers, internal planning notes

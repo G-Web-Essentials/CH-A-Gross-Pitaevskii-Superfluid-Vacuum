@@ -12,22 +12,24 @@ The **discriminating near-term test** is **Prediction #7**: compare **flat** (QF
 
 **Status:** Research framework — not established physics. Laptop work designs the protocol; Casimir hardware is required for a verdict.
 
-## Paper 1 (preprint source)
+## Paper 1 — Casimir ripple protocol
 
 | Item | Path |
 |------|------|
-| LaTeX source | [`docs/overleaf/main.tex`](docs/overleaf/main.tex) |
-| Gravity companion | [`docs/overleaf/gravity-sketches.tex`](docs/overleaf/gravity-sketches.tex) |
-| Build instructions | [`docs/overleaf/README.md`](docs/overleaf/README.md) |
+| Overview | [`docs/paper-1/README.md`](docs/paper-1/README.md) |
+| LaTeX source | [`docs/paper-1/overleaf/main.tex`](docs/paper-1/overleaf/main.tex) |
+| Gravity companion | [`docs/paper-1/overleaf/gravity-sketches.tex`](docs/paper-1/overleaf/gravity-sketches.tex) |
+| Build instructions | [`docs/paper-1/overleaf/README.md`](docs/paper-1/overleaf/README.md) |
 
 Compile with **pdfLaTeX + Biber**. Preprint PDF: build locally or use arXiv once submitted.
 
-## Paper 2 (companion)
+## Paper 2 — EM–GPE derivation
 
-EM–GPE derivation of the gated Casimir ripple — motivates \(\alpha_{\max}\) and \(a_{\mathrm{vac}}\) cited in Paper 1.
+Companion derivation of the gated Casimir ripple — motivates \(\alpha_{\max}\) and \(a_{\mathrm{vac}}\) cited in Paper 1.
 
 | Item | Path |
 |------|------|
+| Overview | [`docs/paper-2/README.md`](docs/paper-2/README.md) |
 | LaTeX source | [`docs/paper-2/overleaf/main.tex`](docs/paper-2/overleaf/main.tex) |
 | Scripts + outputs | [`simulations/ch_paper2_*.py`](simulations/), [`simulations/output/paper2/`](simulations/output/paper2/) |
 | Build notes | [`docs/paper-2/overleaf/README.md`](docs/paper-2/overleaf/README.md) |
