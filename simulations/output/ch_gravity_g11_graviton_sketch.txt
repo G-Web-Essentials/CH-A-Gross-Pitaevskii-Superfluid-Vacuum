@@ -1,0 +1,52 @@
+CH analog graviton linearization (Route G11 — κ-level)
+xi = 5.000e-08 m
+
+=== Linearized metric ansatz ===
+  g_μν = η_μν + h_μν     (weak field about Minkowski / static background)
+  Static diagonal (G8):
+    g_00 = −(1 + 2Φ_g/c²)  =>  h_00 ≈ 2 δΦ_g / c²
+    g_rr = (1 − 2Φ_g/c²)^{-1}  =>  h_rr ≈ 2 δΦ_g / c²   (weak field)
+    g_θθ = r²  =>  h_θθ ≈ 0  (spherical, no angular strain at κ-level)
+
+=== Collective matter → metric chain ===
+  δρ (GP density)  →  δT_00 ≈ ρ_in c_s² δρ
+  Poisson row:      ∇² δΦ_dyn = (λ_g/Z_Φ) δρ/ρ_in
+  Metric ID:        δΦ_g = δΦ_dyn / Z_g   (bridge; dual BC on exterior)
+  Metric dress:     h_μν ∝ δΦ_g  (scalar potential chain)
+
+=== Two wave branches (analog vs GR) ===
+  Phonon / collective:   ω_ph = c_s(ρ) k,   c_s(ρ) = c_s √ρ  on tail
+  Metric analog (GR-like): ω_met = c k        (massless spin-2 in vacuum GR)
+  CH does NOT derive □ h_μν^TT = 0 from S_M; ω_met = ck is a comparison target.
+
+=== Polarization / spin content ===
+  GR spin-2 graviton: 2 transverse-traceless polarizations (3D plane waves).
+  CH κ-chain: h_ij ∝ δΦ_g(r) — single scalar breathing mode in 1D radial reduction.
+  => analog 'graviton' is spin-0 / scalar dressed by Φ_g, NOT fundamental spin-2 QG.
+
+=== Identifications (grain-fixed) ===
+  Z_Φ = 5.000000e-01
+  Z_g = 2.000000
+  λ_g = 2.246888e+16
+
+=== What G11 closes (κ-level) ===
+  Explicit linear map δρ → h_μν on coupled dual backgrounds.
+  Polarization DOF audit (1 vs 2).
+  Phonon vs metric wave-speed split on depleted tail.
+
+=== Still open ===
+  Full □ h_μν from δ²S/δg²; quantized spin-2 spectrum from S_M.
+  Vector δv sector and anisotropic h_μν; 3D TT gauge projection.
+=== G11: analog graviton linearization (dual coupled profiles) ===
+  Z_g (identified) = 2.0000
+  rs/xi=2: N=0.9581  dΦ_dyn/dρ=4.4938e+16  bridge dΦ_g/dρ=2.2469e+16  Z_g chain=2.000  FD depleted=4.4938e+16  dual ext dΦ_g/dρ≈0.00e+00  pol-DOF=1  c_ph/c=0.9872
+  rs/xi=4: N=0.9163  dΦ_dyn/dρ=4.4938e+16  bridge dΦ_g/dρ=2.2469e+16  Z_g chain=2.000  FD depleted=4.4938e+16  dual ext dΦ_g/dρ≈0.00e+00  pol-DOF=1  c_ph/c=0.9744
+  rs/xi=8: N=0.8325  dΦ_dyn/dρ=4.4938e+16  bridge dΦ_g/dρ=2.2469e+16  Z_g chain=2.000  FD depleted=4.4938e+16  dual ext dΦ_g/dρ≈0.00e+00  pol-DOF=1  c_ph/c=0.9488
+
+Reading:
+  Interior bridge (analytic): δΦ_g = δΦ_dyn/Z_g with Z_g chain = 2 (grain ID).
+  FD depleted: finite-difference on ρ<0.98 join points validates linear hydro slope.
+  Dual exterior: local δρ does not move Φ_g (−GM/2r BC) — metric slaved to mass, not local ρ.
+  pol-DOF = 1: h_μν from scalar δΦ_g — not GR spin-2 (2 TT polarizations).
+  c_ph < c on depleted tail: phonon branch slower than GR ω = ck target at same k.
+  Analog 'gravitons' = collective density dressings; fundamental QG spin-2 NOT derived.

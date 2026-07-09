@@ -1,0 +1,19 @@
+CH micro vs smooth — coupled exterior N (Route A1)
+sigma = 0.6, grain alpha_G^hydro,ref (no N-fit)
+
+--- r_s/xi = 1 ---
+  smooth g0=0.5: rho_bulk_min=1.00000  M_inner=1.4610e-02 kg  N_cpl=0.9791  N_slv=0.9791
+  micro  g0=550.1: rho_bulk_min=0.94414  M_inner=2.3818e+01 kg  N_cpl=0.9791  N_slv=0.9791
+
+--- r_s/xi = 2 ---
+  smooth g0=0.5: rho_bulk_min=1.00000  M_inner=1.4743e-01 kg  N_cpl=0.9581  N_slv=0.9581
+  micro  g0=550.1: rho_bulk_min=0.94647  M_inner=1.7861e-01 kg  N_cpl=0.9581  N_slv=0.9581
+
+--- r_s/xi = 4 ---
+  smooth g0=0.5: rho_bulk_min=1.00000  M_inner=5.0816e-02 kg  N_cpl=0.9163  N_slv=0.9163
+  micro  g0=550.1: rho_bulk_min=0.94959  M_inner=4.6119e+00 kg  N_cpl=0.9163  N_slv=0.9163
+
+Reading:
+  Exterior N_hydro ~ 0.98 at grain alpha_G for BOTH smooth and micro gamma0.
+  micro gamma0 depletes bulk rho and raises M_inner without spoiling N.
+  Confirms gamma0 / alpha_G decoupling under coupled loop (A1).

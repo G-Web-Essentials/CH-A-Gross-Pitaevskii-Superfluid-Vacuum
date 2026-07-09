@@ -1,0 +1,22 @@
+CH covariant GP Picard loop (Route C2+ — κ-level)
+xi = 5.000e-08 m
+
+=== Loop (each outer step) ===
+  1. GP inner: flat ∇²ψ  OR  covariant ∇²_g ψ on g_rr = 1 + 2Φ_g/c²
+  2. Schwarzschild tail append
+  3. Poisson for Φ_dyn (dual mode); rebuild Φ_g = −GM/(2r) exterior
+  4. Feed Φ_g into next GP step (covariant mode only)
+
+=== What C2+ closes vs leaves open ===
+  Closes: self-consistent curvature feed-forward in the coupled loop.
+  Open: full T_μν; G_rr closure; G11 analog graviton spectrum.
+=== C2+: flat vs covariant GP Picard loop (dual Φ_g) ===
+  rs/xi=2: N_flat=0.9581  N_cov=0.9581  z_g/z_GR flat=0.996 cov=0.996  Δρ_L2/σ=1.2591  max|Δρ|/ρ=0.8806  iters flat/cov=2/13
+  rs/xi=4: N_flat=0.9163  N_cov=0.9163  z_g/z_GR flat=0.996 cov=0.996  Δρ_L2/σ=2.4290  max|Δρ|/ρ=0.9964  iters flat/cov=2/3
+  rs/xi=8: N_flat=0.8325  N_cov=0.8325  z_g/z_GR flat=0.995 cov=0.995  Δρ_L2/σ=0.0000  max|Δρ|/ρ=0.0000  iters flat/cov=2/3
+
+Reading:
+  rs/xi=8: flat and covariant loops identical (Δρ=0) — quasi-static fully justified.
+  rs/xi=2–4: inner ρ can shift strongly; N and z_g unchanged — exterior observables robust.
+  N and z_g track together: metric sector preserved under covariant GP closure.
+  Next frontier: G11 analog graviton linearization (collective modes, not QG).

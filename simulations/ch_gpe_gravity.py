@@ -74,6 +74,8 @@ class AlphaGCalibration:
     newton_slope_after_calibration: float
     g_implied_after_calibration: float
     mass_deficit_kg: float
+    method: str = "slope"
+    f_profile: float | None = None
 
     @property
     def xi_m(self) -> float:
@@ -119,6 +121,28 @@ def sm_sink_coefficient(r_hat: np.ndarray, g0: float, sigma_hat: float) -> np.nd
     r = np.asarray(r_hat, dtype=float)
     sig = max(sigma_hat, 1e-6)
     return g0 * np.exp(-(r / sig) ** 2)
+
+
+def sm_sink_coefficient_oblate(
+    r_hat: np.ndarray,
+    g0: float,
+    sigma_parallel_hat: float,
+    sigma_perp_hat: float,
+) -> np.ndarray:
+    """
+    Oblate Gaussian sink for 1D radial (equatorial) slice.
+
+    γ(r) = γ₀ exp(-r²/σ_⊥²); σ_∥ sets pole extent (documented in sweeps only).
+    Effective width σ_eff = √(σ_∥ σ_⊥) used for reporting.
+    """
+    r = np.asarray(r_hat, dtype=float)
+    sig_perp = max(sigma_perp_hat, 1e-6)
+    return g0 * np.exp(-(r / sig_perp) ** 2)
+
+
+def sigma_effective_oblate(sigma_parallel_hat: float, sigma_perp_hat: float) -> float:
+    """Geometric mean width for oblate sink reports."""
+    return float(np.sqrt(max(sigma_parallel_hat, 1e-6) * max(sigma_perp_hat, 1e-6)))
 
 
 def solve_gpe_spherical_sm_inner(
@@ -223,6 +247,133 @@ def calibrate_g0_matched(
             )
             return g0, r, psi, mu
     g0 = brentq(center_error, g_lo, g_hi, xtol=1e-3, maxiter=25)
+    r, psi, mu = solve_gpe_spherical_sm_inner(g0, sigma_hat, r_join_hat, rho_join)
+    return g0, r, psi, mu
+
+
+def _v3_profile_from_g0(
+    ch: CHParams,
+    g0: float,
+    r_s_hat: float,
+    sigma_hat: float,
+    r_join_hat: float,
+    r_max_hat: float,
+    mass_kg: float,
+    *,
+    solver: str,
+) -> GravityGPEResult:
+    rho_join = max((1.0 - r_s_hat / r_join_hat) ** 2, 1e-6)
+    r_inner, psi_inner, mu = solve_gpe_spherical_sm_inner(
+        g0, sigma_hat, r_join_hat, rho_join
+    )
+    r_hat, psi = extend_schwarzschild_tail(
+        r_inner, psi_inner, r_s_hat, r_max_hat
+    )
+    rho_norm = np.abs(psi) ** 2
+    return _build_gravity_result(
+        ch,
+        mass_kg,
+        r_hat,
+        psi,
+        rho_norm,
+        mu,
+        solver=solver,
+        s0=g0,
+        sigma_hat=sigma_hat,
+        fit_fraction_lo=0.12,
+        fit_fraction_hi=0.5,
+        r_join_hat=r_join_hat,
+    )
+
+
+def hydro_newton_at_alpha_ref(result: GravityGPEResult) -> float:
+    """Newton factor |a|/(GM/r²) at α_G^hydro,ref on fixed ρ(r)."""
+    alpha_ref = alpha_g_required_for_hydrostatic_newton(result.ch)
+    at_ref = recalibrate_result_with_alpha_g(
+        result, CHParams(xi=result.xi_m, alpha_g=alpha_ref)
+    )
+    return float(at_ref.newton_slope)
+
+
+def newton_slope_between(
+    result: GravityGPEResult,
+    ch: CHParams,
+    r_lo_m: float,
+    r_hi_m: float,
+) -> float:
+    """Newton factor on a fixed radial annulus [r_lo, r_hi] (metres)."""
+    if r_hi_m <= r_lo_m:
+        return float("nan")
+    r_m = result.r_m
+    r_hat = result.r_hat
+    if result.solver.startswith("v3_sm"):
+        join = 12.0
+        mask = (r_hat >= join) & (r_m >= r_lo_m) & (r_m <= r_hi_m)
+        if int(np.sum(mask)) < 5:
+            return float("nan")
+        r_fit = r_m[mask]
+        rho_fit = result.rho_norm[mask]
+        phi = hydrostatic_only_phi(ch, r_fit, rho_fit) + quantum_potential_radial(
+            ch, r_fit, rho_fit
+        )
+        accel = -np.gradient(phi, r_fit)
+    else:
+        mask = (r_m >= r_lo_m) & (r_m <= r_hi_m)
+        if int(np.sum(mask)) < 5:
+            return float("nan")
+        r_fit = r_m[mask]
+        phi_q = quantum_potential_radial(ch, r_fit, result.rho_norm[mask])
+        phi_h = hydrostatic_coupling(ch, result.rho_norm[mask])
+        accel = -np.gradient(phi_q + phi_h, r_fit)
+    g_newton = G_MEAS * result.mass_kg / np.clip(r_fit**2, 1e-60, None)
+    coeffs = np.polyfit(g_newton, np.abs(accel), 1)
+    return float(coeffs[0])
+
+
+def calibrate_g0_hydro_newton_at_ref(
+    ch: CHParams,
+    r_s_hat: float,
+    sigma_hat: float = 0.6,
+    r_join_hat: float = 12.0,
+    r_max_hat: float = 300.0,
+    g0_bracket: tuple[float, float] = (0.001, 12.0),
+) -> tuple[float, np.ndarray, np.ndarray, float]:
+    """
+    Tune γ₀ so N_hydro(α_G^hydro,ref) ≈ 1 on the matched v3 profile.
+
+    Reduces deep-depletion overshoot at the grain reference without a profile f.
+    """
+    mass_kg = mass_from_rs_hat(ch, r_s_hat)
+
+    def newton_error(g0: float) -> float:
+        prof = _v3_profile_from_g0(
+            ch,
+            g0,
+            r_s_hat,
+            sigma_hat,
+            r_join_hat,
+            r_max_hat,
+            mass_kg,
+            solver="v3_sm_newton_cal_probe",
+        )
+        return hydro_newton_at_alpha_ref(prof) - 1.0
+
+    g_lo, g_hi = g0_bracket
+    f_lo, f_hi = newton_error(g_lo), newton_error(g_hi)
+    if f_lo * f_hi > 0:
+        for g_hi in (0.05, 0.2, 1.0, 4.0, 12.0, 40.0):
+            f_hi = newton_error(g_hi)
+            if f_lo * f_hi <= 0:
+                break
+        else:
+            g0 = g_lo
+            rho_join = max((1.0 - r_s_hat / r_join_hat) ** 2, 1e-6)
+            r, psi, mu = solve_gpe_spherical_sm_inner(
+                g0, sigma_hat, r_join_hat, rho_join
+            )
+            return g0, r, psi, mu
+    g0 = brentq(newton_error, g_lo, g_hi, xtol=1e-3, maxiter=30)
+    rho_join = max((1.0 - r_s_hat / r_join_hat) ** 2, 1e-6)
     r, psi, mu = solve_gpe_spherical_sm_inner(g0, sigma_hat, r_join_hat, rho_join)
     return g0, r, psi, mu
 
@@ -358,6 +509,49 @@ def calibrate_s0_for_rs_hat(
     return s0, r_hat, psi, mu
 
 
+def _newton_factors_exterior(
+    ch: CHParams,
+    r_hat: np.ndarray,
+    r_m: np.ndarray,
+    rho_norm: np.ndarray,
+    mass_kg: float,
+    *,
+    r_join_hat: float,
+    fit_fraction_lo: float,
+    fit_fraction_hi: float,
+) -> tuple[float, float, float, float, float, float, float]:
+    """
+    Far-field Newton factors on r >= r_join using hydrostatic channel only.
+
+    Interior GP join can bias np.gradient on the full grid; exterior tail matches
+    the Schwarzschild ansatz where Q ≈ 0 (framework §5.2).
+    """
+    mask = r_hat >= r_join_hat
+    r_ext = r_m[mask]
+    rho_ext = rho_norm[mask]
+    if len(r_ext) < 10:
+        return 0.0, 0.0, 0.0, r_m[0], r_m[-1], 0.0, 0.0
+
+    phi_h = hydrostatic_only_phi(ch, r_ext, rho_ext)
+    phi_q = quantum_potential_radial(ch, r_ext, rho_ext)
+    phi = phi_h + phi_q
+
+    accel = -np.gradient(phi, r_ext)
+    accel_h = -np.gradient(phi_h, r_ext)
+    accel_q = -np.gradient(phi_q, r_ext)
+
+    slope, intercept, r_lo, r_hi, _ = extract_newton_fit(
+        r_ext, accel, mass_kg, fit_fraction_lo, fit_fraction_hi
+    )
+    slope_h, _, _, _, _ = extract_newton_fit(
+        r_ext, accel_h, mass_kg, fit_fraction_lo, fit_fraction_hi
+    )
+    slope_q, _, _, _, _ = extract_newton_fit(
+        r_ext, accel_q, mass_kg, fit_fraction_lo, fit_fraction_hi
+    )
+    return slope, intercept, r_lo, r_hi, slope_q, slope_h, float(ch.alpha_g)
+
+
 def _build_gravity_result(
     ch: CHParams,
     mass_kg: float,
@@ -373,6 +567,7 @@ def _build_gravity_result(
     sigma_hat: float | None = None,
     fit_fraction_lo: float = 0.15,
     fit_fraction_hi: float = 0.55,
+    r_join_hat: float | None = None,
 ) -> GravityGPEResult:
     """Shared Φ extraction and Newton-factor fits for v2/v3."""
     r_m = r_hat * ch.xi
@@ -385,21 +580,35 @@ def _build_gravity_result(
     accel = -np.gradient(phi, r_m)
     accel_q = -np.gradient(phi_q, r_m)
     accel_h = -np.gradient(phi_h, r_m)
+    g_eff = np.abs(accel) * r_m**2 / mass_kg
 
     r_s = G_MEAS * mass_kg / C**2
     min_fit_r = max(12.0 * ch.xi, 5.0 * r_s)
 
-    slope, intercept, r_lo, r_hi, g_mean = extract_newton_fit(
-        r_m, accel, mass_kg, fit_fraction_lo, fit_fraction_hi, min_r_m=min_fit_r
-    )
-    slope_q, _, _, _, _ = extract_newton_fit(
-        r_m, accel_q, mass_kg, fit_fraction_lo, fit_fraction_hi, min_r_m=min_fit_r
-    )
-    slope_h, _, _, _, _ = extract_newton_fit(
-        r_m, accel_h, mass_kg, fit_fraction_lo, fit_fraction_hi, min_r_m=min_fit_r
-    )
+    if r_join_hat is not None and solver.startswith("v3_sm"):
+        slope, intercept, r_lo, r_hi, slope_q, slope_h, _ = _newton_factors_exterior(
+            ch,
+            r_hat,
+            r_m,
+            rho_norm,
+            mass_kg,
+            r_join_hat=r_join_hat,
+            fit_fraction_lo=fit_fraction_lo,
+            fit_fraction_hi=fit_fraction_hi,
+        )
+        g_mean = float(np.median(g_eff))
+    else:
+        slope, intercept, r_lo, r_hi, g_mean = extract_newton_fit(
+            r_m, accel, mass_kg, fit_fraction_lo, fit_fraction_hi, min_r_m=min_fit_r
+        )
+        slope_q, _, _, _, _ = extract_newton_fit(
+            r_m, accel_q, mass_kg, fit_fraction_lo, fit_fraction_hi, min_r_m=min_fit_r
+        )
+        slope_h, _, _, _, _ = extract_newton_fit(
+            r_m, accel_h, mass_kg, fit_fraction_lo, fit_fraction_hi, min_r_m=min_fit_r
+        )
+        g_mean = float(np.median(np.abs(accel) * r_m**2 / mass_kg))
 
-    g_eff = np.abs(accel) * r_m**2 / mass_kg
     alpha_g_far = g_mean * ch.rho_in / (ch.c_s**2 * ch.xi) if g_mean > 0 else 0.0
 
     return GravityGPEResult(
@@ -437,9 +646,13 @@ def recalibrate_result_with_alpha_g(
     result: GravityGPEResult,
     ch: CHParams,
     solver_suffix: str = "_alpha_cal",
+    r_join_hat: float | None = None,
 ) -> GravityGPEResult:
     """Recompute Φ and Newton factors with a new α_G (same ρ profile)."""
     mu = result.mu
+    join = r_join_hat
+    if join is None and result.solver.startswith("v3_sm"):
+        join = 12.0
     return _build_gravity_result(
         ch,
         result.mass_kg,
@@ -452,6 +665,7 @@ def recalibrate_result_with_alpha_g(
         rc_hat=result.rc_hat,
         s0=result.s0,
         sigma_hat=result.sigma_hat,
+        r_join_hat=join,
     )
 
 
@@ -498,8 +712,86 @@ def calibrate_alpha_g_from_defect(
     return cal, result_cal
 
 
+def alpha_g_profile_corrected(
+    result: GravityGPEResult,
+) -> tuple[float, float, GravityGPEResult]:
+    """
+    Nonlinear hydrostatic α_G from a fixed defect profile (no slope-ratio fit).
+
+    Grain reference: alpha_G^hydro,ref = m_grain c^2 / (2 c_s^2).
+    Evaluate Newton factor N_hydro at that reference on the solved rho(r):
+
+        f = 1 / N_hydro(alpha_G^hydro,ref)
+        alpha_G = alpha_G^hydro,ref * f
+
+    When the quantum channel is negligible, N_hydro scales linearly with alpha_G
+    and this yields |a|/(GM/r^2) -> 1 without calibrate_alpha_g_from_defect.
+    """
+    alpha_ref = alpha_g_required_for_hydrostatic_newton(result.ch)
+    at_ref = recalibrate_result_with_alpha_g(
+        result, CHParams(xi=result.xi_m, alpha_g=alpha_ref)
+    )
+    newton_ref = float(at_ref.newton_slope)
+    f_corr = 1.0 / max(newton_ref, 1e-30)
+    alpha_g = alpha_ref * f_corr
+    final = recalibrate_result_with_alpha_g(
+        result, CHParams(xi=result.xi_m, alpha_g=alpha_g)
+    )
+    final.alpha_g_calibrated = alpha_g
+    final.newton_slope_calibrated = float(final.newton_slope)
+    return alpha_g, f_corr, final
+
+
+def calibrate_alpha_g_default(
+    result: GravityGPEResult,
+    *,
+    method: str = "profile",
+) -> tuple[AlphaGCalibration, GravityGPEResult]:
+    """
+    Default α_G calibration for demos and clock post-processors.
+
+    method="profile" (default): f = 1/N_hydro(α_G^hydro,ref) on solved ρ(r).
+    method="slope": linear slope-ratio fit (legacy cross-check).
+    """
+    if method == "slope":
+        return calibrate_alpha_g_from_defect(result)
+
+    alpha_g, f_corr, final = alpha_g_profile_corrected(result)
+    alpha_ref = alpha_g_required_for_hydrostatic_newton(result.ch)
+    slope_q = float(result.newton_slope_q or 0.0)
+    slope_h = float(result.newton_slope_hydro or 0.0)
+    newton_after = float(final.newton_slope)
+    cal = AlphaGCalibration(
+        alpha_g_assumed=result.ch.alpha_g,
+        alpha_g_calibrated=alpha_g,
+        alpha_g_hydro_only_reference=alpha_ref,
+        newton_slope_at_assumed=float(result.newton_slope),
+        newton_slope_q=slope_q,
+        newton_slope_hydro_per_unit_alpha=slope_h,
+        newton_slope_after_calibration=newton_after,
+        g_implied_after_calibration=newton_after * G_MEAS,
+        mass_deficit_kg=result.mass_deficit_kg,
+        method="profile",
+        f_profile=f_corr,
+    )
+    return cal, final
+
+
 def format_alpha_g_calibration_lines(cal: AlphaGCalibration) -> list[str]:
+    if cal.method == "profile":
+        lines = [
+            "  α_G calibration (profile rule: f = 1/N_hydro@grain ref)",
+            f"  α_G assumed:                {cal.alpha_g_assumed:.4e}",
+            f"  α_G hydro-only reference:     {cal.alpha_g_hydro_only_reference:.4e}",
+            f"  f_profile:                    {cal.f_profile:.4e}",
+            f"  α_G profile:                  {cal.alpha_g_calibrated:.4e}",
+            f"  Newton @ assumed α_G:         {cal.newton_slope_at_assumed:.4e}",
+            f"  Newton after profile rule:    {cal.newton_slope_after_calibration:.4e}",
+            f"  G implied (slope × G_meas):   {cal.g_implied_after_calibration:.4e}",
+        ]
+        return lines
     return [
+        "  α_G calibration (slope-ratio fit)",
         f"  α_G assumed:              {cal.alpha_g_assumed:.4e}",
         f"  α_G calibrated:           {cal.alpha_g_calibrated:.4e}",
         f"  α_G hydro-only reference:   {cal.alpha_g_hydro_only_reference:.4e}",
@@ -519,19 +811,28 @@ def solve_gravity_sm_v3(
     r_max_hat: float = 300.0,
     r_join_hat: float = 12.0,
     probe_r_hat: float = 80.0,
+    g0_calibration: str = "matched",
 ) -> GravityGPEResult:
     """
     Gravity v3: S_M sink on inner domain + Schwarzschild BC at r_join.
 
-    No post-hoc repair of a failed solve — outer tail is the BC continuation
-    of the matched boundary value ρ(r_join) = (1 − r_s/r_join)².
+    g0_calibration:
+      matched — smooth inner core (legacy default)
+      hydro_newton — tune γ₀ so N_hydro(α_G^hydro,ref) ≈ 1
     """
     if mass_kg is None:
         mass_kg = mass_from_rs_hat(ch, r_s_hat)
 
-    g0, r_inner, psi_inner, mu = calibrate_g0_matched(
-        r_s_hat, r_join_hat=r_join_hat, sigma_hat=sigma_hat
-    )
+    if g0_calibration == "hydro_newton":
+        g0, r_inner, psi_inner, mu = calibrate_g0_hydro_newton_at_ref(
+            ch, r_s_hat, sigma_hat=sigma_hat, r_join_hat=r_join_hat, r_max_hat=r_max_hat
+        )
+        solver = "v3_sm_hydro_newton"
+    else:
+        g0, r_inner, psi_inner, mu = calibrate_g0_matched(
+            r_s_hat, r_join_hat=r_join_hat, sigma_hat=sigma_hat
+        )
+        solver = "v3_sm_matched"
     r_hat, psi = extend_schwarzschild_tail(
         r_inner, psi_inner, r_s_hat, r_max_hat
     )
@@ -544,19 +845,68 @@ def solve_gravity_sm_v3(
         psi,
         rho_norm,
         mu,
-        solver="v3_sm_matched",
+        solver=solver,
         s0=g0,
         sigma_hat=sigma_hat,
         fit_fraction_lo=0.12,
         fit_fraction_hi=0.5,
+        r_join_hat=r_join_hat,
     )
 
+
+def calibrate_g0_for_inner_mass(
+    r_s_hat: float,
+    target_mass_kg: float,
+    sigma_hat: float = 0.6,
+    r_join_hat: float = 12.0,
+    ch: CHParams | None = None,
+    g0_bracket: tuple[float, float] = (0.01, 200.0),
+) -> tuple[float, np.ndarray, np.ndarray, float]:
+    """
+    Tune γ₀ so condensate removed on the inner domain matches target_mass_kg.
+
+    M_inner = ρ_in ∫_{r<r_join} (1-ρ/ρ_in) 4πr² dr.
+    Gravitational M from r_s is separate (Schwarzschild identification).
+    """
+    if ch is None:
+        ch = CHParams(xi=50e-9)
+    rho_join = max((1.0 - r_s_hat / r_join_hat) ** 2, 1e-6)
+
+    def inner_mass(g0: float) -> float:
+        r_hat, psi, _ = solve_gpe_spherical_sm_inner(
+            g0, sigma_hat, r_join_hat, rho_join, n_iter=7000
+        )
+        r_m = r_hat * ch.xi
+        rho = np.abs(psi) ** 2
+        return mass_deficit_from_profile(ch, r_m, rho)
+
+    def mass_error(g0: float) -> float:
+        return inner_mass(g0) - target_mass_kg
+
+    g_lo, g_hi = g0_bracket
+    f_lo, f_hi = mass_error(g_lo), mass_error(g_hi)
+    if f_lo * f_hi > 0:
+        for g_hi in (5.0, 20.0, 80.0, 200.0, 800.0):
+            f_hi = mass_error(g_hi)
+            if f_lo * f_hi <= 0:
+                break
+        else:
+            raise RuntimeError(
+                f"Could not bracket g₀ for M_inner={target_mass_kg:.3e} kg; "
+                f"errors {f_lo:.3e}, {f_hi:.3e}"
+            )
+    g0 = brentq(mass_error, g_lo, g_hi, xtol=1e-3, maxiter=35)
+    r_hat, psi, mu = solve_gpe_spherical_sm_inner(
+        g0, sigma_hat, r_join_hat, rho_join
+    )
+    return g0, r_hat, psi, mu
 
 
 def mass_deficit_from_profile(ch: CHParams, r_m: np.ndarray, rho_norm: np.ndarray) -> float:
     """M = ρ_in ∫ (1 - |ψ|²) 4π r² dr."""
     integrand = (1.0 - rho_norm) * 4.0 * np.pi * r_m**2
-    return float(ch.rho_in * np.trapz(integrand, r_m))
+    trapz = getattr(np, "trapz", np.trapezoid)
+    return float(ch.rho_in * trapz(integrand, r_m))
 
 
 def solve_gpe_spherical_radial(

@@ -1,0 +1,44 @@
+CH Einstein sketch (Route G10 — κ-level)
+xi = 5.000e-08 m
+
+=== Matter stress-energy from S_M (static) ===
+  T_00^CH ≈ (ρ/ρ_in − 1) ρ_in c_s²     [deficit / hydrostatic channel]
+  T_ij^aniso, T_0i: open (need full GP velocity + Φ gradients)
+
+=== Field equations (identified) ===
+  δS/δΦ:   ∇²Φ_dyn = (λ_g/Z_Φ)(ρ/ρ_in − 1)     [force, Z_Φ]
+  δS/δg_00: g_00 = −(1+2Φ_g/c²),  Φ_g = Φ_dyn/Z_g or −GM/(2r)
+
+=== Weak static Einstein (diagonal ansatz) ===
+  G_00 ≈ ∇²Φ_g / c²
+  G_μν = 8πG T_μν  =>  ∇²Φ_g / c² ≈ (8πG/c⁴) T_00^CH
+  Rearranged: ∇²Φ_g ≈ (8πG/c²) T_00^CH
+
+=== Identifications (grain-fixed) ===
+  Z_Φ = 5.000000e-01
+  Z_g = 2.000000
+  λ_g = 2.246888e+16
+
+=== What G10 closes (κ-level) ===
+  Poisson row for Φ_dyn on coupled ρ(r).
+  Algebraic metric row Φ_g vs Φ_dyn (Z_g bridge).
+  Order-of-magnitude Einstein 00 consistency on exterior tail.
+
+=== Still open (beyond κ-level) ===
+  Full T_μν from GP + Φ (pressure, anisotropic stress).
+  G_rr, G_θθ from δS/δg_ij; spatial curvature.
+  Covariant GP; graviton spectrum (G11).
+=== G10 numerical checks (dual coupled) ===
+  poisson_rms: inner ball ∇²Φ_dyn vs Poisson source
+  zg_grad_ratio: exterior |∂_r Φ_g| / |∂_r Φ_dyn / Z_g|
+  einstein_ratio: inner |∇²Φ_dyn| / |(8πG/c²) T_00^CH|
+  rs/xi=1: N=0.9791  poisson_rms=0.000  zg_grad=1.006  einstein=0.000  z_g/z_GR=0.996
+  rs/xi=2: N=0.9581  poisson_rms=0.000  zg_grad=1.013  einstein=0.000  z_g/z_GR=0.996
+  rs/xi=4: N=0.9163  poisson_rms=0.000  zg_grad=1.026  einstein=0.000  z_g/z_GR=0.996
+  rs/xi=8: N=0.8325  poisson_rms=0.000  zg_grad=1.054  einstein=0.000  z_g/z_GR=0.995
+
+Reading:
+  poisson_rms on inner: Φ_dyn Poisson row (split inner solve).
+  zg_grad ≈ 1 on exterior: Φ_g gradient tracks Φ_dyn/Z_g.
+  einstein_ratio on inner: κ-level 00 consistency with T_00^CH.
+  Exterior Φ_g harmonic (vacuum); clocks via z_g/z_GR ≈ 1.

@@ -1,0 +1,9 @@
+Paper 2 Tier 2.5 — gating envelope validation
+xi = 50 nm, kappa = 0.12
+chi peak at d = 104.4 nm
+corr(delta, chi) = 0.9392
+tail monotone decay (d > peak+20nm): True
+max |delta| = 1.792%
+|delta| at d=600nm = 0.0000%
+
+Verdict: PASS — no spurious growth past chi peak; follows chi envelope.

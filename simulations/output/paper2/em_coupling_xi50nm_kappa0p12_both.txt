@@ -1,0 +1,24 @@
+Paper 2 — EM–GPE Casimir coupling (both)
+xi [m] = 5.000000e-08
+kappa = 1.200000e-01
+n_max (mode sum) = 800
+
+peak chi_bulk = 2.326593e-01
+peak |delta F/F_Cas| = 1.798498e-02
+corr(delta F/F_Cas, chi_bulk) = 0.939604
+
+toy: peak |delta| = 7.809360e-03, corr = 0.866661
+max |delta_modesum - delta_toy| = 1.036813e-02
+
+Mode-sum cutoff convergence at d=80 nm, peak chi:
+  n_max=   50  correction=1.998506e-02
+  n_max=  100  correction=1.998688e-02
+  n_max=  200  correction=1.998733e-02
+  n_max=  400  correction=1.979062e-02
+  n_max=  800  correction=1.986076e-02
+  n_max= 1200  correction=1.988116e-02
+
+Interpretation:
+- Phase 1b: TE mode sum with n^2 weights (TE+TM factor 2)
+- chi -> 0 => delta -> 0 (QFT limit)
+- Cosine period a_vac still Phase 2

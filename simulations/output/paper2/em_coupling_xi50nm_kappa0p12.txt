@@ -1,0 +1,13 @@
+Paper 2 — minimal EM–GPE Casimir coupling (Phase 1)
+xi [m] = 5.000000e-08
+kappa = 1.200000e-01
+a_vac fit period [m] = 1.500000e-07
+
+peak chi_bulk = 2.326593e-01
+peak |delta F/F_Cas| = 7.809360e-03
+corr(delta F/F_Cas, chi_bulk) = 0.866661
+
+Interpretation:
+- chi -> 0 should give delta -> 0 (QFT limit)
+- Positive corr supports alpha_eff propto chi (Part B, minimal)
+- Cosine period a_vac is NOT derived here (Phase 2)

@@ -1,0 +1,44 @@
+CH full S_M variational sketch (Route G5b — dynamical Φ)
+xi = 5.000e-08 m
+
+=== Action (static sector) ===
+  S = ∫ d³x [ L_GP + L_Φ + L_int,grav + L_vac ]
+
+  L_GP      = (ℏ²/2m)|∇ψ|² + (g/2)|ψ|⁴ − μ|ψ|²
+  L_Φ       = (Z_Φ/2c²) |∇Φ|²
+  L_int,grav= −(λ_g/c²) Φ (|ψ|² − ρ_in)/ρ_in
+  L_vac     = −λ_v ∫ γ(x)|ψ|² d³x   (→ sink −γ₀ e^{−r²/σ²} ψ)
+
+=== Euler–Lagrange ===
+  δS/δψ*:  μψ = [−ℏ²∇²/2m + g|ψ|²]ψ − γ(x)ψ
+            + (λ_g Φ / c² ρ_in) ψ
+
+  δS/δΦ:   −(Z_Φ/c²)∇²Φ = (λ_g/c²)(ρ − ρ_in)/ρ_in
+            ⇒ ∇²Φ = (λ_g/Z_Φ)(ρ − ρ_in)/ρ_in
+
+=== Identifications (κ-level, parallel Paper 2) ===
+  α_G = 2 λ_g m_grain / c²
+  α_G^hydro,ref = 3.517673e-36
+  λ_g = 2.246888e+16
+
+  Slaved hydrostatic limit (laptop v3):
+    Φ_hydro = α_G (c_s²/m_grain)(ρ/ρ_in − 1)  [algebraic, not Poisson solve]
+    Φ_total = Q[ψ] + Φ_hydro  on fixed ρ(r) from matched GP
+
+  Dynamical limit: solve Poisson for Φ with ρ from GP; far field → GM/r
+  when Z_Φ chosen so (λ_g/Z_Φ) matches Newtonian sourcing.
+
+=== What laptop implements today ===
+  GP + L_vac sink (γ₀) on inner ball; Dirichlet ρ_join on r_join;
+  Schwarzschild tail continuation; hydrostatic Φ on exterior;
+  grain α_G^hydro,ref (not Poisson inversion each step).
+
+=== Still open ===
+  Full δS/δg_μν; back-reaction of Φ on ψ beyond linear coupling;
+  joint core Q + dynamical Φ + rotation / 3D.
+
+=== Toy Poisson on Schwarzschild ρ ===
+  N_slope (dynamical Φ from Poisson) = -0.0028
+  N_slope (slaved Φ_hydro, laptop)    = 0.9875
+  Poisson toy uses same ρ(r); full S_M requires self-consistent ψ+Φ solve.
+

@@ -1,0 +1,40 @@
+CH metric amplitude bridge Z_g (G9b+ — from identification)
+xi = 5.000e-08 m
+
+=== Two roles, two identifications ===
+  Φ_dyn from δS/δΦ:  ∇²Φ = (λ_g/Z_Φ)(ρ/ρ_in − 1)
+    Z_Φ matches linear Φ_hydro = α_G(c_s²/m)(ρ/ρ_in − 1)  [force]
+  Φ_g enters g_00:      g_00 = −(1 + 2Φ_g/c²)
+    GR weak field (repo r_s = GM/c²):  g_00 = −(1 − r_s/r)
+    => Φ_g = −GM/(2r) on exterior tail
+
+=== Tail linearization (ρ = (1−r_s/r)²) ===
+  Φ_hydro ≈ −2 α_G (c_s²/m) r_s/r
+  Φ_g     = −r_s c² / (2r)
+  Ratio |Φ_hydro|/|Φ_g| = 4 α_G c_s² / (m c²)
+
+=== Grain reference ===
+  α_G^hydro,ref = m_grain c²/(2c_s²) = 3.517673e-36
+  hydrostatic_newton_factor = 2 α_G c_s²/(m c²) = 1.000000
+  Z_g = 4 α_G c_s²/(m c²) = 2 × hydrostatic_newton_factor = 2.000000
+  (direct) Z_g = 2.000000
+
+=== κ-level prescription (G9b dual) ===
+  Coupled loop uses Φ_dyn (split/hydro) for GP + N_hydro.
+  Metric sector:  Φ_g = Φ_dyn / Z_g  on exterior, or explicit −GM/(2r).
+  Z_g = 2 at grain α_G — convention bridge from r_s = GM/c², not tuned to data.
+
+=== What this closes ===
+  G9 factor-of-2 split explained by two δS identifications.
+  dual poisson_mode in G5c implements Φ_g overlay post-loop.
+
+=== Analytic tail ratio |Φ_hydro|/|Φ_g| ===
+  rs/xi=1: median ratio=1.9183  Z_g=2.0000  Δ=-0.0817
+  rs/xi=4: median ratio=1.8367  Z_g=2.0000  Δ=-0.1633
+  rs/xi=8: median ratio=1.7691  Z_g=2.0000  Δ=-0.2309
+
+=== Coupled dual mode (embedded G9b) ===
+  rs/xi=1: N=0.9791  z_g(20ξ)/z_GR=0.996  z_g(3r_s)/z_GR=0.404
+  rs/xi=4: N=0.9163  z_g(20ξ)/z_GR=0.996  z_g(3r_s)/z_GR=1.000
+  rs/xi=8: N=0.8325  z_g(20ξ)/z_GR=0.995  z_g(3r_s)/z_GR=1.002
+

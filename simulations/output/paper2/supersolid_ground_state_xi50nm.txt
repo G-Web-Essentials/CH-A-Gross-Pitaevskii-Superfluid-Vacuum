@@ -1,0 +1,28 @@
+Paper 2 — Phase 2b supersolid ground-state minimization
+xi [m] = 5.000000e-08
+representative d_hat = 2.0759  (d = 103.8 nm)
+K_phase = 0.000000e+00, K_heal = 0.000000e+00
+
+Energy minimum:
+  eta_star = 2.126102e-01
+  a_vac_star [m] = 1.570796e-07 (157.08 nm)
+  a_vac_star / xi = 3.141593
+  E_min = 4.110389e-01
+
+Paper 1 hypothesis a_vac = 2*pi*xi:
+  a_hyp [m] = 3.141593e-07 (314.16 nm)
+  a_vac_star / a_hyp = 0.500000
+
+K_heal for a*/(2pi xi) = 1 (interpolated): 9.772351e-02
+
+Casimir mode-sum check (eta*, a_vac* fed in):
+  alpha_joint = 2.805495e-02
+  a_joint [m] = 2.561181e-07 (256.12 nm)
+  a_joint / a_vac_star = 1.630498
+  joint_fit_rms = 3.950738e-03
+  peak |delta F/F| = 1.831355e-02
+
+Interpretation:
+- eta*, a_vac* from cavity energy (no Casimir data in minimization)
+- K_heal scan: stiffness toward 2pi/a_hat = 1 can restore a_vac = 2pi xi
+- eta* sets modulation depth for alpha_max predictions

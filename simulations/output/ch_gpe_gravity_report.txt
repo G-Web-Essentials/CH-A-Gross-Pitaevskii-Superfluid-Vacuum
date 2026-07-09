@@ -5,8 +5,8 @@ CH gravity report
   mass_deficit_kg=6.7329546075005444e+19
 
 [v3] solver=v3_sm_matched_alpha_cal
-  newton_total=0.9053667632707736
-  newton_q=3.8456873498924257e-28
-  newton_hydro=0.9053667632707736
-  mass_deficit_kg=1.170193595048531e-34
+  newton_total=0.9999999999999999
+  newton_q=3.8456873498924235e-28
+  newton_hydro=0.9999999999999999
+  mass_deficit_kg=1.2925077907885928e-34
 

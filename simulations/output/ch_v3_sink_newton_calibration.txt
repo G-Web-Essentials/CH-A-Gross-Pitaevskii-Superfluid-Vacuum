@@ -1,0 +1,19 @@
+CH v3 sink calibration — matched vs hydro_newton
+xi = 5.000e-08 m, rs_hat = 1.0, sigma = 0.6
+alpha_G^hydro,ref = 3.5177e-36
+
+matched (legacy γ₀):
+  g0 = 0.5000
+  N_hydro @ grain ref = 0.9820
+  f_profile = 1.0183e+00
+  Newton after profile rule = 1.000000
+
+hydro_newton (γ₀ tuned for N@ref ≈ 1):
+  g0 = 0.0010
+  N_hydro @ grain ref = 0.9820
+  f_profile = 1.0183e+00
+  Newton after profile rule = 1.000000
+
+Join depletion matched: rho_join = 0.8403
+  matched rho@join = 0.8403
+  hydro   rho@join = 0.8403

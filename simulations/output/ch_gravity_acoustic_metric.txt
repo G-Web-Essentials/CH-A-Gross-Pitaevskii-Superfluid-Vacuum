@@ -1,0 +1,32 @@
+CH acoustic metric sketch (Route G7)
+xi = 5.000e-08 m
+
+=== Analog-gravity metric (static, v=0, spherical) ===
+  Low-energy excitations on BEC with density rho, sound c_s(rho):
+  Phonon / acoustic line element (schematic, comoving):
+    ds_acoustic^2 ~ -c_s^2(rho) dt^2 + dr^2 + ...
+  Effective isotropic index for static rays:
+    n_acoustic ~ c / c_s(rho) ~ sqrt(rho_in/rho) = 1/sqrt(rho_norm)
+
+=== CH Chronos metric (G6) ===
+    g_00 = -(1 + 2 Phi / c^2)  =>  n_phi = sqrt(1 + 2 Phi / c^2)
+
+=== GR reference (weak field) ===
+    n_gr = 1 / sqrt(1 - r_s/r)
+
+=== Relation ===
+  On Schwarzschild tail rho = (1 - r_s/r)^2:
+    n_acoustic = 1/(1 - r_s/r)  (linear depletion proxy)
+    n_phi ~ 1 - Phi/c^2 with Phi_hydro linear in (rho-1)
+  Both give attractive bending; full GR needs g_rr (G8).
+
+=== Laptop check ===
+  Compare n_acoustic, n_phi, n_gr on matched v3 profile.
+  See ch_acoustic_light_bending.py for deflection integrals.
+
+=== Sample at r = 3..50 r_s ===
+  median n_acoustic = 1.0000
+  median n_phi      = 1.0000
+  median n_gr       = 1.0620
+  median n_ac/n_gr  = 0.9416
+

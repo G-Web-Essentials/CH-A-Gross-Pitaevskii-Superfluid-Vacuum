@@ -1,0 +1,34 @@
+CH gravity ↔ Paper 2 κ bridge (variational parallel routes)
+xi = 5.000e-08 m, sigma = 0.6
+
+Paper 2 EM (Casimir / dielectric):
+  L_int = -(lambda_em/c^2) |A|^2 (rho - rho_in)/rho_in
+  Variation → dielectric shift ∝ (1 - rho/rho_in)
+  Identification: kappa = 2 lambda_em / c^2
+
+Paper 1 gravity G1 (hydrostatic, DONE on laptop):
+  Phi_hydro = alpha_G (c_s^2/m_grain) (rho/rho_in - 1)
+  Far-field linear depletion → |a|/(GM/r^2) = alpha_G * 2 c_s^2 / (m_grain c^2)
+  Grain closure: alpha_G^hydro,ref = m_grain c^2 / (2 c_s^2)
+  => alpha_G^hydro,ref = 3.517673e-36
+
+Paper 1 gravity G2 (vacancy sink, ansatz + EL):
+  L_vac = -lambda_v ∫ gamma(x) |psi|^2 d^3x
+  Variation → sink term -2 lambda_v gamma psi  →  gamma_0 = 2 lambda_v
+  => lambda_v = 2.7504e+02, gamma_0^micro = 5.5009e+02
+
+Structural parallel:
+  kappa  : 2 lambda_em / c^2     (EM ↔ vacuum polarization)
+  gamma_0: 2 lambda_v            (vacancy ↔ condensate removal)
+  alpha_G: m_grain c^2/(2 c_s^2) (hydrostatic ↔ Newton strength)
+
+kappa-level S_M (OPEN — research track):
+  Target: L_grav or L_int,grav = -(lambda_g/c^2) Phi_g (rho-rho_in)/rho_in
+          or curvature scalar coupled to chi_grad * (1 - rho/rho_in),
+          with lambda_g fixed by grain counting like alpha_G^hydro,ref.
+  Full 3D action S_M[g, psi] not yet derived; laptop uses matched BC +
+  hydrostatic channel on fixed rho(r) from GP (Layer 2 identification).
+
+Reviewer-safe claim today:
+  alpha_G^hydro,ref is grain-derived; exterior N_hydro ~ 1 (1D + 2D rays).
+  gamma_0^micro predicts M_inner; kappa-level gravity is future work.

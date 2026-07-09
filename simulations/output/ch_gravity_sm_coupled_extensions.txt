@@ -1,0 +1,35 @@
+CH coupled psi-Phi extensions (Route G5c+)
+
+=== 1. Back-reaction (artificial normalized Phi feedback) ===
+  rs/xi=1  cs=0: dM_inner=-1.468e-01 kg  N_cpl=0.9791  N_slv=0.9791  iters=2
+  rs/xi=1  cs=0.3: dM_inner=-1.468e-01 kg  N_cpl=0.9791  N_slv=0.9791  iters=2
+  rs/xi=1  cs=1: dM_inner=-1.468e-01 kg  N_cpl=0.9791  N_slv=0.9791  iters=2
+  rs/xi=1  cs=3: dM_inner=-1.468e-01 kg  N_cpl=0.9791  N_slv=0.9791  iters=2
+  rs/xi=1  cs=10: dM_inner=-1.099e-01 kg  N_cpl=0.9791  N_slv=0.9791  iters=2
+  rs/xi=2  cs=0: dM_inner=+1.241e-01 kg  N_cpl=0.9581  N_slv=0.9581  iters=2
+  rs/xi=2  cs=0.3: dM_inner=+1.241e-01 kg  N_cpl=0.9581  N_slv=0.9581  iters=2
+  rs/xi=2  cs=1: dM_inner=+1.241e-01 kg  N_cpl=0.9581  N_slv=0.9581  iters=2
+  rs/xi=2  cs=3: dM_inner=+1.241e-01 kg  N_cpl=0.9581  N_slv=0.9581  iters=2
+  rs/xi=2  cs=10: dM_inner=+1.240e-01 kg  N_cpl=0.9581  N_slv=0.9581  iters=2
+
+=== 2. Poisson: split vs full (FD) vs full_el (raw source) ===
+  split: N_cpl=0.9791  N_slv=0.9791  phi_res=1.39e-16  rho_res=0.00e+00
+  full : N_cpl=0.9791  N_slv=0.9791  phi_res=1.39e-16  rho_res=0.00e+00
+  full_el: N_cpl=-0.0000  N_slv=0.9791  phi_res=8.93e-17  rho_res=0.00e+00
+
+=== 3. 2D axisymmetric rays (equator / pole) ===
+  equator sigma=1.2 g0=68.76: M_inner=1.4508e+00 kg (slaved 1.1397e+00)  N_cpl=0.9791  N+Q=0.9791
+  pole    sigma=0.6 g0=550.09: M_inner=7.9503e+00 kg (slaved 1.0616e+01)  N_cpl=0.9791  N+Q=0.9791
+  M_pol/M_eq (coupled) = 5.4799
+
+=== 4. Joint Q + Phi (join layer + exterior N) ===
+  rs/xi=0.5: |Q|/|Phi|_join=2.603e-32  N(Phi)=0.9895  N(Phi+Q)=0.9895  dN=+0.0000
+  rs/xi=1: |Q|/|Phi|_join=2.781e-32  N(Phi)=0.9791  N(Phi+Q)=0.9791  dN=+0.0000
+  rs/xi=2: |Q|/|Phi|_join=1.783e-31  N(Phi)=0.9581  N(Phi+Q)=0.9581  dN=+0.0000
+
+Reading:
+  Back-reaction: artificial cs~1 feeds normalized Phi into GP; dM_inner tracks shift.
+  Full (full): Phi_hydro on entire profile — no inner/tail Poisson split.
+  full_el: raw EL Poisson FD, Phi(infty)=0 — grain calibration incomplete (N~0).
+  2D rays: micro gamma0 shows M_pol/M_eq != 1; exterior N ~ 0.98 on both.
+  Q+Phi: Madelung Q peaks at join layer; exterior N unchanged (Q ~ 0 on tail).

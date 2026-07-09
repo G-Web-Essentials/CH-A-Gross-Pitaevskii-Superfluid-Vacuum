@@ -1,0 +1,22 @@
+CH micro gamma0 vs smooth — inner rho budgets (G5d+)
+sigma = 0.6, r_join/xi = 12.0
+
+=== smooth (gamma0 = 0.5) ===
+  rs/xi=0.5: rho_bulk_min=1.00000  rho_join_layer_mean=0.99959  rho_join_BC=0.9184  M_inner=3.7299e-03 kg
+  rs/xi=1: rho_bulk_min=1.00000  rho_join_layer_mean=0.99920  rho_join_BC=0.8403  M_inner=7.3012e-03 kg
+  rs/xi=2: rho_bulk_min=1.00000  rho_join_layer_mean=0.99847  rho_join_BC=0.6944  M_inner=1.3967e-02 kg
+  rs/xi=4: rho_bulk_min=1.00000  rho_join_layer_mean=0.99722  rho_join_BC=0.4444  M_inner=2.5395e-02 kg
+  rs/xi=8: rho_bulk_min=1.00000  rho_join_layer_mean=0.99556  rho_join_BC=0.1111  M_inner=4.0633e-02 kg
+
+=== micro (gamma0 = 550.1) ===
+  rs/xi=0.5: rho_bulk_min=0.20974  rho_join_layer_mean=0.99959  rho_join_BC=0.9184  M_inner=1.1240e-02 kg
+  rs/xi=1: rho_bulk_min=0.94414  rho_join_layer_mean=0.94390  rho_join_BC=0.8403  M_inner=3.3981e+00 kg
+  rs/xi=2: rho_bulk_min=0.94647  rho_join_layer_mean=0.94548  rho_join_BC=0.6944  M_inner=3.2631e+00 kg
+  rs/xi=4: rho_bulk_min=0.94959  rho_join_layer_mean=0.94731  rho_join_BC=0.4444  M_inner=3.0855e+00 kg
+  rs/xi=8: rho_bulk_min=0.94958  rho_join_layer_mean=0.94564  rho_join_BC=0.1111  M_inner=3.1013e+00 kg
+
+Reading:
+  Gaussian sink: bulk rho ~ 1 for both smooth and micro gamma0.
+  micro gamma0 increases M_inner (stronger sink) but not bulk depletion.
+  Physical strong-field structure is at join layer + Schwarzschild tail.
+  Oblate / directional budgets (M_pol/M_eq) need ray-specific sigma (see extensions).

@@ -1,29 +1,28 @@
-# Overleaf project — Chronos-Hydrodynamics
+# Overleaf project — Chronos-Hydrodynamics Paper 1
 
 ## Documents
 
 | File | Content |
 |------|---------|
-| `main.tex` | Lab protocol paper (Prediction #7, GRB, GPE, protocol) — compile with **pdfLaTeX + Biber** |
-| `universal-laws.tex` | Universal laws in plain English (companion) — compile with **pdfLaTeX** only |
-| `references.bib` | Bibliography for `main.tex` |
+| `main.tex` | Paper 1 preprint source — Prediction #7 protocol, GPE forecasts, lab bridge (~25 pp) |
+| `gravity-sketches.tex` | Companion note — G1–G11 gravity routes (κ-level sketches; not in Paper 1) |
+| `universal-laws.tex` | Universal laws companion — pdfLaTeX only |
+| `references.bib` | Bibliography |
 
 ## Upload to Overleaf
 
 1. Create **New Project** → **Upload Project**.
-2. Zip this folder (`docs/overleaf/` plus `figures/`) and upload, **or** upload:
+2. Zip `docs/overleaf/` (including `figures/`) and upload, **or** upload:
    - `main.tex`
-   - `universal-laws.tex` (optional companion)
    - `references.bib`
-   - `figures/*.png` (see below)
+   - `figures/*.png`
+   - optional: `gravity-sketches.tex`, `universal-laws.tex`
 
-3. Set compiler to **pdfLaTeX** + **Biber** for `main.tex` (Menu → Settings → Compiler).
-
-4. For `universal-laws.tex` only: set main document to `universal-laws.tex` and use **pdfLaTeX** (no Biber needed).
+3. Set compiler to **pdfLaTeX** + **Biber**; main document **`main.tex`**.
 
 ## Figures
 
-Copy from the repo into `figures/` before compiling:
+Copy from simulations output if missing:
 
 ```bash
 mkdir -p docs/overleaf/figures
@@ -32,11 +31,10 @@ cp simulations/output/ch_gpe_casimir_gap.png docs/overleaf/figures/
 cp simulations/output/control_channel_analysis.png docs/overleaf/figures/
 cp simulations/output/ch_threshold_power_study.png docs/overleaf/figures/
 cp simulations/output/ch_sphere_plate_full_gp_overlay.png docs/overleaf/figures/
+cp simulations/output/ch_clock_redshift_vs_gr.png docs/overleaf/figures/
 ```
 
-If figures are missing, the document still compiles (placeholders show).
-
-Figures use LaTeX **floats** (`[htbp]`): they may move to the top or bottom of a page so text is not split awkwardly. `main.tex` uses the `placeins` package and `\FloatBarrier` after each figure so floats do not drift past section breaks. Each figure is placed in the source **immediately after** the paragraph that introduces it. Recompile twice after edits (pdfLaTeX → Biber → pdfLaTeX ×2) so references and float positions settle.
+If figures are missing, `main.tex` still compiles (placeholders).
 
 ## Local build
 
@@ -48,17 +46,12 @@ pdflatex main
 pdflatex main
 ```
 
-Requires TeX Live with `biblatex-biber`.
-
-### Companion: universal laws
+Companion gravity note:
 
 ```bash
-cd docs/overleaf
-pdflatex universal-laws
-pdflatex universal-laws
+pdflatex gravity-sketches
+biber gravity-sketches
+pdflatex gravity-sketches
 ```
 
-## Source markdown
-
-Plain-English universal laws source: `../ch-universal-laws-plain-english.md`  
-Paper 1 (preprint source): `main.tex`
+Requires TeX Live with `biblatex-biber`.

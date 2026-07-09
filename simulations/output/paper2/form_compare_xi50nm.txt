@@ -1,0 +1,13 @@
+Paper 2 Tier 1.4 — multiplicative vs additive form comparison
+xi = 50.0 nm
+kappa = 0.12
+
+Best period a_vac ~ 209.4 nm
+chi2 multiplicative = 119.4068
+chi2 additive       = 260.2338
+delta chi2 (add - mult) = 140.8270
+Prefers: multiplicative
+
+Interpretation:
+- Negative delta_chi2 => multiplicative F/F_Cas form fits better
+- Derived C1 mode-sum data are ratio-based; multiplicative expected

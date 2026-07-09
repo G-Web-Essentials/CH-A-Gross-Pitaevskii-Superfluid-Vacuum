@@ -1,0 +1,7 @@
+CH alpha_G generality sweep (oblate sink widths)
+n = 9
+alpha_G^hydro,ref universal across grid: True
+std(N@hydro,ref) = 0.0112
+std(f_profile) = 0.0118
+
+Grain reference unchanged; profile factor f varies with geometry.

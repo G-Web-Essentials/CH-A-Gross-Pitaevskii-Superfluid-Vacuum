@@ -1,0 +1,260 @@
+% Chronos-Hydrodynamics — Gravity sketches (companion to Paper 1)
+% Extracted from main.tex Appendix D; not part of the submission build (main-2.tex).
+% Compiler: pdfLaTeX + Biber (optional standalone) OR \input from a future Paper 3.
+% See docs/ch-gravity-roadmap-g7-g11.md for the program map.
+
+% Chronos-Hydrodynamics — Gravity sketches (companion)
+% Compiler: pdfLaTeX + Biber
+% Upload with references.bib and figures/ (see README.md)
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{siunitx}
+\usepackage[backend=biber,style=numeric,sorting=none,maxbibnames=99]{biblatex}
+\usepackage{placeins}  % \FloatBarrier — keep figures from drifting past section breaks
+
+% Loosen float placement slightly so figures stay nearer their source
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.08}
+\renewcommand{\floatpagefraction}{0.75}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  citecolor=blue!60!black,
+  urlcolor=blue!60!black
+}
+
+\addbibresource{references.bib}
+
+\newcommand{\maybeincludegraphics}[2][]{%
+  \IfFileExists{#2}{%
+    \includegraphics[#1]{#2}%
+  }{%
+    \fbox{\parbox[c][0.2\textheight][c]{0.92\linewidth}{\centering\small\texttt{#2}\\[0.5em]Add figure to \texttt{figures/} folder}}%
+  }%
+}
+
+% --- Author block (edit before submission) ---
+\title{%
+  Chronos-Hydrodynamics:\\
+  A Gross--Pitaevskii Superfluid Vacuum---\\
+  Emergent Gravity from GPE Defects---$\kappa$-Level Sketches%
+}
+\author{%
+  George McNally\\[0.25em]
+  \small Independent Researcher\\[0.15em]
+  \small \href{mailto:george@web-essentials.ie}{george@web-essentials.ie}%
+}
+\date{8 July 2026}
+
+
+\begin{document}
+\maketitle
+\begin{abstract}
+Companion technical note to Paper~1: hydrostatic defect coupling, vacancy microphysics,
+$\mathcal{L}_{\mathrm{int,grav}}$, metric sectors, and laptop consistency routes (G1--G11).
+These are internal $\kappa$-level sketches, not empirical claims and not required for the
+Prediction~\#7 Casimir protocol.
+\end{abstract}
+\section{Hydrostatic defect coupling \texorpdfstring{($\mathcal{L}_{\mathrm{grav}}$, $S_M$)}{(L\_grav, S\_M)}}
+\label{app:lgrav}
+
+\textbf{Route G1 (minimal, parallel to Paper~2 $\kappa$).}
+Start from the dimensionless GP with localized vacancy sink (math framework \S5.6):
+\begin{equation}
+  \mathrm{i}\,\partial_t \psi = \left[-\tfrac{1}{2}\nabla^2 + 1 - |\psi|^2 - \gamma(\mathbf{x})\right]\psi,
+  \qquad
+  \gamma(\mathbf{x}) = \gamma_0 \exp\!\left(-\frac{|\mathbf{x}|^2}{\sigma^2 \xi^2}\right).
+  \label{eq:app-sm-sink}
+\end{equation}
+In Madelung form the sink acts as a matter source $S_M \propto \gamma(\mathbf{x})\psi$ removing condensate density at the defect.
+
+\textbf{Hydrostatic coupling.}
+CH assigns far-field attraction to the pressure-gradient / depletion channel (not the quantum potential $Q$ when $Q \approx 0$ on the exterior tail):
+\begin{equation}
+  \Phi_{\mathrm{hydro}} = \frac{\alpha_G\, c_s^2}{m_{\mathrm{grain}}}\left(\frac{\rho}{\rho_{\mathrm{in}}} - 1\right).
+  \label{eq:app-phi-hydro}
+\end{equation}
+For a spherically symmetric exterior with $\rho/\rho_{\mathrm{in}} \approx (1 - r_s/r)^2$, linearizing gives $|a| \approx \alpha_G (c_s^2/m_{\mathrm{grain}})\,(2 r_s/r^2)$.
+Matching $|a| = GM/r^2$ with $M = r_s c^2/G$ and $c_s = c$ yields
+\begin{equation}
+  \alpha_G^{\mathrm{hydro,ref}} = \frac{m_{\mathrm{grain}}\, c^2}{2 c_s^2},
+  \label{eq:app-alpha-ref}
+\end{equation}
+the grain reference used in Eq.~\ref{eq:alpha-hydro-ref}---not a Newton fit.
+
+\textbf{Exterior evaluation.}
+Newton factors for v3 use $r \geq r_{\mathrm{join}}$ only: the inner GP join can bias gradients on the full grid even when the appended tail is Schwarzschild-matched.
+At $\xi = \SI{50}{nm}$, $N_{\mathrm{hydro}}(\alpha_G^{\mathrm{hydro,ref}}) \approx 0.98$ on the exterior for both the analytic ansatz and the v3 solve (\texttt{ch\_alpha\_g\_grain\_estimate.py}).
+
+\textbf{Decoupling of $\gamma_0$ and $\alpha_G^{\mathrm{hydro,ref}}$.}
+In matched-BC v3 gravity, $\gamma_0$ sets inner condensate depletion ($M_{\mathrm{inner}}$) while $\alpha_G^{\mathrm{hydro,ref}}$ sets exterior Newton.
+They decouple once $N_{\mathrm{hydro}}$ is evaluated on $r \geq r_{\mathrm{join}}$: $\gamma_0$ can be tuned to a microphysical $M_{\mathrm{inner}}$ target without shifting exterior $N_{\mathrm{hydro}}(\alpha_G^{\mathrm{hydro,ref}})$ (\texttt{ch\_v3\_mass\_budget.py}, \texttt{ch\_v3\_sink\_newton\_calibration.py}).
+
+\textbf{Route G2 --- vacancy coupling $\Rightarrow \gamma_0$ (parallel to Paper~2 $\kappa$).}
+Add a localized vacancy interaction:
+\begin{equation}
+  \mathcal{L}_{\mathrm{vac}} = -\lambda_v \int \gamma(\mathbf{x})\,|\psi|^2\,\mathrm{d}^3 x,
+  \qquad
+  \gamma_0 = 2\lambda_v,
+  \label{eq:app-lvac}
+\end{equation}
+with grain identification in a sink cell of volume $(\sigma\xi)^3$:
+\begin{equation}
+  \lambda_v = \frac{m_{\mathrm{grain}}\, c_s^2}{2 E_\xi\, \rho_{\mathrm{in}}\, (\sigma\xi)^3},
+  \qquad
+  E_\xi = \frac{\hbar c_s}{\xi}.
+  \label{eq:app-lambda-v}
+\end{equation}
+Implemented in \texttt{ch\_defect\_microphysics.py}; predicts $M_{\mathrm{inner}}$ without fitting $|a|/(GM/r^2)$.
+Variational Euler--Lagrange (Route~G2b): varying $\psi^*$ in $\mathcal{L}_{\mathrm{GP}} + \mathcal{L}_{\mathrm{vac}}$ adds a sink term $-2\lambda_v \gamma(\mathbf{x})\psi$; matching the implemented $-\gamma_0 \exp(-r^2/\sigma^2\xi^2)\psi$ gives Eq.~\ref{eq:app-lvac}.
+The same $\lambda_v$ follows from a grain vacancy balance $\delta F/\delta n_{\mathrm{vac}} = 0$ in a cell of mass $\rho_{\mathrm{in}}(\sigma\xi)^3$ (\texttt{ch\_defect\_gamma0\_variational.py}).
+
+\textbf{Two $\gamma_0$ prescriptions.}
+$\gamma_0^{\mathrm{micro}}$ (Eqs.~\ref{eq:app-lvac}--\ref{eq:app-lambda-v}) is the microphysical vacancy coupling for $M_{\mathrm{inner}}$ predictions.
+$\gamma_0^{\mathrm{smooth}}$ from \texttt{calibrate\_g0\_matched} enforces a target central density $\rho_{\mathrm{center}} \approx 0.65$ and is a phenomenological core regularization for stable GP solves---not an alternative derivation of exterior Newton.
+At $\xi = \SI{50}{nm}$, $\sigma = 0.6$, $r_s = \xi$: $\gamma_0^{\mathrm{micro}} \sim 5.5 \times 10^2$, $\gamma_0^{\mathrm{smooth}} \sim 0.5$; $M_{\mathrm{inner}}$ differs by $\sim 10^2$ while $N_{\mathrm{hydro}}(\alpha_G^{\mathrm{hydro,ref}})$ stays $\approx 0.98$ for both.
+
+\textbf{Route G3 --- two mass scales (identification, not one integral).}
+$M_{\mathrm{grav}}$ from $r_s = GM/c^2$; $M_{\mathrm{inner}}$ from the inner integral; the tail shell integral is $\mathcal{O}(10^3\,\mathrm{kg})$ on finite grids---not $M_{\mathrm{grav}}$.
+Layer~2 compares both predictions when $\xi$ is lab-fixed (\texttt{ch\_mass\_closure\_link.py}).
+
+\textbf{Route G4 --- generality.}
+Oblate sinks ($\sigma_\parallel \neq \sigma_\perp$) in the 1D equatorial slice: $\alpha_G^{\mathrm{hydro,ref}}$ is universal; $f$ varies mildly (\texttt{ch\_alpha\_g\_generality\_sweep.py}).
+\textbf{2D axisymmetric} inner solves on $(r,z)$ with oblate $\gamma_0 \exp(-r^2/\sigma_\perp^2 - z^2/\sigma_\parallel^2)$ can show pole$\neq$equator \emph{inner} depletion; matched Schwarzschild tails on equator and pole rays still give $N_{\mathrm{hydro}}(\alpha_G^{\mathrm{hydro,ref}}) \approx 0.98$ on both (\texttt{ch\_gpe\_gravity\_axisymmetric.py}, \texttt{ch\_alpha\_g\_generality\_2d.py})---exterior Newton is tied to the grain hydrostatic coupling, not to axisymmetric shape of the core sink.
+Inner principal-ray budgets: $M_{\mathrm{pol}}/M_{\mathrm{eq}}$ varies with $(\sigma_\parallel,\sigma_\perp)$ at fixed $\gamma_0^{\mathrm{micro}}$ (\texttt{ch\_gpe\_oblate\_inner\_convergence.py}).
+
+\textbf{Route G5 --- $\mathcal{L}_{\mathrm{int,grav}} \Rightarrow \alpha_G$ ($\kappa$-level, parallel to Paper~2).}
+Minimal coupling (static sector):
+\begin{equation}
+  \mathcal{L}_{\mathrm{int,grav}} = -\frac{\lambda_g}{c^2}\,\Phi\,\frac{\rho - \rho_{\mathrm{in}}}{\rho_{\mathrm{in}}},
+  \qquad
+  \alpha_G = \frac{2\lambda_g\, m_{\mathrm{grain}}}{c^2},
+  \qquad
+  \lambda_g = \frac{\alpha_G\, c^2}{2 m_{\mathrm{grain}}}.
+  \label{eq:app-lgrav-int}
+\end{equation}
+Matching to $\Phi_{\mathrm{hydro}} = \alpha_G (c_s^2/m_{\mathrm{grain}})(\rho/\rho_{\mathrm{in}}-1)$ and grain closure $\alpha_G^{\mathrm{hydro,ref}} = m_{\mathrm{grain}} c^2/(2c_s^2)$ (Eq.~\ref{eq:app-alpha-ref}) fixes $\lambda_g$ without fitting $|a|/(GM/r^2)$ (\texttt{ch\_gravity\_lgrav\_variational.py}).
+\textbf{Identification vs fit.}
+$\alpha_G^{\mathrm{hydro,ref}}$ is fixed by grain counting (microphysics), not by tuning $N_{\mathrm{hydro}}$.
+$Z_\Phi$ is then \emph{identified} so the Poisson source in Eq.~\ref{eq:app-el-phi} matches the hydrostatic channel at linear order---parallel to fixing $\kappa$ in Paper~2, not to fitting $G$.
+Solving Poisson with the raw EL source and $\Phi(\infty)=0$ alone (\texttt{full\_el} mode) gives $N_{\mathrm{hydro}}\approx 0$: the dynamical equation fixes the \emph{shape} of $\Phi$ but not its Newtonian amplitude until the grain identification is imposed (split join BC, slaving, or full $\Phi_{\mathrm{hydro}}$).
+
+\textbf{Route G5b --- full $S_M$ with dynamical $\Phi$ (Euler--Lagrange sketch).}
+Couple the GP sector, a dynamical gravitational potential $\Phi$, vacancy sink, and density-deficit interaction:
+\begin{equation}
+  S = \int \mathrm{d}^3 x\,
+  \Big[
+    \mathcal{L}_{\mathrm{GP}}
+    + \frac{Z_\Phi}{2c^2}|\nabla\Phi|^2
+    + \mathcal{L}_{\mathrm{int,grav}}
+    + \mathcal{L}_{\mathrm{vac}}
+  \Big],
+  \label{eq:app-sm-action}
+\end{equation}
+with $\mathcal{L}_{\mathrm{GP}}$ the standard GP Lagrangian, $\mathcal{L}_{\mathrm{int,grav}}$ from Eq.~\ref{eq:app-lgrav-int}, and $\mathcal{L}_{\mathrm{vac}}$ from Eq.~\ref{eq:app-lvac}.
+Variation gives
+\begin{align}
+  \delta S/\delta\psi^*:\quad
+  \mu\psi &= \Big[-\frac{\hbar^2}{2m_{\mathrm{grain}}}\nabla^2 + g|\psi|^2\Big]\psi
+  - \gamma(\mathbf{x})\psi
+  + \frac{\lambda_g\,\Phi}{c^2\rho_{\mathrm{in}}}\,\psi,
+  \label{eq:app-el-psi}\\
+  \delta S/\delta\Phi:\quad
+  -\frac{Z_\Phi}{c^2}\nabla^2\Phi &= \frac{\lambda_g}{c^2}\,\frac{\rho - \rho_{\mathrm{in}}}{\rho_{\mathrm{in}}},
+  \qquad \rho = |\psi|^2.
+  \label{eq:app-el-phi}
+\end{align}
+\textbf{Quasi-static reduction (laptop v3).}
+In the exterior, Madelung $Q$ is negligible and Eq.~\ref{eq:app-el-phi} is not solved as a Poisson problem each step; instead $\Phi$ is \emph{slaved} to the hydrostatic channel $\Phi_{\mathrm{hydro}} = \alpha_G (c_s^2/m_{\mathrm{grain}})(\rho/\rho_{\mathrm{in}}-1)$ on the fixed $\rho(r)$ from the matched GP, with $\alpha_G = \alpha_G^{\mathrm{hydro,ref}}$ from grain closure.
+This is the justified Newtonian limit used in \texttt{ch\_gpe\_gravity.py} ($N_{\mathrm{hydro}} \approx 0.98$ on 1D and 2D oblate rays).
+
+\textbf{Route G5c --- coupled $\psi$--$\Phi$ iteration (first step beyond slaving).}
+On the inner ball $0 \le \hat r \le \hat r_{\mathrm{join}}$, alternate:
+(i)~GP with vacancy sink and $\Phi$-coupling from Eq.~\ref{eq:app-el-psi};
+(ii)~Poisson solve $\nabla^2\Phi = (\lambda_g/Z_\Phi)(\rho/\rho_{\mathrm{in}}-1)$ with $\Phi(\hat r_{\mathrm{join}})$ matched to $\Phi_{\mathrm{hydro}}(\rho_{\mathrm{join}})$;
+(iii)~Schwarzschild tail continuation and hydrostatic $\Phi$ on the exterior.
+With $Z_\Phi$ fixed by the hydrostatic identification (Route~G5), the loop converges in few Picard steps to the slaved fixed point: $N_{\mathrm{hydro}}(\mathrm{coupled}) \approx N_{\mathrm{hydro}}(\mathrm{slaved}) \approx 0.98$ at grain $\alpha_G^{\mathrm{hydro,ref}}$ (\texttt{ch\_gravity\_sm\_coupled.py}).
+At laptop parameters, $\Phi$ back-reaction on $\rho$ in the core is negligible---consistent with treating v3 as quasi-static.
+\textbf{Extensions} (\texttt{ch\_gravity\_sm\_coupled\_extensions.py}): (i)~artificial $\Phi$--sink feedback shifts $M_{\mathrm{inner}}$ before $N_{\mathrm{hydro}}$ moves; (ii)~full-domain $\Phi_{\mathrm{hydro}}$ without inner/tail split matches split ($N \approx 0.98$), while raw EL Poisson with $\Phi(\infty)=0$ does not ($N \approx 0$); (iii)~2D equator/pole coupled rays keep $N \approx 0.98$ with $M_{\mathrm{pol}}/M_{\mathrm{eq}} \neq 1$ at micro $\gamma_0$; (iv)~Madelung $Q$ is negligible on the exterior fit ($N_{\Phi+Q} \approx N_\Phi$).
+\textbf{Route G5d} (\texttt{ch\_gravity\_sm\_strongfield.py}): $|Q|/|\Phi|$ peaks at the join layer where $|\mathrm{d}\rho/\mathrm{d}r|$ is largest; physical $\Phi$-feedback on the GP sink remains negligible in the core at grain $\alpha_G$; $N_{\mathrm{hydro}}$ drifts downward as $r_s/\xi$ increases (steeper matched deficit) without a separate fit.
+
+\textbf{Route G6 --- metric sector $\delta S/\delta g_{\mu\nu}$ ($\kappa$-level).}
+Weak-field identification $g_{00} = -(1 + 2\Phi_g/c^2)$ (Chronos: $d\tau/dt = \sqrt{-g_{00}}$) links the metric component to a \emph{metric} potential $\Phi_g$, distinct from the EL dynamical $\Phi_{\mathrm{dyn}}$ in Eqs.~\ref{eq:app-el-psi}--\ref{eq:app-el-phi} at $\kappa$-level (Routes~G9b--G9c).
+Using $\Phi_{\mathrm{dyn}}$ directly in $g_{00}$ reproduces the hydrostatic Newton amplitude ($N_{\mathrm{hydro}}\approx 1$) but overshoots GR clocks by $\sim 2\times$ on the depleted tail; the metric identification $\Phi_g=\Phi_{\mathrm{dyn}}/Z_g$ ($Z_g=2$ at grain $\alpha_G$) or the Schwarzschild BC $\Phi_g=-GM/(2r)$ fixes chronos without refitting $\alpha_G$.
+\textbf{Still open (frontier, not Paper 1 blocker):} full nonlinear $G_{\mu\nu}=8\pi G T_{\mu\nu}$; optional spatial $Z_{g,rr}$ identification beyond naming.
+
+\textbf{Route G7 --- acoustic metric ($\rho$, $c_s$, $\mathbf{v}$).}
+Phonons on the BEC see an analog metric; static isotropic index $n_{\mathrm{acoustic}} \approx 1/\sqrt{\rho/\rho_{\mathrm{in}}}$ (\texttt{ch\_gravity\_acoustic\_metric.py}), linked to \texttt{ch\_acoustic\_light\_bending.py}.
+
+\textbf{Route G8 --- static diagonal $g_{rr}$ from $\Phi$.}
+With $g_{00}=-(1+2\Phi/c^2)$ (G6), weak-field $g_{rr}=(1-2\Phi/c^2)^{-1}$; clocks and bending checks at grain $\alpha_G$ (\texttt{ch\_gravity\_metric\_static.py}). Linear $\Phi_{\mathrm{hydro}}$ overshoots $z_{\mathrm{GR}}$ at large $r_s/\xi$ on the tail; bending ratio $\alpha_{n_\Phi}/\alpha_{\mathrm{GR}}\approx 0.5$ at $r_s/\xi\gtrsim 2$.
+
+\textbf{Route G8+ --- unified metric clocks and bending.}
+Same $\Phi(r)$ feeds $g_{00}$, $g_{rr}$, clock redshift, and null weak-field bending (\texttt{ch\_gravity\_metric\_unified.py}). Linear $\Phi_{\mathrm{hydro}}$ overshoots $z_{\mathrm{GR}}$ on the depleted tail; exterior $\Phi=-GM/(2r)$ (repo $r_s=GM/c^2$) gives $z_{\mathrm{metric}}/z_{\mathrm{GR}}\approx 1$ and $\alpha/\alpha_{\mathrm{GR,full}}\approx 1.05$. The G8 clock/bending split is a proxy inconsistency: metric chronos and null geodesics require one $\Phi$, not separate $\sqrt{\rho}$ vs $n(\Phi_{\mathrm{hydro}})$ shortcuts.
+
+\textbf{Route G9 --- $\psi$--$\Phi$--$g_{00}$ loop.}
+Coupled Picard iteration with metric exterior $\Phi=-GM/(2r)$ (\texttt{ch\_gravity\_metric\_loop.py}) fixes $z_{\mathrm{metric}}$ and bending inside the loop, but $N_{\mathrm{hydro}}\approx 0.5$ vs $\approx 1$ for the hydro tail---confirming that force amplitude ($\Phi_{\mathrm{hydro}}$) and chronos amplitude ($\Phi_{\mathrm{metric}}$) differ by $\sim 2$ at $\kappa$-level under repo $r_s=GM/c^2$.
+
+\textbf{Route G9b --- dual-$\Phi$ identification.}
+One coupled split solve; $\Phi_{\mathrm{dyn}}$ sets $N_{\mathrm{hydro}}\approx 1$ while $\Phi_g=-GM/(2r)$ on the exterior enters $g_{00}$ and bending (\texttt{ch\_gravity\_metric\_dual.py}; embedded as \texttt{poisson\_mode=dual} in G5c). On the depleted tail: $z_{\mathrm{metric}}/z_{\mathrm{GR}}\approx 1$ and $\alpha/\alpha_{\mathrm{GR,full}}\approx 1.05$ without changing the force sector. Metric amplitude bridge $Z_g=4\alpha_G c_s^2/(m_{\mathrm{grain}} c^2)=2$ at grain $\alpha_G^{\mathrm{hydro,ref}}$ follows from matching $\delta S/\delta\Phi$ (force) to $\delta S/\delta g_{00}$ (chronos) under repo $r_s=GM/c^2$ (\texttt{ch\_gravity\_zg\_identification.py})---not a fit knob.
+
+\textbf{Route G9c --- dual-$\Phi$ action sector.}
+Extend $S$ in Eq.~\ref{eq:app-sm-action} with metric variation on $g_{00}(\Phi_g)$ while the EL field $\Phi\equiv\Phi_{\mathrm{dyn}}$ sources GP and Poisson:
+\begin{equation}
+  g_{00} = -\left(1 + \frac{2\Phi_g}{c^2}\right),
+  \qquad
+  \Phi_g = \frac{\Phi_{\mathrm{dyn}}}{Z_g}\quad\text{(exterior metric ID)},
+  \qquad
+  Z_g = \frac{4\alpha_G c_s^2}{m_{\mathrm{grain}} c^2}.
+  \label{eq:app-phi-g-id}
+\end{equation}
+At grain $\alpha_G^{\mathrm{hydro,ref}}$, $Z_g=2$.
+\texttt{poisson\_mode=bridge} implements Eq.~\ref{eq:app-phi-g-id}; \texttt{dual} imposes $\Phi_g=-GM/(2r)$ (Schwarzschild BC), which tracks GR clocks more closely on the nonlinear $\rho=(1-r_s/r)^2$ tail (\texttt{ch\_gravity\_sm\_dual\_action.py}).
+
+\textbf{Route G10 --- Einstein sketch ($G_{\mu\nu}$ vs $T_{\mu\nu}$, $\kappa$-level).}
+Matter channel $T_{00}^{\mathrm{CH}}\approx(\rho/\rho_{\mathrm{in}}-1)\rho_{\mathrm{in}} c_s^2$; Poisson row $\nabla^2\Phi_{\mathrm{dyn}}=(\lambda_g/Z_\Phi)(\rho/\rho_{\mathrm{in}}-1)$; weak static $G_{00}\approx\nabla^2\Phi_g/c^2$ with $\Phi_g$ from dual mode (\texttt{ch\_gravity\_g10\_einstein\_sketch.py}). Exterior gradient bridge $|\partial_r\Phi_g|/|\partial_r\Phi_{\mathrm{dyn}}/Z_g|\approx 1$ while $N_{\mathrm{hydro}}\approx 1$ and $z_g/z_{\mathrm{GR}}\approx 1$. Full diagonal $T_{\mu\nu}$ (Tier C2), $G_{rr}$ audit (C3), and $\Box h$ linearization (C4) are sketched at $\kappa$-level; full nonlinear $G_{\mu\nu}=8\pi G T_{\mu\nu}$ remains open (see \texttt{docs/ch-open-frontier.md}).
+
+\textbf{Route C2 --- covariant GP on curved background ($\kappa$-sketch).}
+Replace flat $\nabla^2\psi$ with $\nabla^2_g\psi$ using $g_{rr}(\Phi_g)$ from dual coupled profiles (\texttt{ch\_gravity\_gp\_covariant.py}). When inner $\Phi_g$ is small, $\rho_{\mathrm{cov}}\approx\rho_{\mathrm{flat}}$ (quasi-static GP justified); large $r_s/\xi$ shows feed-forward shifts. Does not close full $T_{\mu\nu}$ or $G_{\mu\nu}$; first numerical covariant-GP probe.
+
+\textbf{Route C2+ --- self-consistent covariant GP Picard loop.}
+Embed $\nabla^2_g\psi$ in the G5c outer iteration: each step rebuilds $g_{rr}(\Phi_g)$ from dual $\Phi_g$ and re-solves GP (\texttt{ch\_gravity\_gp\_covariant\_loop.py}). At $r_s/\xi=8$, flat and covariant loops are identical; at $r_s/\xi\sim 2$--$4$ inner $\rho$ can shift while $N_{\mathrm{hydro}}$ and $z_g/z_{\mathrm{GR}}$ stay unchanged---exterior observables robust under curvature back-reaction.
+
+\textbf{Route G11 --- analog graviton linearization ($\kappa$-sketch).}
+Linearize $g_{\mu\nu}=\eta_{\mu\nu}+h_{\mu\nu}$; collective $\delta\rho\to\delta\Phi_{\mathrm{dyn}}\to\delta\Phi_g\to h_{\mu\nu}$ via bridge $\delta\Phi_g=\delta\Phi_{\mathrm{dyn}}/Z_g$ (\texttt{ch\_gravity\_g11\_graviton\_sketch.py}). Interior $Z_g$ chain $=2$; dual exterior $\delta\Phi_g/\delta\rho\approx 0$ (Schwarzschild BC). Polarization DOF $=1$ (scalar), not GR spin-2 ($=2$). Analog collective modes only---fundamental QG gravitons not claimed.
+
+\textbf{Tier C2 --- full $T_{\mu\nu}$ sketch ($\kappa$-level).}
+Diagonal stress-energy from GP deficit $T_{00}^{\mathrm{def}}$, hydrostatic $P$, Madelung $\varepsilon_{\mathrm{kin}}$, and $\Phi$-gradient $\varepsilon_\Phi$ (\texttt{ch\_gravity\_c2\_tmunu\_sketch.py}). On depleted tail: $|T_{00}|/|T_{rr}|\approx 1$, $T_{\theta\theta}/T_{rr}\approx 1$, $|T^\mu_\mu|/|T_{00}|\approx 4$ (trace identity for $T_{00}=-P$). Static $T_{0\mu}=0$.
+
+\textbf{Tier C3 --- $G_{rr}$ closure ($\kappa$-sketch).}
+$g_{rr}^{\mathrm{CH}}=(1-2\Phi_g/c^2)^{-1}$ vs GR $(1-r_s/r)^{-1}$; $|Z_{g,rr}|=|g_{rr}^{\mathrm{GR}}-1|/|g_{rr}^{\mathrm{CH}}-1|=(r+r_s)/(r-r_s)$ on tail (\texttt{ch\_gravity\_c3\_grr\_closure.py}). $T_{rr}/(\rho_{\mathrm{in}} c^2|\kappa_{rr}|)\approx 1.7$--$1.9$. CH $g_{rr}$ is \emph{flatter} than GR at same $M,r$ --- a convention gap (repo $r_s=GM/c^2$), not a falsification; clocks and bending use the dual $\Phi_g$ chain.
+
+\textbf{Tier C4 --- $\Box h$ linearization ($\kappa$-sketch).}
+$\delta^2 S_{\mathrm{EH}}$: $\Box h_{\mu\nu}^{TT}=0$ (GR target, 2 TT modes). CH $\kappa$: scalar $\Box h$ from $\delta\Phi_g$ chain; pol-DOF$=1$; $1/Z_g=0.5$ on wave probe; $\log_{10}|\nabla^2 h|/|8\pi G\,\delta T/c^4|\gg 0$ (\texttt{ch\_gravity\_c4\_h\_linalg\_sketch.py}). Does \textbf{not} close full $G_{\mu\nu}=8\pi G T_{\mu\nu}$ --- documented open frontier.
+
+\textbf{Route A1 --- micro $\gamma_0$ + coupled $N$.}
+Micro $\gamma_0^{\mathrm{micro}}$ depletes bulk $\rho$ and raises $M_{\mathrm{inner}}$ without changing exterior $N_{\mathrm{hydro}}\approx 0.98$ (\texttt{ch\_gravity\_sm\_micro\_coupled.py}).
+
+\textbf{Roadmap:} \texttt{docs/ch-gravity-roadmap-g7-g11.md}.
+
+\textbf{Open:} full $\delta S/\delta g_{\mu\nu}$, joint core~$Q$ + dynamical $\Phi$, and 3D/rotation (\texttt{ch\_gravity\_sm\_variational.py}).
+
+\textbf{Hard:} full 3D, rotation, binaries.
+\textbf{Track summary:} G1 $\alpha_G^{\mathrm{hydro,ref}}$ (grain + Eq.~\ref{eq:app-lgrav-int}); G2 $\gamma_0$ from $\mathcal{L}_{\mathrm{vac}}$; G3 $M_{\mathrm{grav}}$ via $r_s$; G4 oblate generality; G5 $\mathcal{L}_{\mathrm{int,grav}}$; G5b full $S_M$ EL (quasi-static reduction on laptop); G5c coupled $\psi$--$\Phi$ Picard loop; G6 metric $\delta S/\delta g_{\mu\nu}$ ($\kappa$-level).
+
+\textbf{Diagnostic note.}
+An earlier full-grid Newton fit falsely implied $N_{\mathrm{hydro}} \sim 10^2$ and $f \sim 10^{-3}$; exterior evaluation restores $N \approx 0.98$ and $f \approx 1.02$.
+
+
+\printbibliography
+\end{document}

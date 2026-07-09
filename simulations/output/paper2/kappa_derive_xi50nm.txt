@@ -1,0 +1,18 @@
+Paper 2 — kappa derivation and alpha_max prediction
+xi [m] = 5.000000e-08
+ground state: eta*=0.2126, a*/xi=5.9610, a*/(2pi xi)=0.9487
+energy model: K_phase=0.0000e+00, K_heal=2.0000e+00
+
+L_int = -(lambda_em/c^2)|A|^2 (rho - rho_in)/rho_in
+kappa = 2 lambda_em / c^2
+
+At lambda_em = 5.392531e+15:
+  kappa = 1.200000e-01
+  alpha_max_pred = 1.312365e-02 (1.31%)
+  peak |delta F/F| = 1.706983e-02
+
+Invert (linear kappa scaling):
+  alpha_at_kappa=0.12 = 1.312365e-02
+  kappa for alpha=0.12: 1.097255e+00
+  kappa for alpha=0.0373 (detect floor): 3.410636e-01
+

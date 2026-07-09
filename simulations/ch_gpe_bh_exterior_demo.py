@@ -29,7 +29,7 @@ from ch_clock_redshift_from_gpe import (
 )
 from ch_gpe_gravity import (
     analyze_analytic_profile,
-    calibrate_alpha_g_from_defect,
+    calibrate_alpha_g_default,
     mass_from_rs_hat,
     solve_gravity_sm_v3,
 )
@@ -163,7 +163,7 @@ def plot_redshift_comparison(
 
 def solve_v3_calibrated(ch: CHParams, r_s_hat: float, r_join_hat: float = 12.0):
     v3 = solve_gravity_sm_v3(ch, r_s_hat=r_s_hat, r_join_hat=r_join_hat)
-    _, v3_cal = calibrate_alpha_g_from_defect(v3)
+    _, v3_cal = calibrate_alpha_g_default(v3)
     return v3_cal
 
 

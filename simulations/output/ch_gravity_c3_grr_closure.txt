@@ -1,0 +1,40 @@
+CH G_rr closure sketch (Tier C3 — κ-level)
+xi = 5.000e-08 m
+
+=== Metric (G8/G9b dual) ===
+  g_rr^CH = (1 − 2Φ_g/c²)^{−1},   Φ_g = −GM/(2r) exterior
+  g_rr^GR = (1 − r_s/r)^{−1},     repo r_s = GM/c²
+  Curvature proxy:  κ_rr = 1 − 1/g_rr = 2Φ_g/c²
+
+=== Matter (C2) ===
+  T_rr = P_hydro + ε_kin,   T_00^def = (ρ/ρ_in − 1) ρ_in c_s²
+
+=== Weak static G_rr^geom (spatial Einstein, κ) ===
+  G_rr^κ ≈ (2/r²) ∂_r[r² ∂_r Φ_g] / c²  on static diagonal slice
+  Compare G_rr^κ to (8πG/c⁴) T_rr
+
+=== Convention bridge (parallel Z_g) ===
+  Z_g fixes g_00 clocks (factor 2 at grain α_G).
+  Z_g,rr ≡ |g_rr^GR − 1| / |g_rr^CH − 1|  (magnitude bridge; signs differ).
+  Z_g (identified) = 2.0000
+
+=== What C3 closes (κ-level) ===
+  Quantifies g_rr CH vs GR gap and T_rr vs curvature coupling.
+  Einstein rr row order-of-magnitude on depleted tail.
+
+=== Still open (Tier C4) ===
+  Full nonlinear G_μν; □ h_μν^TT from δ²S/δg².
+=== C3: G_rr closure on depleted Schwarzschild tail ===
+  g_rr^CH/g_rr^GR: metric convention gap
+  |Z_g,rr| = |g_rr^GR−1|/|g_rr^CH−1|; analytic (r+r_s)/(r−r_s) at median r
+  T_rr/(ρ_in c²|κ_rr|), T_00/(ρ_in c²|κ_rr|): matter vs CH curvature
+  rs/xi=2: N=0.9581  g_rr^CH/g_rr^GR=0.8468  |Z_g,rr|=1.181  Z_analytic=1.181  T_rr/curv=1.917  T_00/curv=1.917
+  rs/xi=4: N=0.9163  g_rr^CH/g_rr^GR=0.7153  |Z_g,rr|=1.398  Z_analytic=1.398  T_rr/curv=1.834  T_00/curv=1.834
+  rs/xi=8: N=0.8325  g_rr^CH/g_rr^GR=0.5016  |Z_g,rr|=1.994  Z_analytic=1.994  T_rr/curv=1.668  T_00/curv=1.668
+
+Reading:
+  g_rr^CH/g_rr^GR < 1: CH spatial metric flatter than GR (repo r_s = GM/c²).
+  |Z_g,rr| = (r+r_s)/(r−r_s): spatial curvature bridge — distinct from Z_g=2.
+  T_rr/curv ≈ T_00/curv ≈ 1.7–1.9: matter tracks |κ_rr| (Z_g sector; →2 at large r).
+  Exterior Φ_g harmonic: weak G_rr^κ row needs nonlinear metric (beyond κ).
+  Full G_μν=8πG T_μν not closed — Tier C4 (□h^TT) next.

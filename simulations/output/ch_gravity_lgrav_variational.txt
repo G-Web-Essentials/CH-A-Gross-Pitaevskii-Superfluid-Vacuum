@@ -1,0 +1,33 @@
+CH κ-level gravity — L_int,grav → α_G (Route G5)
+xi = 5.000e-08 m
+
+=== Minimal interaction (parallel to Paper 2) ===
+  Paper 2:  L_int,em  = -(λ_em/c²) |A|² (ρ - ρ_in)/ρ_in
+             ⇒ κ = 2 λ_em / c²
+
+  Paper 1:  L_int,grav = -(λ_g/c²) Φ (ρ - ρ_in)/ρ_in
+             ⇒ α_G = 2 λ_g m_grain / c²
+             ⇒ λ_g = α_G c² / (2 m_grain)
+
+=== Matching to hydrostatic implementation ===
+  Φ_hydro = α_G (c_s²/m_grain) (ρ/ρ_in - 1)
+  Far-field linear depletion: |a|/(GM/r²) = α_G · 2c_s²/(m_grain c²)
+  Grain closure: α_G^hydro,ref = m_grain c²/(2c_s²) = 3.517673e-36
+
+=== Numerical identification check ===
+  λ_g(α_G^ref)     = 2.246888e+16
+  α_G(λ_g) roundtrip = 3.517673e-36  (rel err 0.000e+00)
+  λ_g (E_ξ/c² est) = 7.035346e-36
+  α_G from λ_grain  = 1.101437e-87  (order-of-magnitude grain route)
+
+=== Exterior Newton (Schwarzschild tail, hydro only) ===
+  N_hydro factor (linear) = 1.000000
+  N_hydro slope (tail fit) = 0.255332
+
+=== What is derived vs identified ===
+  DERIVED (κ-level): form L_int,grav and α_G = 2λ_g m_grain/c² from variation.
+  GRAIN CLOSURE: α_G^hydro,ref = m_grain c²/(2c_s²) fixes λ_g without Newton fit.
+  IDENTIFIED (Layer 2): M_grav from r_s; matched tail BC on GP solve.
+  OPEN: dynamical Φ, full S_M[g,ψ], core Q + hydro joint far field.
+
+Reviewer-safe: exterior N_hydro ~ 1 at α_G^hydro,ref (1D + 2D oblate rays).

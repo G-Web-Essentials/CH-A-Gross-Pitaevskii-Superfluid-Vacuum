@@ -1,0 +1,58 @@
+CH defect γ₀ — variational derivation (Route G2b)
+xi = 5.000e-08 m, sigma = 0.6, r_s/xi = 1.0
+
+=== Euler–Lagrange (dimensionless GP) ===
+  L = L_GP + L_vac,   L_vac = -λ_v ∫ γ(x)|ψ|² d³x
+  δL/δψ* → stationary GP includes sink term -γ_sink ψ
+  With γ_sink(x) = γ₀ exp(-r²/σ²ξ²) normalized at core:  γ₀ = 2λ_v
+
+=== λ_v from vacancy energy balance ===
+  λ_v (grain count)   = 2.750430e+02
+  λ_v (δF=0 balance)  = 2.750430e+02
+  relative difference = 0.000e+00
+  γ₀^micro = 2λ_v     = 5.500859e+02
+
+=== Two γ₀ prescriptions (different roles) ===
+  γ₀^micro (vacancy):  5.5009e+02  → M_inner ≈ 3.2620e+01 kg
+  γ₀^smooth (core reg): 0.5000  → M_inner ≈ 1.6140e-01 kg
+    smooth targets ρ_center ≈ 0.65 (avoid GP collapse)
+    NOT used for exterior Newton — both give N@ref ≈ 0.9820
+
+=== Preferred CH reading ===
+  Exterior gravity: α_G^hydro,ref (grain) + matched tail.
+  M_inner prediction: γ₀^micro from L_vac (microphysics).
+  GP solver stability: γ₀^smooth (phenomenological core regularization).
+
+=== Mass identification (Layer 2 postulate) ===
+  M_grav (r_s ID)              = 6.7330e+19 kg
+  M_inner (micro)              = 3.2620e+01 kg
+  M_grav/M_inner               = 2.0641e+18
+  Link is NOT ∫(1-ρ)dV = M_grav; test both scales when ξ is lab-fixed.
+
+--- full microphysics report ---
+CH defect microphysics — γ₀ from vacancy coupling (Route G1)
+xi = 5.000e-08 m, sigma = 0.6, r_s/xi = 1.0
+
+Coupling (parallel to Paper 2 κ = 2λ/c²):
+  lambda_v = 2.7504e+02
+  gamma0^ref = 2 lambda_v = 5.5009e+02
+  gamma0 (smooth cal) = 0.5000
+
+Grain scales:
+  m_grain = 7.0353e-36 kg
+  E_xi = 6.3231e-19 J
+  rho_in * xi^3 = 8.4162e-03 kg
+
+Mass budgets (independent of Newton fit):
+  M_grav (r_s = GM/c^2)     = 6.7330e+19 kg
+  M_inner (gamma0^ref)      = 3.2620e+01 kg
+  M_inner (smooth gamma0) = 1.6140e-01 kg
+  M_grav / M_inner_pred     = 2.0641e+18
+
+Exterior Newton @ alpha_G^hydro,ref:
+  with gamma0^ref  = 0.9820
+  with smooth g0   = 0.9820
+
+Identification (Layer 2, not integral closure):
+  M_grav is fixed by Schwarzschild r_s; M_inner by sink microphysics.
+  r_s / (sigma xi) = 1.667 — geometry knob for link.

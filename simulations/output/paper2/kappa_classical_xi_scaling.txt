@@ -1,0 +1,5 @@
+κ_classical (analytic) vs ξ:
+  xi=10 nm  kappa=1.925726e-02
+  xi=20 nm  kappa=1.925726e-02
+  xi=50 nm  kappa=1.925726e-02
+  xi=100 nm  kappa=1.925726e-02

@@ -1,0 +1,51 @@
+CH ψ–Φ–g_00 metric loop (Route G9)
+Compare G5c split/hydro tail vs metric exterior Φ = −GM/(2r).
+g_00 = −(1+2Φ/c²); clocks from √(-g_00); bending from null weak integral.
+Bending at b = 10 r_s; join at r_join = 12 ξ.
+
+=== r_s/xi = 1  clock at 3r_s ===
+  metric: iters=2  phi_res=6.68e-17  N=0.5000  rho=1.0000  z_met=0.0445  z_GR=0.2247  z/z_GR=0.198  α_null/α_full=0.442
+  split : iters=2  phi_res=1.39e-16  N=0.9791  rho=1.0000  z_met=0.0909  z_GR=0.2247  z/z_GR=0.404  α_null/α_full=0.833
+  Δ(metric−split): ΔN=-0.4791  Δ(z/z_GR)=-0.207
+
+=== r_s/xi = 1  clock at 20ξ ===
+  metric: iters=2  phi_res=6.68e-17  N=0.5000  rho=0.9028  z_met=0.0259  z_GR=0.0260  z/z_GR=0.996  α_null/α_full=0.442
+  split : iters=2  phi_res=1.39e-16  N=0.9791  rho=0.9028  z_met=0.0524  z_GR=0.0260  z/z_GR=2.019  α_null/α_full=0.833
+  Δ(metric−split): ΔN=-0.4791  Δ(z/z_GR)=-1.022
+
+=== r_s/xi = 2  clock at 3r_s ===
+  metric: iters=2  phi_res=6.68e-17  N=0.5000  rho=1.0000  z_met=0.0954  z_GR=0.2247  z/z_GR=0.425  α_null/α_full=1.009
+  split : iters=2  phi_res=7.28e-17  N=0.9581  rho=1.0000  z_met=0.2000  z_GR=0.2247  z/z_GR=0.890  α_null/α_full=1.861
+  Δ(metric−split): ΔN=-0.4581  Δ(z/z_GR)=-0.465
+
+=== r_s/xi = 2  clock at 20ξ ===
+  metric: iters=2  phi_res=6.68e-17  N=0.5000  rho=0.8106  z_met=0.0539  z_GR=0.0541  z/z_GR=0.996  α_null/α_full=1.009
+  split : iters=2  phi_res=7.28e-17  N=0.9581  rho=0.8106  z_met=0.1107  z_GR=0.0541  z/z_GR=2.046  α_null/α_full=1.861
+  Δ(metric−split): ΔN=-0.4581  Δ(z/z_GR)=-1.050
+
+=== r_s/xi = 4  clock at 3r_s ===
+  metric: iters=2  phi_res=6.68e-17  N=0.5000  rho=0.4444  z_met=0.2247  z_GR=0.2247  z/z_GR=1.000  α_null/α_full=1.050
+  split : iters=2  phi_res=8.01e-17  N=0.9163  rho=0.4444  z_met=0.5000  z_GR=0.2247  z/z_GR=2.225  α_null/α_full=1.941
+  Δ(metric−split): ΔN=-0.4163  Δ(z/z_GR)=-1.225
+
+=== r_s/xi = 4  clock at 20ξ ===
+  metric: iters=2  phi_res=6.68e-17  N=0.5000  rho=0.6411  z_met=0.1176  z_GR=0.1180  z/z_GR=0.996  α_null/α_full=1.050
+  split : iters=2  phi_res=8.01e-17  N=0.9163  rho=0.6411  z_met=0.2489  z_GR=0.1180  z/z_GR=2.109  α_null/α_full=1.941
+  Δ(metric−split): ΔN=-0.4163  Δ(z/z_GR)=-1.113
+
+=== r_s/xi = 8  clock at 3r_s ===
+  metric: iters=2  phi_res=6.68e-17  N=0.5000  rho=0.4437  z_met=0.2253  z_GR=0.2247  z/z_GR=1.002  α_null/α_full=1.248
+  split : iters=2  phi_res=1.00e-16  N=0.8325  rho=0.4437  z_met=0.5013  z_GR=0.2247  z/z_GR=2.231  α_null/α_full=2.325
+  Δ(metric−split): ΔN=-0.3325  Δ(z/z_GR)=-1.228
+
+=== r_s/xi = 8  clock at 20ξ ===
+  metric: iters=2  phi_res=6.68e-17  N=0.5000  rho=0.3616  z_met=0.2895  z_GR=0.2910  z/z_GR=0.995  α_null/α_full=1.248
+  split : iters=2  phi_res=1.00e-16  N=0.8325  rho=0.3616  z_met=0.6629  z_GR=0.2910  z/z_GR=2.278  α_null/α_full=2.325
+  Δ(metric−split): ΔN=-0.3325  Δ(z/z_GR)=-1.283
+
+Reading:
+  split (G5c): N_hydro ≈ 1 but z_metric overshoots ~2× on depleted tail.
+  metric (G9): exterior Φ = −GM/(2r) → z_metric ≈ z_GR, α ≈ α_GR,full.
+  Tradeoff: metric tail gives N_hydro ≈ 0.5 (factor 2 in repo r_s = GM/c²).
+  Force amplitude (Φ_hydro) and chronos amplitude (Φ_metric) differ by ~2 at κ-level.
+  Open: unified Φ or separate Z_Φ for force vs metric; covariant GP (G9b/C2).

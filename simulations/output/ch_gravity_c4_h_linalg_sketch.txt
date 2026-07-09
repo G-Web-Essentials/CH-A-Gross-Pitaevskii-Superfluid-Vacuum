@@ -1,0 +1,45 @@
+CH □h_μν^TT linearization (Tier C4 — κ-level)
+xi = 5.000e-08 m
+
+=== δ²S_EH (vacuum GR target) ===
+  g_μν = η_μν + h_μν  =>  in Lorenz gauge: □ h_μν^TT = 0
+  2 transverse-traceless polarizations; ω = c k in flat vacuum.
+
+=== δ²S_M coupling (CH κ) ===
+  Matter fluctuations δT_μν from C2 (δρ, δΦ chain).
+  κ row: □ h_scalar ~ (8πG/c⁴) δT_μν  [not full TT projection].
+  G11: h_μν ∝ δΦ_g — single scalar mode (pol-DOF = 1).
+
+=== Radial wave probe ===
+  Impose δρ ∝ sin(k r) on exterior tail; rebuild δΦ_dyn (Poisson),
+  δΦ_g = δΦ_dyn/Z_g (bridge), h_rr = 2 δΦ_g/c².
+  Compare ∇²h vs (8πG/c⁴) δT_00; exterior dual δΦ_g/δρ ≈ 0.
+
+=== What C4 closes ===
+  Names δ²S wave operator vs matter source at κ-level.
+  Confirms scalar chain ≠ spin-2 TT; exterior harmonic sector.
+
+=== What C4 does NOT close ===
+  Full nonlinear G_μν = 8πG T_μν (needs nonlinear metric + full T_μν).
+  g_rr^CH vs g_rr^GR convention (C3) — separate spatial ID, not fixed here.
+  Quantized spin-2 gravitons from S_M.
+
+  Z_g (identified) = 2.0000
+=== C4: □h linearization (radial wave probe on tail) ===
+  pol-DOF: 1 = scalar chain (GR spin-2 needs 2 TT)
+  1/Z_g bridge: |δΦ_g|/|δΦ_dyn| (expect 0.5 at grain Z_g=2)
+  log10|∇²h|−log10|8πG δT_rr/c⁴|: wave-row gap (0 = closed)
+  |∇²Φ_g|/|Φ_g| on −GM/2r (harmonic residual, numerical)
+  ω_ph/c on tail
+  rs/xi=2: N=0.9581  pol=1  1/Z_g=0.5000  wave_gap_log10=20.0  Φ_g lap res=6.700e+14  ω_ph/c=0.9170
+  rs/xi=4: N=0.9163  pol=1  1/Z_g=0.5000  wave_gap_log10=20.0  Φ_g lap res=6.700e+14  ω_ph/c=0.8340
+  rs/xi=8: N=0.8325  pol=1  1/Z_g=0.5000  wave_gap_log10=20.0  Φ_g lap res=6.700e+14  ω_ph/c=0.6681
+
+Reading:
+  pol-DOF=1: δ²S gives scalar □h, not GR spin-2 TT (G11 consistent).
+  1/Z_g=0.5: bridge δΦ_g=δΦ_dyn/Z_g on wave probe.
+  wave_gap_log10 ≫ 0: □h ≠ 8πG δT/c⁴ at κ — full G_μν=8πG T_μν NOT closed.
+  Φ_g=−GM/2r harmonic (lap residual = grid noise on 1/r).
+  ω_ph/c < 1: phonon slower than GR ω=ck.
+
+C4 closes the linear wave-operator story; leave full Einstein as open.

@@ -1,0 +1,59 @@
+CH dual-Φ identification (Route G9b)
+One G5c split solve; separate Φ_dyn (force) vs Φ_g (metric g_00, bending).
+
+Prescriptions:
+  split  — Φ_g = Φ_dyn (G5c baseline)
+  dual   — Φ_dyn from coupled; Φ_g = −GM/(2r) on exterior
+  bridge — Φ_dyn from coupled; Φ_g = β Φ_dyn on exterior (β=0.5)
+
+=== r_s/xi = 1  clock at 3r_s ===
+  bridge: N=0.9791  rho=1.0000  z/z_GR=0.404  α/α_full=8.156
+  dual  : N=0.9791  rho=1.0000  z/z_GR=0.404  α/α_full=7.845
+  split : N=0.9791  rho=1.0000  z/z_GR=0.404  α/α_full=0.833
+
+=== r_s/xi = 1  clock at 20ξ ===
+  bridge: N=0.9791  rho=0.9028  z/z_GR=0.971  α/α_full=8.156
+  dual  : N=0.9791  rho=0.9028  z/z_GR=0.996  α/α_full=7.845
+  split : N=0.9791  rho=0.9028  z/z_GR=2.019  α/α_full=0.833
+
+=== r_s/xi = 2  clock at 3r_s ===
+  bridge: N=0.9581  rho=1.0000  z/z_GR=0.890  α/α_full=0.931
+  dual  : N=0.9581  rho=1.0000  z/z_GR=0.890  α/α_full=1.009
+  split : N=0.9581  rho=1.0000  z/z_GR=0.890  α/α_full=1.861
+
+=== r_s/xi = 2  clock at 20ξ ===
+  bridge: N=0.9581  rho=0.8106  z/z_GR=0.943  α/α_full=0.931
+  dual  : N=0.9581  rho=0.8106  z/z_GR=0.996  α/α_full=1.009
+  split : N=0.9581  rho=0.8106  z/z_GR=2.046  α/α_full=1.861
+
+=== r_s/xi = 4  clock at 3r_s ===
+  bridge: N=0.9163  rho=0.4444  z/z_GR=0.786  α/α_full=0.970
+  dual  : N=0.9163  rho=0.4444  z/z_GR=1.000  α/α_full=1.050
+  split : N=0.9163  rho=0.4444  z/z_GR=2.225  α/α_full=1.941
+
+=== r_s/xi = 4  clock at 20ξ ===
+  bridge: N=0.9163  rho=0.6411  z/z_GR=0.881  α/α_full=0.970
+  dual  : N=0.9163  rho=0.6411  z/z_GR=0.996  α/α_full=1.050
+  split : N=0.9163  rho=0.6411  z/z_GR=2.109  α/α_full=1.941
+
+=== r_s/xi = 8  clock at 3r_s ===
+  bridge: N=0.8325  rho=0.4437  z/z_GR=0.788  α/α_full=1.163
+  dual  : N=0.8325  rho=0.4437  z/z_GR=1.002  α/α_full=1.248
+  split : N=0.8325  rho=0.4437  z/z_GR=2.231  α/α_full=2.325
+
+=== r_s/xi = 8  clock at 20ξ ===
+  bridge: N=0.8325  rho=0.3616  z/z_GR=0.728  α/α_full=1.163
+  dual  : N=0.8325  rho=0.3616  z/z_GR=0.995  α/α_full=1.248
+  split : N=0.8325  rho=0.3616  z/z_GR=2.278  α/α_full=2.325
+
+=== Bridge β sweep (exterior amplitude) at r=20ξ ===
+  rs/xi=1: best β=0.50  N=0.9791  z/z_GR=0.971  α/α_full=8.156
+  rs/xi=2: best β=0.55  N=0.9581  z/z_GR=1.045  α/α_full=1.024
+  rs/xi=4: best β=0.55  N=0.9163  z/z_GR=0.985  α/α_full=1.067
+  rs/xi=8: best β=0.65  N=0.8325  z/z_GR=1.056  α/α_full=1.511
+
+Reading:
+  dual: N≈1 (Φ_dyn) + z≈1 (Φ_g metric) — κ-level two-role identification.
+  bridge β=0.5: halves exterior Φ_g amplitude; should track dual if hydro≈2×metric.
+  CH proposal: Φ_EL drives GP/force; Φ_g = Z_g^{-1} Φ_EL on tail enters g_00.
+  Z_g ≈ 2 at κ-level (repo r_s = GM/c²); not a fit knob — convention bridge.

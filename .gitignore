@@ -5,6 +5,8 @@ __pycache__/
 .venv/
 venv/
 .env
+.pdf_tools/
+.venv_pdf/
 
 # OS / editor
 .DS_Store
@@ -23,6 +25,21 @@ docs/overleaf/*.run.xml
 docs/overleaf/*.synctex.gz
 docs/overleaf/*.fdb_latexmk
 docs/overleaf/*.fls
+docs/overleaf/*.pdf
+
+# Preprint PDFs (compile from docs/overleaf/main.tex locally)
+/*.pdf
+
+# Local-only: example papers, internal notes, companion drafts
+example-papers/
+docs/paper-2/
+docs/ch-*.md
+docs/supersolid-*.md
 
 # Fermi downloads (large; re-fetch with scripts)
 simulations/data/fermi/
+
+# Legacy Casimir reanalysis (local only)
+simulations/data/legacy/
+simulations/output/legacy/
+simulations/casimir_legacy_reanalysis.py

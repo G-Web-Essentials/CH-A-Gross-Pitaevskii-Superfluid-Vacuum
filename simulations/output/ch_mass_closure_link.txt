@@ -1,0 +1,47 @@
+CH defect microphysics — γ₀ from vacancy coupling (Route G1)
+xi = 5.000e-08 m, sigma = 0.6, r_s/xi = 1.0
+
+Coupling (parallel to Paper 2 κ = 2λ/c²):
+  lambda_v = 2.7504e+02
+  gamma0^ref = 2 lambda_v = 5.5009e+02
+  gamma0 (smooth cal) = 0.5000
+
+Grain scales:
+  m_grain = 7.0353e-36 kg
+  E_xi = 6.3231e-19 J
+  rho_in * xi^3 = 8.4162e-03 kg
+
+Mass budgets (independent of Newton fit):
+  M_grav (r_s = GM/c^2)     = 6.7330e+19 kg
+  M_inner (gamma0^ref)      = 3.0885e+01 kg
+  M_inner (smooth gamma0) = 1.6140e-01 kg
+  M_grav / M_inner_pred     = 2.1800e+18
+
+Exterior Newton @ alpha_G^hydro,ref:
+  with gamma0^ref  = 0.9820
+  with smooth g0   = 0.9820
+
+Identification (Layer 2, not integral closure):
+  M_grav is fixed by Schwarzschild r_s; M_inner by sink microphysics.
+  r_s / (sigma xi) = 1.667 — geometry knob for link.
+
+========================================================================
+Mass closure link (three reported scales)
+========================================================================
+M_grav (Schwarzschild ID):     6.7330e+19 kg
+M_inner (v3 solved, r<r_join): 1.6140e-01 kg
+M_tail shell (r>r_join int.):  9.4724e+03 kg
+M_inner (gamma0^ref predict):   3.0885e+01 kg
+
+Postulate (Layer 2 identification, not ∫ closure):
+  (i)  M_grav from r_s = GM/c^2 fixes the exterior BC label.
+  (ii) M_inner from microphysical gamma0^ref = 2 lambda_v.
+  (iii) Tail depletion integral is O(10^3 kg) on finite grids —
+       not M_grav; Schwarzschild mass lives in the r_s map.
+
+Ratio M_grav/M_inner (solved) = 4.1717e+20
+Ratio M_grav/M_inner (predict) = 2.1800e+18
+
+Forward test when xi is lab-fixed:
+  compare M_grav from free-fall to M_inner from defect spectroscopy /
+  condensate budget; CH predicts both from (xi, sigma, r_s) — not one integral.

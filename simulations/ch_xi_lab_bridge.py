@@ -26,6 +26,7 @@ import numpy as np
 from ch_dispersion_core import CHParams
 from ch_gpe_gravity import (
     AlphaGCalibration,
+    alpha_g_profile_corrected,
     calibrate_alpha_g_from_defect,
     solve_gravity_sm_v3,
 )
@@ -177,6 +178,9 @@ class LabGravityForecast:
     gravity_assumed: object
     alpha_calibration: AlphaGCalibration
     gravity_calibrated: object
+    alpha_g_profile: float
+    f_profile: float
+    gravity_profile: object
 
 
 def forecast_gravity_from_xi(
@@ -187,12 +191,16 @@ def forecast_gravity_from_xi(
     ch = CHParams(xi=xi_m, alpha_g=alpha_g_assumed)
     gravity = solve_gravity_sm_v3(ch, r_s_hat=r_s_hat)
     cal, gravity_cal = calibrate_alpha_g_from_defect(gravity)
+    alpha_prof, f_prof, gravity_prof = alpha_g_profile_corrected(gravity)
     return LabGravityForecast(
         xi_m=xi_m,
         ch=ch,
         gravity_assumed=gravity,
         alpha_calibration=cal,
         gravity_calibrated=gravity_cal,
+        alpha_g_profile=float(alpha_prof),
+        f_profile=float(f_prof),
+        gravity_profile=gravity_prof,
     )
 
 
@@ -236,13 +244,18 @@ def format_alpha_g_calibration(cal: AlphaGCalibration) -> list[str]:
 
 
 def format_gravity_forecast(fc: LabGravityForecast) -> list[str]:
-    g = fc.gravity_calibrated
+    g = fc.gravity_profile
     lines = [
         "",
         f"Gravity v3 forecast @ ξ = {fc.xi_m:.4e} m",
         f"  solver: {g.solver}",
-        f"  Newton total (α_G=1):     {fc.gravity_assumed.newton_slope:.4e}",
-        f"  Newton total (calibrated): {g.newton_slope:.4e}",
+        f"  Newton total (α_G=1):        {fc.gravity_assumed.newton_slope:.4e}",
+        f"  Newton total (profile rule): {g.newton_slope:.4e}",
+        f"  Newton total (slope cal):    {fc.gravity_calibrated.newton_slope:.4e}",
+        "α_G profile rule (f = 1/N_hydro@grain ref)",
+        f"  α_G hydro-only reference:   {fc.alpha_calibration.alpha_g_hydro_only_reference:.4e}",
+        f"  f_profile:                  {fc.f_profile:.4e}",
+        f"  α_G profile:                {fc.alpha_g_profile:.4e}",
     ]
     lines.extend(format_alpha_g_calibration(fc.alpha_calibration))
     return lines

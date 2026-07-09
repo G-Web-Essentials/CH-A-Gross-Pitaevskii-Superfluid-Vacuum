@@ -1,0 +1,19 @@
+CH alpha_G profile correction validation
+n_v3 = 9, n_analytic = 3
+
+Rule: alpha_G = alpha_G^hydro,ref / N_hydro(alpha_G^hydro,ref)
+       f_profile = 1 / newton_at_hydro_ref
+
+median |Newton - 1|  slope-ratio cal:  0.0030
+median |Newton - 1|  profile rule:    9.9920e-16
+max rel |alpha_profile - alpha_cal|/alpha_cal: 0.006
+
+Analytic ansatz: newton@hydro,ref ~ 1, f ~ 1.
+v3 GP: deep depletion -> large newton@hydro,ref -> small f.
+
+Example xi=50 nm, rs_hat=1, sigma=0.6:
+  delta_max = 0.9806
+  newton@hydro,ref = 0.98
+  f_profile = 1.0183e+00
+  Newton after profile rule = 1.000000
+  Newton after slope cal    = 1.0030

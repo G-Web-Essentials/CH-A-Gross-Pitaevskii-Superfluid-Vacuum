@@ -1,0 +1,54 @@
+CH metric-sector sketch (Route G6 — δS/δg_μν, amplitude without slaving)
+xi = 5.000e-08 m
+
+=== Effective action (static weak-field sector) ===
+  S = S_EH[g] + ∫ d³x √γ [ L_GP + L_Φ + L_int,grav + L_vac ]
+  S_EH = (c⁴/16πG) ∫ d⁴x √-g R
+
+=== Weak-field metric ansatz ===
+  g_00 = -(1 + 2Φ/c²),   g_0i = 0,   g_ij = γ_ij = δ_ij
+  Chronos: dτ/dt = √(-g_00) = √(1 + 2Φ/c²)
+
+=== Matter stress-energy (κ-level) ===
+  From L_int,grav = -(λ_g/c²) Φ (ρ-ρ_in)/ρ_in:
+  T^μν_matter sources the metric via δS/δg^μν.
+  Static T_00 ≈ (ρ-ρ_in) c² + pressure terms; linear deficit:
+  source_Φ ≡ (λ_g/Z_Φ)(ρ/ρ_in - 1)  in δS/δΦ (Eq. app-el-phi).
+
+=== Linearized δS/δg_00 → Newtonian limit ===
+  Einstein: G_00 ≈ ∇²Φ_Newt / c²  (weak field, static)
+  Match to matter+Φ sector:
+    ∇²Φ = (λ_g/Z_Φ)(ρ/ρ_in - 1)
+  Hydrostatic identification (grain, not N-fit):
+    Φ_hydro = α_G (c_s²/m_grain)(ρ/ρ_in - 1)
+    Z_Φ = λ_g / [α_G c_s²/m_grain]
+  => Z_Φ = 5.000000e-01
+
+=== Amplitude chain (parallel Paper 2 κ) ===
+  Grain counting → α_G^hydro,ref = m_grain c²/(2c_s²)
+  => α_G^hydro,ref = 3.517673e-36
+  => λ_g = 2.246888e+16
+  Poisson+split BC (G5c) implements same amplitude as slaving.
+  Metric clock √(-g_00) uses that Φ — no separate fit.
+
+=== What this closes (κ-level) ===
+  Slaving is the algebraic limit of identified dynamical Φ.
+  full_el fails because Φ(∞)=0 without Z_Φ matching leaves amplitude zero.
+  Metric sector fixes amplitude via same α_G identification.
+
+=== Still open (beyond κ-level) ===
+  Full dynamical g_ij, graviton DOF, δS/δg_ij for spatial curvature;
+  covariant coupling of GP to curved background; strong-field g_μν from ρ, v.
+
+=== Clock comparison at r = 3 r_s (Φ(∞)=0 convention) ===
+  rs/xi=0.5: z_GR=0.2247  z_sqrt_rho=0.0000  z_Phi_hydro=0.0000  z_Phi_coupled=0.0435  rho(3rs)=1.0000
+  rs/xi=1: z_GR=0.2247  z_sqrt_rho=0.0000  z_Phi_hydro=0.0000  z_Phi_coupled=0.0909  rho(3rs)=1.0000
+  rs/xi=2: z_GR=0.2247  z_sqrt_rho=0.0000  z_Phi_hydro=0.0000  z_Phi_coupled=0.2000  rho(3rs)=1.0000
+  rs/xi=4: z_GR=0.2247  z_sqrt_rho=0.5000  z_Phi_hydro=0.5000  z_Phi_coupled=0.5000  rho(3rs)=0.4444
+
+Reading:
+  sqrt(rho) on Schwarzschild tail matches z_GR (Chronos from depletion).
+  Phi_hydro with Phi(inf)=0 matches sqrt(rho) at grain alpha_G.
+  Coupled split Phi gives same clock as slaved Phi_hydro.
+  Metric route g_00 = -(1+2Phi/c^2) needs no extra amplitude fit.
+

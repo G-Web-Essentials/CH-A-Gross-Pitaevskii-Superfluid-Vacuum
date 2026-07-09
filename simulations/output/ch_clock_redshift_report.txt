@@ -6,6 +6,14 @@ r_s = 5.0000e-08 m
   [phi_ch] z(2 r_s)=9.8785e-01, z(10 r_s)=1.0896e-01, z_max=9.8785e-01
   [gr_static] z(2 r_s)=4.0991e-01, z(10 r_s)=5.3073e-02, z_max=9.0398e+00
 
+Clock profile: gravity v3 (α_G profile rule)
+Reference: ω_ref at r = 1.500e-05 m (outer grid point)
+r_s = 5.0000e-08 m
+  [sqrt_rho] z(2 r_s)=-3.3333e-03, z(10 r_s)=-3.3333e-03, z_max=6.1637e+00
+  [mu_local] z(2 r_s)=6.6546e+03, z(10 r_s)=6.6546e+03, z_max=6.6546e+03
+  [phi_ch] z(2 r_s)=-3.3333e-03, z(10 r_s)=-3.3333e-03, z_max=6.1637e+00
+  [gr_static] z(2 r_s)=4.1127e-01, z(10 r_s)=5.2344e-02, z_max=3.0586e+01
+
 Clock profile: gap d=150 nm
 Reference: ω_ref at mid-gap z = 7.515e-08 m
   [sqrt_rho] z_wall_max=7.3800e+01, z_mid=0.0000e+00

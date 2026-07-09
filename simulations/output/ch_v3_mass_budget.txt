@@ -1,0 +1,29 @@
+CH v3 mass budget
+xi = 5.000e-08 m, r_s/xi = 1.0
+
+M_grav (from r_s = G M/c^2):     6.7330e+19 kg
+M_inner (smooth γ₀, r<r_join):   1.6140e-01 kg
+M_inner / M_grav:                2.3971e-21
+
+Interpretation:
+  M_grav is the exterior Schwarzschild identification, not ∫(1-ρ)dV.
+  ∫(1-ρ)ρ_in dV on a finite (1-r_s/r)² tail is O(10^3) kg, not M_grav.
+  Inner condensate removed is a separate budget (0.1–2 kg in default sweeps).
+
+Target M_inner = 0.1 kg:
+  g0 = 199.3059, achieved M_inner = 2.7604 kg
+  (exterior N@grain ref with smooth g0: 0.9820)
+Target M_inner = 0.5 kg:
+  g0 = 411.6244, achieved M_inner = 0.6576 kg
+  (exterior N@grain ref with smooth g0: 0.9820)
+Target M_inner = 1.0 kg:
+  g0 = 72.7983, achieved M_inner = 1.0482 kg
+  (exterior N@grain ref with smooth g0: 0.9820)
+Target M_inner = 2.0 kg:
+  g0 = 118.9895, achieved M_inner = 1.2355 kg
+  (exterior N@grain ref with smooth g0: 0.9820)
+
+Laptop paths forward:
+  1. Fix M_grav from r_s; tune γ₀ for M_inner from defect microphysics (not Newton).
+  2. Derive γ₀ from variational defect Lagrangian (Appendix L_grav).
+  3. 3D/oblate sinks: scale σ_x, σ_y, σ_z — not yet implemented.

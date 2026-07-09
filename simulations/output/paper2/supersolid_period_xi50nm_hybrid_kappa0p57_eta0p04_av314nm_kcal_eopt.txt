@@ -1,0 +1,40 @@
+Paper 2 — Phase 2 supersolid period extraction
+xi [m] = 5.000000e-08
+kappa = 5.668356e-01
+eta = 4.000000e-02
+a_vac imposed [m] = 3.141593e-07
+n_max = 800
+profile = hybrid
+chi_const = None
+
+Naive cosine fit to F/F_Cas (no χ unfolding):
+  alpha_naive = 1.336667e-02
+  a_naive [m] = 4.739571e-07 (473.96 nm)
+  phi_naive [rad] = -1.548141e+00
+  a_naive / a_imposed = 1.508652
+
+Joint gated fit: delta = chi * alpha * cos(2*pi*d/a + phi):
+  alpha_joint = 1.362135e-01
+  a_joint [m] = 2.231784e-07 (223.18 nm)
+  phi_joint [rad] = -3.091407e+00
+  a_joint / a_imposed = 0.710399
+  a_joint / a_hyp = 0.710399
+  joint_fit_rms = 1.780881e-02
+
+kappa_calibrated = 5.668356e-01
+
+Eta optimization metadata:
+  alpha_joint = 0.02540419055629698
+  a_joint = 1.7025356145220395e-07
+  phi_joint = -2.8537247663893766
+  e_mod = 0.6920736789046629
+  score = 0.24124129192980145
+
+peak |delta F/F_Cas| = 8.435546e-02
+corr(|delta|, chi_bulk) = 0.969041
+peak |delta/chi| = 4.843993e-01
+
+Interpretation:
+- Joint fit separates chi(d) envelope from cosine period (Part A+B)
+- Naive fit can bias a_vac when chi(d) varies slowly
+- kappa calibration ties alpha_joint to Paper 1 alpha_max

@@ -9,33 +9,33 @@ Joint signal fit: Δχ²=435.51
 Signal threshold + flat control + k_c agreement.
 
 k_c extraction (protocol_joint)
-  k_c = 0.1046 1/nm
-  d_c = 9.5599e-09 m  (9.56 nm)
+  k_c = 10.0062 1/nm
+  d_c = 9.9938e-11 m  (0.10 nm)
   per-channel lab_demo_alpha: k_c=9.8101 1/nm
   per-channel lab_demo_vis: k_c=10.1758 1/nm
-  joint k_c: 0.1046 1/nm
+  joint k_c: 10.0062 1/nm
 
 k_c extraction (protocol_joint)
-  k_c = 0.1046 1/nm
-  d_c = 9.5599e-09 m  (9.56 nm)
+  k_c = 10.0062 1/nm
+  d_c = 9.9938e-11 m  (0.10 nm)
   per-channel lab_demo_alpha: k_c=9.8101 1/nm
   per-channel lab_demo_vis: k_c=10.1758 1/nm
-  joint k_c: 0.1046 1/nm
+  joint k_c: 10.0062 1/nm
 
-Consensus ξ (gap_turnon (Casimir lattice disagrees >2×)): 9.5599e-09 m
+Consensus ξ (gap_turnon (Casimir lattice disagrees >2×)): 9.9938e-11 m
 
 Mechanism:     gap_turnon
-Input:         d_turnon = 9.5599e-09 (SI)
-Predicted ξ:   9.5599e-09 m
+Input:         d_turnon = 9.9938e-11 (SI)
+Predicted ξ:   9.9938e-11 m
 Rationale:     ξ ≈ d_c where gradient gate turns on in gap scan
-ρ_in:          1.2873e+19 kg/m³
-m_grain:       3.6796e-35 kg
-ω₀:            3.1359e+16 rad/s
-E_ξ:           2.0641e-08 GeV
+ρ_in:          1.3458e+17 kg/m³
+m_grain:       3.5198e-33 kg
+ω₀:            2.9998e+18 rad/s
+E_ξ:           1.9745e-06 GeV
 |∇ρ|_c:        1.3466e+27 kg/m⁴
-β_max:         1.2327e+52
+β_max:         1.3471e+48
 ξ_crit (always-on): 1.9733e-27 m
-Always-on vs Fermi: FAIL (β/β_Fermi=2.3e+37)
+Always-on vs Fermi: FAIL (β/β_Fermi=2.6e+33)
 Gated void GRB:     PASS (χ≈0)
 G(ξ,ρ_in):     6.6743e-11  (target 6.6743e-11)
 G match:       1.0000
@@ -56,17 +56,22 @@ Gated void GRB:     PASS (χ≈0)
 G(ξ,ρ_in):     6.6743e-11  (target 6.6743e-11)
 G match:       1.0000
 
-Gravity v3 forecast @ ξ = 9.5599e-09 m
+Gravity v3 forecast @ ξ = 9.9938e-11 m
   solver: v3_sm_matched_alpha_cal
-  Newton total (α_G=1):     1.5478e+37
-  Newton total (calibrated): 9.0537e-01
+  Newton total (α_G=1):        1.6180e+35
+  Newton total (profile rule): 1.0000e+00
+  Newton total (slope cal):    9.0537e-01
+α_G profile rule (f = 1/N_hydro@grain ref)
+  α_G hydro-only reference:   1.7599e-33
+  f_profile:                  3.8788e-03
+  α_G profile:                6.8263e-36
 α_G calibration (defect profile → Newton factor ≈ 1)
   α_G assumed:              1.0000e+00
-  α_G calibrated:           6.4608e-38
-  α_G hydro-only reference:   1.8398e-35
-  Newton @ assumed α_G:       1.5478e+37
-  Newton Q contribution:      2.2224e-27
-  Newton hydro per unit α_G:  1.5478e+37
+  α_G calibrated:           6.1803e-36
+  α_G hydro-only reference:   1.7599e-33
+  Newton @ assumed α_G:       1.6180e+35
+  Newton Q contribution:      2.1259e-25
+  Newton hydro per unit α_G:  1.6180e+35
   Newton after calibration:   9.0537e-01
   G implied (slope × G_meas): 6.0427e-11
-  Mass deficit (profile):     1.2660e+01 kg
+  Mass deficit (profile):     1.5119e-07 kg

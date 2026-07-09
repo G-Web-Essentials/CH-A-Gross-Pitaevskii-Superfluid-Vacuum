@@ -1,0 +1,57 @@
+CH unified metric — clocks + bending from same (g_00, g_rr) (G8+)
+g_00 = -(1+2Φ/c²),  g_rr = (1-2Φ/c²)^{-1},  Φ(∞)=0
+Repo convention: r_s = GM/c²; exterior Φ_newton = −GM/(2r).
+
+Phi channels:
+  hydro   — grain Φ_hydro(ρ)  [Newton amplitude]
+  coupled — split Poisson + GP Φ
+  newton  — −GM/(2r) on r ≥ r_join  [weak Schwarzschild tail]
+
+Bending at b = 10 r_s; α_GR = 2r_s/b, α_GR_full = 4r_s/b.
+
+=== r_s/xi = 1  clock at r = 3r_s ===
+  hydro  : rho=1.0000  z_met=0.0000  z_GR=0.2247  z/z_GR=0.000  α_null/α_GR=160.423  α_eik/α_GR=1.009  α_null/α_full=80.211
+  coupled: rho=1.0000  z_met=0.0909  z_GR=0.2247  z/z_GR=0.404  α_null/α_GR=1.665  α_eik/α_GR=0.950  α_null/α_full=0.832
+  newton : rho=1.0000  z_met=0.0000  z_GR=0.2247  z/z_GR=0.000  α_null/α_GR=177.177  α_eik/α_GR=0.505  α_null/α_full=88.589
+
+=== r_s/xi = 1  clock at r = 20ξ ===
+  hydro  : rho=0.9028  z_met=0.0524  z_GR=0.0260  z/z_GR=2.019  α_null/α_GR=160.423  α_eik/α_GR=1.009  α_null/α_full=80.211
+  coupled: rho=0.9028  z_met=0.0524  z_GR=0.0260  z/z_GR=2.019  α_null/α_GR=1.665  α_eik/α_GR=0.950  α_null/α_full=0.832
+  newton : rho=0.9028  z_met=0.0259  z_GR=0.0260  z/z_GR=0.996  α_null/α_GR=177.177  α_eik/α_GR=0.505  α_null/α_full=88.589
+
+=== r_s/xi = 2  clock at r = 3r_s ===
+  hydro  : rho=1.0000  z_met=0.0000  z_GR=0.2247  z/z_GR=0.000  α_null/α_GR=3.723  α_eik/α_GR=2.169  α_null/α_full=1.861
+  coupled: rho=1.0000  z_met=0.2000  z_GR=0.2247  z/z_GR=0.890  α_null/α_GR=3.723  α_eik/α_GR=2.169  α_null/α_full=1.861
+  newton : rho=1.0000  z_met=0.0000  z_GR=0.2247  z/z_GR=0.000  α_null/α_GR=2.019  α_eik/α_GR=1.084  α_null/α_full=1.009
+
+=== r_s/xi = 2  clock at r = 20ξ ===
+  hydro  : rho=0.8106  z_met=0.1107  z_GR=0.0541  z/z_GR=2.046  α_null/α_GR=3.723  α_eik/α_GR=2.169  α_null/α_full=1.861
+  coupled: rho=0.8106  z_met=0.1107  z_GR=0.0541  z/z_GR=2.046  α_null/α_GR=3.723  α_eik/α_GR=2.169  α_null/α_full=1.861
+  newton : rho=0.8106  z_met=0.0539  z_GR=0.0541  z/z_GR=0.996  α_null/α_GR=2.019  α_eik/α_GR=1.084  α_null/α_full=1.009
+
+=== r_s/xi = 4  clock at r = 3r_s ===
+  hydro  : rho=0.4444  z_met=0.5000  z_GR=0.2247  z/z_GR=2.225  α_null/α_GR=3.881  α_eik/α_GR=2.154  α_null/α_full=1.941
+  coupled: rho=0.4444  z_met=0.5000  z_GR=0.2247  z/z_GR=2.225  α_null/α_GR=3.881  α_eik/α_GR=2.154  α_null/α_full=1.941
+  newton : rho=0.4444  z_met=0.2247  z_GR=0.2247  z/z_GR=1.000  α_null/α_GR=2.099  α_eik/α_GR=1.077  α_null/α_full=1.050
+
+=== r_s/xi = 4  clock at r = 20ξ ===
+  hydro  : rho=0.6411  z_met=0.2489  z_GR=0.1180  z/z_GR=2.109  α_null/α_GR=3.881  α_eik/α_GR=2.154  α_null/α_full=1.941
+  coupled: rho=0.6411  z_met=0.2489  z_GR=0.1180  z/z_GR=2.109  α_null/α_GR=3.881  α_eik/α_GR=2.154  α_null/α_full=1.941
+  newton : rho=0.6411  z_met=0.1176  z_GR=0.1180  z/z_GR=0.996  α_null/α_GR=2.099  α_eik/α_GR=1.077  α_null/α_full=1.050
+
+=== r_s/xi = 8  clock at r = 3r_s ===
+  hydro  : rho=0.4437  z_met=0.5013  z_GR=0.2247  z/z_GR=2.231  α_null/α_GR=4.650  α_eik/α_GR=2.098  α_null/α_full=2.325
+  coupled: rho=0.4437  z_met=0.5013  z_GR=0.2247  z/z_GR=2.231  α_null/α_GR=4.650  α_eik/α_GR=2.098  α_null/α_full=2.325
+  newton : rho=0.4437  z_met=0.2253  z_GR=0.2247  z/z_GR=1.002  α_null/α_GR=2.496  α_eik/α_GR=1.049  α_null/α_full=1.248
+
+=== r_s/xi = 8  clock at r = 20ξ ===
+  hydro  : rho=0.3616  z_met=0.6629  z_GR=0.2910  z/z_GR=2.278  α_null/α_GR=4.650  α_eik/α_GR=2.098  α_null/α_full=2.325
+  coupled: rho=0.3616  z_met=0.6629  z_GR=0.2910  z/z_GR=2.278  α_null/α_GR=4.650  α_eik/α_GR=2.098  α_null/α_full=2.325
+  newton : rho=0.3616  z_met=0.2895  z_GR=0.2910  z/z_GR=0.995  α_null/α_GR=2.496  α_eik/α_GR=1.049  α_null/α_full=1.248
+
+Reading:
+  Interior rho≈1 (rs/xi≲2 at 3r_s): z_met≈0 — inconclusive vs GR.
+  Depleted tail: hydro/coupled z_met overshoots z_GR (linear Φ_hydro).
+  newton Φ on exterior: z_met≈z_GR and α_null/α_full≈1 when tail is active.
+  Eikonal n=√(1+2Φ/c²) tracks null weak integral from same Φ.
+  Use ONE Φ for g_00 and bending — not separate clock/bend proxies.

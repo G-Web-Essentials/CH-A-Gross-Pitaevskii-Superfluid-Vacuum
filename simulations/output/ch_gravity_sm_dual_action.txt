@@ -1,0 +1,51 @@
+CH dual-Φ action sector (Route G9c — κ-level)
+xi = 5.000e-08 m
+
+=== Extended static action ===
+  S = S_EH[g; Φ_g] + ∫ d³x [ L_GP + (Z_Φ/2c²)|∇Φ|² + L_int,grav(Φ) + L_vac ]
+
+  ONE EL field Φ ≡ Φ_dyn sourced by δS/δΦ (Eq. app-el-phi).
+  GP + Poisson use Φ_dyn — force channel, Z_Φ identification.
+
+  Metric sector (δS/δg_00, weak field):
+    g_00 = −(1 + 2Φ_g/c²)
+    Φ_g = Φ_dyn / Z_g   on exterior  [algebraic metric ID]
+  Equivalently: g_00 = −(1 + 2Φ_dyn/(Z_g c²)).
+
+=== Identifications (grain-fixed, not N/z fit) ===
+  Z_Φ = λ_g / [α_G c_s²/m] = 5.000000e-01  [force/Poisson]
+  Z_g = 4 α_G c_s²/(m c²) = 2.000000  [metric/chronos]
+  hydrostatic_newton_factor = 1.000000  (= Z_g/2 at grain α_G)
+
+=== Implementation in coupled loop ===
+  poisson_mode=split:   Φ_g = Φ_dyn  (baseline; z overshoots)
+  poisson_mode=bridge: Φ_dyn loop; Φ_g = Φ_dyn/Z_g exterior
+  poisson_mode=dual:    Φ_dyn loop; Φ_g = −GM/(2r) exterior (BC)
+
+=== κ-level closure ===
+  G9 factor-of-2 split = two δS identifications (Z_Φ vs Z_g).
+  Not two independent fit parameters.
+  bridge implements action ID; dual implements Schwarzschild BC.
+=== Coupled loop: split vs bridge vs dual (clock at 20ξ) ===
+  r_s/xi = 1
+    bridge: N=0.9791  z_dyn/z_GR=2.019  z_g/z_GR=0.971  α_g/α_full=8.156
+    dual  : N=0.9791  z_dyn/z_GR=2.019  z_g/z_GR=0.996  α_g/α_full=7.845
+    split : N=0.9791  z_dyn/z_GR=2.019  z_g/z_GR=2.019  α_g/α_full=0.833
+  r_s/xi = 2
+    bridge: N=0.9581  z_dyn/z_GR=2.046  z_g/z_GR=0.943  α_g/α_full=0.931
+    dual  : N=0.9581  z_dyn/z_GR=2.046  z_g/z_GR=0.996  α_g/α_full=1.009
+    split : N=0.9581  z_dyn/z_GR=2.046  z_g/z_GR=2.046  α_g/α_full=1.861
+  r_s/xi = 4
+    bridge: N=0.9163  z_dyn/z_GR=2.109  z_g/z_GR=0.881  α_g/α_full=0.970
+    dual  : N=0.9163  z_dyn/z_GR=2.109  z_g/z_GR=0.996  α_g/α_full=1.050
+    split : N=0.9163  z_dyn/z_GR=2.109  z_g/z_GR=2.109  α_g/α_full=1.941
+  r_s/xi = 8
+    bridge: N=0.8325  z_dyn/z_GR=2.278  z_g/z_GR=0.728  α_g/α_full=1.163
+    dual  : N=0.8325  z_dyn/z_GR=2.278  z_g/z_GR=0.995  α_g/α_full=1.248
+    split : N=0.8325  z_dyn/z_GR=2.278  z_g/z_GR=2.278  α_g/α_full=2.325
+
+Reading:
+  split: N≈1, z_dyn≈2× GR (using Φ_dyn in g_00 — pre-G9b error).
+  bridge: N≈1, z_g≈1 via Φ_g=Φ_dyn/Z_g (action identification).
+  dual: N≈1, z_g≈1 via −GM/(2r) BC (Schwarzschild overlay).
+  bridge ≈ dual when hydro tail ≈ 2× metric tail (Z_g=2).

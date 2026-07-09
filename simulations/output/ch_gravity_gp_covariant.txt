@@ -1,0 +1,34 @@
+CH covariant GP sketch (Route C2 — κ-level)
+xi = 5.000e-08 m
+
+=== Covariant GP equation (static) ===
+  (−ℏ²/2m) ∇²_g ψ + (1−|ψ|²)ψ − γ(r)ψ + (λ_g Φ_dyn)/(c² ρ_in) ψ = μ ψ
+  g_rr = (1 − 2Φ_g/c²)^{-1} from dual coupled Φ_g
+  ∇²_g ψ = r^{-2} ∂_r[(r²/g_rr) ∂_r ψ]  on spatial slice
+
+=== T_μν sketch (static diagonal) ===
+  T_00 ≈ (ρ/ρ_in − 1) ρ_in c_s²
+  T_rr ≈ ρ_in c_s² (1 − ρ)   [hydrostatic pressure]
+  T_0i, anisotropic off-diagonal: open
+
+=== G_rr (G8 identification) ===
+  g_rr(Φ_g) compared to weak-field GR g_rr = (1 − r_s/r)^{-1}
+
+=== G11 (gravitons) ===
+  Linearize g_μν = η_μν + h_μν about flat → analog spin-2 modes
+  from collective ρ, v excitations; fundamental QG gravitons NOT claimed.
+
+=== What C2 closes vs leaves open ===
+  Closes: first numeric test that covariant ∇²_g shifts ψ minimally at κ-level.
+  Open: full T_μν from δS/δg_μν; G_μν components; quantized graviton spectrum.
+=== C2: flat vs covariant GP on inner ball (dual Φ_g background) ===
+  rs/xi=1: Δρ_L2/σ_ρ=92.0678  max|Δρ|/ρ=1.0000  μ_flat=7.084253e-02  μ_cov=3.552316e+02  g_rr/g_rr_GR=0.9049  |T_00|/(ρ_in c²|g_rr−1|)=2.047
+  rs/xi=2: Δρ_L2/σ_ρ=2.2568  max|Δρ|/ρ=0.9998  μ_flat=5.442999e+00  μ_cov=4.954344e+00  g_rr/g_rr_GR=0.8184  |T_00|/(ρ_in c²|g_rr−1|)=2.090
+  rs/xi=4: Δρ_L2/σ_ρ=1.6426  max|Δρ|/ρ=0.9121  μ_flat=5.844978e+00  μ_cov=2.800589e+00  g_rr/g_rr_GR=0.6670  |T_00|/(ρ_in c²|g_rr−1|)=2.160
+  rs/xi=8: Δρ_L2/σ_ρ=0.0000  max|Δρ|/ρ=0.0000  μ_flat=5.846771e+00  μ_cov=8.472894e+00  g_rr/g_rr_GR=0.4290  |T_00|/(ρ_in c²|g_rr−1|)=2.240
+
+Reading:
+  Small Δρ: covariant GP ≈ flat GP at κ-level (weak field, r≪r_s regime).
+  g_rr/g_rr_GR ≈ 1: G8 metric component on dual tail.
+  C2 does NOT close full T_μν, G_rr Einstein equation, or gravitons (G11).
+  It is the first GP-on-curved-background numerical probe.

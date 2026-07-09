@@ -1,0 +1,37 @@
+CH strong-field / physical back-reaction (Route G5d)
+
+=== Physical EL feedback vs r_s/xi (no artificial boost) ===
+  rs/xi=0.5  rho_join=0.9184  dM/M=+2.002e-01  Phi-feed/sink_max=0.000e+00  N_v3=0.9910  N_cpl=0.9895
+  rs/xi=1  rho_join=0.8403  dM/M=-9.095e-01  Phi-feed/sink_max=0.000e+00  N_v3=0.9820  N_cpl=0.9791
+  rs/xi=2  rho_join=0.6944  dM/M=+5.331e+00  Phi-feed/sink_max=0.000e+00  N_v3=0.9640  N_cpl=0.9581
+  rs/xi=4  rho_join=0.4444  dM/M=+2.002e-01  Phi-feed/sink_max=0.000e+00  N_v3=0.9280  N_cpl=0.9163
+
+=== Q + Phi_hydro by radial band (v3 profile) ===
+  --- r_s/xi = 0.5 ---
+    bulk     [0.1,4.2]xi: rho=1.0000  |drho/dr|_max=7.105e-15  |Q|/|Phi|=0.000e+00
+    join     [10.2,12.0]xi: rho=0.9995  |drho/dr|_max=7.623e+00  |Q|/|Phi|=7.214e-32
+    exterior [12.2,48.0]xi: rho=0.9622  |drho/dr|_max=6.354e-03  |Q|/|Phi|=6.905e-36
+  --- r_s/xi = 1 ---
+    bulk     [0.1,4.2]xi: rho=1.0000  |drho/dr|_max=7.105e-15  |Q|/|Phi|=0.000e+00
+    join     [10.2,12.0]xi: rho=0.9937  |drho/dr|_max=7.670e+01  |Q|/|Phi|=1.157e-30
+    exterior [12.2,48.0]xi: rho=0.9252  |drho/dr|_max=1.217e-02  |Q|/|Phi|=7.254e-36
+  --- r_s/xi = 2 ---
+    bulk     [0.1,4.2]xi: rho=1.0000  |drho/dr|_max=7.105e-15  |Q|/|Phi|=0.000e+00
+    join     [10.2,12.0]xi: rho=0.9983  |drho/dr|_max=2.855e+01  |Q|/|Phi|=8.334e-32
+    exterior [12.2,48.0]xi: rho=0.8538  |drho/dr|_max=2.218e-02  |Q|/|Phi|=8.044e-36
+  --- r_s/xi = 4 ---
+    bulk     [0.1,4.2]xi: rho=1.0000  |drho/dr|_max=7.105e-15  |Q|/|Phi|=0.000e+00
+    join     [10.2,12.0]xi: rho=0.9969  |drho/dr|_max=5.190e+01  |Q|/|Phi|=1.059e-31
+    exterior [12.2,48.0]xi: rho=0.7212  |drho/dr|_max=3.574e-02  |Q|/|Phi|=1.014e-35
+
+=== Clock redshift z at r = 3 r_s (Phi(inf)=0) ===
+  rs/xi=0.5: z_GR=0.2247  z_sqrt_rho=0.0000  z_Phi=0.0000  ratio Phi/GR=0.0000
+  rs/xi=1: z_GR=0.2247  z_sqrt_rho=0.0000  z_Phi=0.0000  ratio Phi/GR=0.0000
+  rs/xi=2: z_GR=0.2247  z_sqrt_rho=0.0000  z_Phi=0.0000  ratio Phi/GR=0.0000
+  rs/xi=4: z_GR=0.2247  z_sqrt_rho=0.5000  z_Phi=0.5000  ratio Phi/GR=2.2247
+
+Reading:
+  alpha_G^hydro,ref is grain-derived; Z_Phi matches Poisson to Phi_hydro (identification, not N-fit).
+  Physical Phi-feedback / sink in core (r < 0.5 r_join) stays tiny at grain alpha_G.
+  Q peaks at join layer (max |drho/dr|); still |Q|/|Phi| << 1 vs hydrostatic channel.
+  N_hydro drifts below 1 as r_s/xi grows (steeper deficit); not a separate fit knob.

@@ -1,0 +1,26 @@
+Paper 2 — Phase 2 supersolid period extraction
+xi [m] = 5.000000e-08
+kappa = 1.200000e-01
+eta = 1.500000e-01
+a_vac imposed [m] = 3.141593e-07
+n_max = 800
+profile = dielectric
+chi_const = 1.0
+
+Cosine fit to F/F_Cas:
+  alpha_fit = 2.711005e-03
+  a_fit [m] = 3.309064e-07 (330.91 nm)
+  phi_fit [rad] = -1.321981e+00
+  a_fit / a_imposed = 1.053308
+  a_hyp = 2*pi*xi = 3.141593e-07 (314.16 nm)
+  a_fit / a_hyp = 1.053308
+
+peak |delta F/F_Cas| = 1.512531e-02
+corr(|delta|, chi_bulk) = 0.702717
+peak |delta/chi| = 8.678040e+08
+
+Interpretation:
+- Periodic rho(z) in mode sum produces oscillatory delta F/F_Cas vs d
+- Fitted period tracks imposed lattice scale (Route 2 sketch)
+- chi_bulk still gates amplitude (Part B); period is Part A
+- Full GPE supersolid ground state still future work

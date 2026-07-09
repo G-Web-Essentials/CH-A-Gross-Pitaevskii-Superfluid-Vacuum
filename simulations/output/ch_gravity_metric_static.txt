@@ -1,0 +1,23 @@
+CH static diagonal metric (Route G8)
+g_00 = -(1+2Φ/c²),  g_rr = (1-2Φ/c²)^{-1},  Φ(∞)=0
+
+=== Clock redshift at r = 3 r_s ===
+  rs/xi=1: rho=1.0000  z_GR=0.2247  z_g00=0.0000  z_Phi_h=0.0000  z_sqrt_rho=0.0000  z_Phi/z_GR=0.000
+  rs/xi=2: rho=1.0000  z_GR=0.2247  z_g00=0.0000  z_Phi_h=0.0000  z_sqrt_rho=0.0000  z_Phi/z_GR=0.000
+  rs/xi=4: rho=0.4444  z_GR=0.2247  z_g00=0.5000  z_Phi_h=0.5000  z_sqrt_rho=0.5000  z_Phi/z_GR=2.225
+  rs/xi=8: rho=0.4437  z_GR=0.2247  z_g00=0.5013  z_Phi_h=0.5013  z_sqrt_rho=0.5013  z_Phi/z_GR=2.231
+
+=== Regime reading ===
+  rs/xi <= 2: often rho(3rs)=1 on v3 (flat inner) -> z_CH ~ 0 (inconclusive vs GR).
+  rs/xi >= 4: on depleted tail, z_Phi_h and z_sqrt_rho track each other; linear Phi_hydro can overshoot z_GR.
+
+=== Weak-field bending at b = 10 r_s ===
+  rs/xi=1: alpha_GR=2.000e-01 rad  alpha_n_phi=8.608e+00  ratio=43.039
+  rs/xi=2: alpha_GR=2.000e-01 rad  alpha_n_phi=9.888e-02  ratio=0.494
+  rs/xi=4: alpha_GR=2.000e-01 rad  alpha_n_phi=9.775e-02  ratio=0.489
+  rs/xi=8: alpha_GR=2.000e-01 rad  alpha_n_phi=9.252e-02  ratio=0.463
+
+Reading:
+  G8 closes g_rr alongside G6 g_00 at κ-level.
+  Clocks: use tail where rho < 1; Phi(inf)=0 convention.
+  Bending: n=sqrt(1+2Phi/c²) tracks GR weak field when Phi ~ -GM/r.

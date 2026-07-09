@@ -1,0 +1,48 @@
+CH full T_μν sketch (Tier C2 — κ-level, static spherical)
+xi = 5.000e-08 m
+
+=== δS/δg_μν matter sector (identified components) ===
+  GP deficit (G10):     T_00^def = (ρ/ρ_in − 1) ρ_in c_s²
+  GP hydrostatic P:     P = ρ_in c_s² (1 − ρ)_+
+  Spatial stress:       T_rr = P + ε_kin,rad
+                        T_θθ = T_φφ = P
+  Kinetic (Madelung):   ε_kin = (ℏ²/8m) |∂_r ρ_phys|² / ρ_phys
+  Φ coupling (κ):       ε_Φ = (λ_g / Z_Φ c⁴) (∂_r Φ_dyn)²
+  Static v=0:           T_0μ = 0
+
+=== Combined ===
+  T_00 = T_00^def + ε_kin + ε_Φ
+  T_rr, T_θθ from P and anisotropic ε_kin,rad ≈ ε_kin (radial gradient)
+
+=== Hydrostatic balance (Newtonian check) ===
+  dP/dr  vs  ρ_phys ∂_r Φ_dyn   (should track where P and Φ vary)
+
+=== Identifications ===
+  Z_Φ = 5.000000e-01,  λ_g = 2.246888e+16
+
+=== What C2 closes (κ-level) ===
+  Full diagonal T_μν ansatz from GP + Φ on coupled ρ(r).
+  Pressure / tangential / kinetic / Φ-gradient channels named.
+  Hydrostatic and Poisson consistency checks.
+
+=== Still open (Tier C3–C4) ===
+  G_rr = 8πG T_rr from computed G_μν (κ vs GR convention).
+  □ h_μν^TT from δ²S/δg² (beyond G11 scalar map).
+  Dynamic v≠0: T_0i, anisotropic off-diagonal from velocity.
+=== C2: full T_μν on depleted Schwarzschild tail (dual coupled) ===
+  |T_00|/|T_rr|: deficit vs pressure+kin at ρ<1
+  T_θθ/T_rr: tangential isotropy (≈1 if ε_kin ≪ P)
+  hydro: |dP/dr| / |ρ ∂_r Φ_dyn|
+  trace/|T_00|: (T^μ_μ)/|T_00| with diag (−,+,+,+); ≈4 when T_rr=P=−T_00^def
+  |T_00^def|/|T_00|: deficit dominates over ε_kin, ε_Φ
+  rs/xi=2: N=0.9581  |T_00|/|T_rr|=1.000  T_θθ/T_rr=1.000  hydro=2.378  trace/|T_00|=4.000  |T_00^def|/|T_00|=1.000
+  rs/xi=4: N=0.9163  |T_00|/|T_rr|=1.000  T_θθ/T_rr=1.000  hydro=2.875  trace/|T_00|=4.000  |T_00^def|/|T_00|=1.000
+  rs/xi=8: N=0.8325  |T_00|/|T_rr|=1.000  T_θθ/T_rr=1.000  hydro=4.481  trace/|T_00|=4.000  |T_00^def|/|T_00|=1.000
+
+Reading:
+  |T_00|/|T_rr| ≈ 1 on depleted tail: deficit and pressure symmetric in (1−ρ).
+  T_θθ/T_rr ≈ 1 when ε_kin ≪ P (tangential = hydrostatic pressure).
+  trace/|T_00| ≈ 4: for T_00^def=−P, trace=−T_00+T_rr+2T_θθ=4P (κ ansatz).
+  |T_00^def|/|T_00| ≈ 1: deficit channel dominates on tail (G10 row).
+  hydro ≠ 1: dP/dr vs ρ∂_rΦ_dyn needs Z_Φ/force-ID factor (C3 input).
+  C2 names full diagonal T_μν; C3 (G_rr) and C4 (□h^TT) remain open.

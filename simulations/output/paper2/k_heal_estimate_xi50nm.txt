@@ -1,0 +1,25 @@
+Paper 2 Tier 1.1 — K_heal order-of-magnitude estimates
+xi = 50.0 nm
+d_hat = 2.0759, d_rep = 103.8 nm
+eta* (E_mod) = 0.2126
+bulk TF integral = 0.8103
+
+E_mod at a_hat = pi:
+  E_mod(pi) = 4.110389e-01
+  E_mod(2pi) = 5.473040e-01
+  delta E_mod = 1.362651e-01
+
+K_heal estimates (dimensionless stiffness):
+  energy balance (E_mod 2pi-pi) = 3.363345e-01
+  E_mod scale / heal unit     = 1.014541e+00
+  simulated crossing a*/(2pi xi)=1 = 27.3034495868131
+
+Ratio sim / energy-balance:
+  K_cross / K_balance = 81.179
+  K_cross / K_Emod    = 26.912
+  K_working (2.0) gives a*/(2pi xi) ~ 0.95 in staged scan
+
+Interpretation:
+- If K_balance ~ K_cross, healing lock is fixing E_mod pi-vs-2pi competition
+- K_heal = 2 (working value) is O(1-10) on these scales, not derived exactly
+- Lab still discriminates pi xi vs 2 pi xi regardless

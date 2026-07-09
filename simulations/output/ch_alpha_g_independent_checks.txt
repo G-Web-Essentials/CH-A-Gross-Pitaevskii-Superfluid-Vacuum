@@ -1,0 +1,19 @@
+CH alpha_G independent checks
+n = 2
+
+Mass deficit inner (r <= r_join; no Newton fit): M_def,inner / M_target
+  median ratio = 0.0000
+
+Hold-out Newton (profile rule α_G; band excludes default fit annulus)
+  median |N_holdout - 1| = 1.0677e-02
+
+Inner-train f = 1/N_hydro@ref on [r_join, 25ξ]; test outer hold-out
+  median |N_outer - 1| = 1.0618e-01
+
+Example:
+  xi=5.00e-08 rs_hat=1.0 sigma=0.6 g0=matched
+  M_def,inner/M = 0.0000  (full profile M_def/M = 1.4070e-16)
+  N@hydro,ref = 0.98  f_profile = 1.0183e+00
+  N_fit annulus = 1.000000
+  N_holdout [7.95e-06, 1.35e-05] m = 1.0107
+  N_outer after inner f = 1.1062

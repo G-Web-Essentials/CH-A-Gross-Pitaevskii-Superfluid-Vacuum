@@ -1,0 +1,25 @@
+CH 2D axisymmetric GP gravity — scaffold
+xi = 5.000e-08 m, r_s/xi = 1.0, r_join/xi = 12
+
+Note: 1D radial and 2D cylindrical operators agree on the equator when
+the 1D profile is seeded on the (r,z) grid (L2 ~ 0); full relaxation
+breaks spherical symmetry because the operators differ off-axis.
+
+=== Spherical sink — grid / seed validation (no relaxation) ===
+  gamma0 = 0.5000
+  equatorial rho L2 (1D seed on 2D grid) = 0.0000e+00
+  M_inner (1D radial reference) = 1.6140e-01 kg
+
+=== Oblate sink (2D relaxation) ===
+  sigma_parallel = 0.6, sigma_perp = 1.2
+  gamma0 = 0.5000
+  rho_center = 0.0934
+  rho_mid equator / pole = 0.0111 / 0.0078
+  pole/equator mid ratio = 0.7036
+  M_inner (2D ball) = 4.8656e+01 kg
+  iterations = 8000
+
+Next steps:
+  - Schwarzschild tail on R = sqrt(r^2+z^2) for exterior Newton
+  - oblate generality link to ch_alpha_g_generality_sweep.py
+  - full 3D / rotation: off-laptop HPC

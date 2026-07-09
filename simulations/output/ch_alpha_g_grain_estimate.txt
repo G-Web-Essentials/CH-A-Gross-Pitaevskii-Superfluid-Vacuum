@@ -1,0 +1,27 @@
+CH alpha_G grain reference vs calibration
+xi = 5.000e-08 m
+m_grain = 7.0353e-36 kg
+rho_in = 6.7330e+19 kg/m^3
+
+Grain hydrostatic reference (linear / analytic matching):
+  alpha_G^hydro,ref = m_grain c^2 / (2 c_s^2) = 3.5177e-36
+  F_hydro at alpha_G=1 = 2.8428e+35
+
+Analytic Schwarzschild-depletion profile:
+  Newton factor @ alpha_G=1          = 2.7823e+35
+  Newton factor @ alpha_G^hydro,ref  = 0.9787
+
+Numerical v3 GP defect (S_M, matched exterior):
+  Newton factor @ alpha_G=1          = 2.7833e+35
+  Newton factor @ alpha_G^hydro,ref  = 0.9820
+  alpha_G^cal (slope fit)            = 3.5929e-36
+  Newton factor after slope cal      = 1.0030
+  f_profile = 1/N_hydro@ref          = 1.0183e+00
+  alpha_G profile rule               = 3.5821e-36
+  Newton factor after profile rule   = 1.000000
+  alpha_G^cal / alpha_G^hydro,ref    = 1.0214e+00
+
+Interpretation:
+  alpha_G^hydro,ref closes Newton on the analytic ansatz without fitting.
+  Primary: alpha_G^hydro,ref closes exterior Newton (~0.98 v3 & analytic).
+  Optional f = 1/N_hydro@ref is ~2% trim (earlier f~0.004 was full-grid artefact).

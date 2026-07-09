@@ -19,7 +19,7 @@ from ch_dispersion_core import C, G_MEAS, CHParams
 from ch_gpe_gravity import (
     alpha_g_required_for_hydrostatic_newton,
     analyze_analytic_profile,
-    calibrate_alpha_g_from_defect,
+    calibrate_alpha_g_default,
     format_alpha_g_calibration_lines,
     hydrostatic_alpha_g,
     mass_from_rs_hat,
@@ -105,6 +105,12 @@ def main() -> None:
     parser.add_argument("--analytic-only", action="store_true", help="Skip numerical GPE")
     parser.add_argument("--v3-only", action="store_true", help="Run only S_M v3 solver")
     parser.add_argument("--skip-v2", action="store_true", help="Skip v2 V_def solver")
+    parser.add_argument(
+        "--alpha-g-method",
+        choices=("profile", "slope"),
+        default="profile",
+        help="α_G calibration after v3 solve (default: profile rule)",
+    )
     args = parser.parse_args()
 
     ch = CHParams(xi=args.xi, alpha_g=1.0)
@@ -135,11 +141,15 @@ def main() -> None:
         print("\nSolving v3 (S_M source, no tail patch)...")
         v3 = solve_gravity_sm_v3(ch, r_s_hat=args.rs_hat)
         print_report("v3 S_M only", v3)
-        cal_v3, v3_cal = calibrate_alpha_g_from_defect(v3)
-        print("  α_G calibration (Newton → 1):")
+        cal_v3, v3_cal = calibrate_alpha_g_default(v3, method=args.alpha_g_method)
         for line in format_alpha_g_calibration_lines(cal_v3):
             print(line)
-        plot_result(v3_cal, "Gravity v3 — S_M (α_G calibrated)", OUTPUT / "ch_gpe_gravity_v3.png")
+        plot_title = (
+            "Gravity v3 — S_M (α_G profile rule)"
+            if args.alpha_g_method == "profile"
+            else "Gravity v3 — S_M (α_G slope cal)"
+        )
+        plot_result(v3_cal, plot_title, OUTPUT / "ch_gpe_gravity_v3.png")
         results.append(("v3", v3_cal))
 
     summary = OUTPUT / "ch_gpe_gravity_report.txt"

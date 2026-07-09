@@ -286,6 +286,40 @@ def plot_clock_profile(
     plt.close(fig)
 
 
+def plot_clock_gr_comparison(
+    profiles: list[ClockProfile],
+    out_path: Path,
+    *,
+    model: str = "sqrt_rho",
+) -> None:
+    """Overlay CH clock redshift models vs GR Schwarzschild on r/r_s."""
+    fig, ax = plt.subplots(figsize=(8, 5))
+    for prof in profiles:
+        if prof.r_s_m is None or prof.r_s_m <= 0:
+            continue
+        x = prof.coord_m / prof.r_s_m
+        if model not in prof.redshift:
+            continue
+        z = prof.redshift[model]
+        mask = (x >= 1.05) & (x <= 200) & np.isfinite(z)
+        ax.loglog(x[mask], np.abs(z[mask]) + 1e-30, lw=1.5, label=prof.label)
+    # GR reference
+    rs = profiles[0].r_s_m
+    if rs and rs > 0:
+        xgr = np.logspace(np.log10(1.05), np.log10(200), 400)
+        zgr = 1.0 / np.sqrt(1.0 - rs / (xgr * rs)) - 1.0
+        ax.loglog(xgr, zgr, "k--", lw=1.2, label="GR Schwarzschild")
+    ax.axvline(1.0, color="gray", ls=":", lw=0.8)
+    ax.set_xlabel(r"$r / r_s$")
+    ax.set_ylabel(r"$|z|$")
+    ax.set_title(rf"Clock redshift — {model} vs GR (profile-rule $\alpha_G$)")
+    ax.grid(True, which="both", alpha=0.3)
+    ax.legend(fontsize=8)
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=150)
+    plt.close(fig)
+
+
 def compare_redshift_models_at_r(
     profile: ClockProfile,
     r_query_m: float,
@@ -306,6 +340,12 @@ def main() -> None:
     parser.add_argument("--rs-hat", type=float, default=1.0, help="Schwarzschild radius in ξ")
     parser.add_argument("--gap-nm", type=float, default=150.0, help="Casimir gap [nm] for 1D profile")
     parser.add_argument("--gravity", action="store_true", help="Use v3 gravity solve (slow)")
+    parser.add_argument(
+        "--alpha-g-method",
+        choices=("profile", "slope"),
+        default="profile",
+        help="α_G calibration for --gravity (default: profile rule)",
+    )
     args = parser.parse_args()
 
     OUTPUT.mkdir(exist_ok=True)
@@ -317,14 +357,34 @@ def main() -> None:
     reports.append(format_clock_report(ana))
     plot_clock_profile(ana, OUTPUT / "ch_clock_redshift_analytic.png")
 
+    grav_prof: ClockProfile | None = None
     if args.gravity:
-        from ch_gpe_gravity import calibrate_alpha_g_from_defect, solve_gravity_sm_v3
+        from ch_gpe_gravity import calibrate_alpha_g_default, solve_gravity_sm_v3
 
         v3 = solve_gravity_sm_v3(ch, r_s_hat=args.rs_hat)
-        _, v3_cal = calibrate_alpha_g_from_defect(v3)
-        grav = clock_profile_from_gravity(v3_cal, label="gravity v3 (α_G cal)")
-        reports.append(format_clock_report(grav))
-        plot_clock_profile(grav, OUTPUT / "ch_clock_redshift_gravity_v3.png")
+        _, v3_cal = calibrate_alpha_g_default(v3, method=args.alpha_g_method)
+        label = (
+            "gravity v3 (α_G profile rule)"
+            if args.alpha_g_method == "profile"
+            else "gravity v3 (α_G slope cal)"
+        )
+        grav_prof = clock_profile_from_gravity(v3_cal, label=label)
+        reports.append(format_clock_report(grav_prof))
+        plot_clock_profile(grav_prof, OUTPUT / "ch_clock_redshift_gravity_v3.png")
+
+    compare_list = [ana]
+    if grav_prof is not None:
+        compare_list.append(grav_prof)
+    plot_clock_gr_comparison(
+        compare_list,
+        OUTPUT / "ch_clock_redshift_vs_gr.png",
+        model="sqrt_rho",
+    )
+    plot_clock_gr_comparison(
+        compare_list,
+        OUTPUT / "ch_clock_redshift_phi_ch_vs_gr.png",
+        model="phi_ch",
+    )
 
     gap = solve_casimir_gap(ch, args.gap_nm * 1e-9)
     gap_prof = clock_profile_from_gap(gap)
@@ -341,6 +401,8 @@ def main() -> None:
         print(block)
         print()
     print(f"Wrote {OUTPUT / 'ch_clock_redshift_analytic.png'}")
+    print(f"Wrote {OUTPUT / 'ch_clock_redshift_vs_gr.png'}")
+    print(f"Wrote {OUTPUT / 'ch_clock_redshift_phi_ch_vs_gr.png'}")
     if args.gravity:
         print(f"Wrote {OUTPUT / 'ch_clock_redshift_gravity_v3.png'}")
     print(f"Wrote {OUTPUT / 'ch_clock_redshift_gap.png'}")

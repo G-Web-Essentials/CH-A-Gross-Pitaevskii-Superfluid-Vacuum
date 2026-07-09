@@ -1,0 +1,36 @@
+CH oblate inner convergence — M_inner and pole/equator rho budgets
+Method: converged 1D GP rays (equator σ_⊥, pole σ_∥); M_inner from equator.
+xi = 5.000e-08 m, r_s/xi = 1.0, r_join/xi = 12
+
+=== smooth core reg (gamma0=0.5, sig=(0.6,0.6)) ===
+  grid 144x144, iter=10000, residual=0.000e+00
+  M_inner (equator ray) = 1.6140e-01 kg
+  pole/equator ray mass ratio = 1.0000  (M_pol/M_eq)
+  rho_min (core) = 1.0000
+  rho(R≈0.15ξ) eq/pol = 1.0000 / 1.0000  ratio=1.0000
+  rho(R≈0.35ξ) eq/pol = 1.0000 / 1.0000  ratio=1.0000
+
+=== smooth oblate (gamma0=0.5, sig=(0.6,1.2)) ===
+  grid 144x144, iter=10000, residual=0.000e+00
+  M_inner (equator ray) = 1.6139e-01 kg
+  pole/equator ray mass ratio = 1.0000  (M_pol/M_eq)
+  rho_min (core) = 1.0000
+  rho(R≈0.15ξ) eq/pol = 1.0000 / 1.0000  ratio=1.0000
+  rho(R≈0.35ξ) eq/pol = 1.0000 / 1.0000  ratio=1.0000
+
+=== micro oblate (gamma0=550.1, sig=(0.6,1.2)) ===
+  grid 144x144, iter=10000, residual=0.000e+00
+  M_inner (equator ray) = 1.7419e+01 kg
+  pole/equator ray mass ratio = 0.6094  (M_pol/M_eq)
+  rho_min (core) = 1.0000
+  rho(R≈0.15ξ) eq/pol = 1.0000 / 1.0000  ratio=1.0000
+  rho(R≈0.35ξ) eq/pol = 1.0000 / 1.0000  ratio=1.0000
+
+=== micro oblate wide (gamma0=550.1, sig=(1.2,0.6)) ===
+  grid 144x144, iter=10000, residual=0.000e+00
+  M_inner (equator ray) = 1.0616e+01 kg
+  pole/equator ray mass ratio = 1.6408  (M_pol/M_eq)
+  rho_min (core) = 1.0000
+  rho(R≈0.15ξ) eq/pol = 1.0000 / 1.0000  ratio=1.0000
+  rho(R≈0.35ξ) eq/pol = 1.0000 / 1.0000  ratio=1.0000
+

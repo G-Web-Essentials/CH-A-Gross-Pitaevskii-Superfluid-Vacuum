@@ -1,0 +1,28 @@
+CH coupled ψ–Φ iteration (Route G5c)
+xi = 5.000e-08 m, r_s/xi = 4.0, r_join/xi = 12.0
+gamma0 = 0.5, sigma = 0.6
+outer iterations = 2, phi_res = 8.011e-17, rho_res = 0.000e+00
+Z_Phi = 5.0000e-01, GP coupling (lambda_g Phi)/(c^2 rho_in) = 3.7131e-21
+  effective scale in loop = 5.5696e-22 (x coupling_scale)
+Poisson mode = dual
+rho_core = 1.000000 (v3 ref 1.000000)
+M_inner = 5.0816e-02 kg (v3 ref 4.2340e-02 kg)
+|Q|/|Phi| near join ≈ 4.397e-32
+
+Newton factor N = |a|/(GM/r^2) on exterior:
+  coupled Phi (Poisson+GP loop) = 0.9163
+  coupled Phi + Q (Madelung)   = 0.9163
+  slaved Φ_hydro only         = 0.9163
+  v3 reference (laptop)     = 0.9280
+
+Metric sector (G9b dual, Φ_g on exterior):
+  Z_g (identified) = 2.0000
+  z_g(3r_s)/z_GR = 1.000
+  z_g(20ξ)/z_GR  = 0.996
+
+Reading:
+  Self-consistent loop: GP feels Φ; Φ sourced by ρ deficit (Poisson).
+  Slaved hydrostatic Φ_hydro is the fixed point target at grain α_G.
+  Convergence → coupled N should approach slaved/v3 (~0.98).
+  At grain alpha_G, Phi back-reaction on rho is weak; loop finds hydrostatic fixed point.
+  dual mode: Φ_dyn drives loop; Φ_g = −GM/(2r) exterior for g_00 clocks.

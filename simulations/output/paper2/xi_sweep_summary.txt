@@ -1,0 +1,36 @@
+Paper 2 Tier 1.3 — xi sweep summary
+K_heal = 2.0
+kappa benchmark = 0.12
+
+xi = 10.0 nm
+  d_hat = 4.000, d_rep = 40.0 nm
+  eta* = 0.1235
+  a*/(2pi xi) = 0.9487 (E_mod only: 0.8590)
+  alpha_max @ kappa=0.12 = 2.199%
+  grain alpha: cl 0.208%, fs 0.208%
+  corr(delta, chi) = 0.9960
+
+xi = 20.0 nm
+  d_hat = 2.000, d_rep = 40.0 nm
+  eta* = 0.1974
+  a*/(2pi xi) = 0.9487 (E_mod only: 0.5000)
+  alpha_max @ kappa=0.12 = 1.932%
+  grain alpha: cl 0.291%, fs 0.291%
+  corr(delta, chi) = 0.9825
+
+xi = 50.0 nm
+  d_hat = 2.076, d_rep = 103.8 nm
+  eta* = 0.2126
+  a*/(2pi xi) = 0.9487 (E_mod only: 0.5000)
+  alpha_max @ kappa=0.12 = 1.312%
+  grain alpha: cl 0.213%, fs 0.213%
+  corr(delta, chi) = 0.9404
+
+xi = 100.0 nm
+  d_hat = 2.101, d_rep = 210.1 nm
+  eta* = 0.2167
+  a*/(2pi xi) = 0.9487 (E_mod only: 0.5000)
+  alpha_max @ kappa=0.12 = 3.344%
+  grain alpha: cl 0.554%, fs 0.554%
+  corr(delta, chi) = 0.9164
+

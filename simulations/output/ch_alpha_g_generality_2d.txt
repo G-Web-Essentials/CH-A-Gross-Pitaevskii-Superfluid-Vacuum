@@ -1,0 +1,17 @@
+CH alpha_G generality — 2D oblate (equator vs pole rays)
+n = 3
+alpha_G^hydro,ref (grain): 3.517673e-36
+std(N_1d equatorial slice) = 0.0000
+std(N_2d equator ray)       = 0.0000
+std(N_2d pole ray)          = 0.0000
+max |N_pol/N_eq - 1|        = 0.0000
+
+CH reading:
+  Inner depletion can be pole/equator asymmetric (rho ratio varies).
+  Exterior hydrostatic Newton at grain alpha_G can still be ~1 on both
+  rays when the matched Schwarzschild tail is appended on each ray.
+
+Per-point:
+  rs=1.0 sig=(0.6,0.6): N_1d=0.982 N_eq=0.979 N_pol=0.979 rho_pol/eq@R=xi=1.000 M_inner=1.062e+01 res=0.00e+00
+  rs=1.0 sig=(0.6,1.2): N_1d=0.982 N_eq=0.979 N_pol=0.979 rho_pol/eq@R=xi=1.000 M_inner=1.140e+00 res=0.00e+00
+  rs=1.0 sig=(1.2,0.6): N_1d=0.982 N_eq=0.979 N_pol=0.979 rho_pol/eq@R=xi=1.000 M_inner=1.062e+01 res=0.00e+00
