@@ -284,6 +284,7 @@ CH \textbf{parameterizes} (does not derive from GPE) a gated multiplicative ripp
   \label{eq:casimir-ripple}
 \end{equation}
 where $a_{\mathrm{vac}}$ is a vacuum lattice scale (fit parameter) and $\alpha_{\mathrm{eff}} = \alpha_{\max}\,\chi(|\nabla\rho|(k))$.
+Companion Paper~2~\cite{CHPaper2} perturbatively motivates $\alpha_{\mathrm{eff}} \propto \chi_{\mathrm{bulk}}$ and the multiplicative form; Eq.~\ref{eq:casimir-ripple} remains the protocol parameterization here.
 \textbf{Extraction:} scan gap $d$, divide measured force by the QED Casimir prediction $F_{\mathrm{Cas}}(d)$, fit the oscillatory residual for amplitude $\alpha$ (practice pipeline: \texttt{casimir\_ripple\_sim.py}).
 QFT predicts $\alpha_{\mathrm{eff}} = 0$ within noise; CH predicts $\alpha_{\mathrm{eff}}$ rises when the knob $k$ raises $|\nabla\rho|$ past $|\nabla\rho|_c$.
 Dynamic AFM Casimir groups already extract this ripple amplitude; Tier~A collaboration therefore needs only one scalar per gap, not CH-specific hardware.
