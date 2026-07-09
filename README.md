@@ -25,7 +25,7 @@ Compile with **pdfLaTeX + Biber**. Preprint PDF: build locally or use arXiv once
 
 ## Paper 2 — EM–GPE derivation
 
-Companion derivation of the gated Casimir ripple — motivates \(\alpha_{\max}\) and \(a_{\mathrm{vac}}\) cited in Paper 1.
+Companion derivation of the gated Casimir ripple — motivates $\alpha_{\max}$ and $a_{\mathrm{vac}}$ cited in Paper 1.
 
 | Item | Path |
 |------|------|

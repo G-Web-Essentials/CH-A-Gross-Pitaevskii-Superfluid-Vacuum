@@ -1,6 +1,6 @@
 # Paper 1 — Casimir ripple protocol
 
-Prediction #7 lab protocol: flat vs threshold turn-on in Casimir ripple \(\alpha(k)\) and interferometric visibility, with mandatory flat control channel.
+Prediction #7 lab protocol: flat vs threshold turn-on in Casimir ripple $\alpha(k)$ and interferometric visibility, with mandatory flat control channel.
 
 ## Source
 

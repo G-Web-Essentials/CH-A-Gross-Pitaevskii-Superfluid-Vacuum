@@ -31,4 +31,4 @@ See [`simulations/README.md`](../../simulations/README.md) for the full Paper 2 
 
 ## Relation to Paper 1
 
-Paper 1 asks whether \(\alpha(k)\) shows threshold turn-on (Prediction #7). Paper 2 links GPE boundary profiles to EM mode sums and motivates \(\alpha_{\max} \sim 0.1\)–\(0.2\%\) vs Paper 1’s 12% sensitivity ceiling.
+Paper 1 asks whether $\alpha(k)$ shows threshold turn-on (Prediction #7). Paper 2 links GPE boundary profiles to EM mode sums and motivates $\alpha_{\max} \sim 0.1\text{–}0.2\%$ vs Paper 1’s 12% sensitivity ceiling.
