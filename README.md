@@ -6,7 +6,7 @@
 
 ## What is CH?
 
-**Chronos-Hydrodynamics** proposes that space is an ultra-dense superfluid obeying the **Gross–Pitaevskii equation (GPE)**. Matter is **missing fluid** (stable defects where $\rho$ is depleted). **Gradient gating** ($\chi(|\nabla\rho|)$) keeps supersolid-linked observables off in uniform vacuum — explaining widespread null tests.
+**Chronos-Hydrodynamics** proposes that space is an ultra-dense superfluid obeying the **Gross–Pitaevskii equation (GPE)**. Matter is **missing fluid** (stable defects where $\rho$ is depleted). **Gradient gating** $\chi(\lvert\nabla\rho\rvert)$ keeps supersolid-linked observables off in uniform vacuum — explaining widespread null tests.
 
 The **discriminating near-term test** is **Prediction #7**: compare **flat** (QFT) vs **threshold** (CH) models for Casimir ripple $\alpha(k)$ and visibility $\Delta V(k)$, with a mandatory **flat control channel**.
 
