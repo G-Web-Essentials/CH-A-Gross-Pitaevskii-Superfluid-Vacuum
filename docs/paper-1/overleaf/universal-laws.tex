@@ -146,6 +146,34 @@ Lorentz symmetry is \textbf{emergent} in the comoving, low-energy limit---not po
 
 \textbf{``Chronos''} in the name = time tied to condensate phase, not an external clock.
 
+\subsubsection{Kinematic time dilation (moving clocks; sketch)}
+
+\textbf{Standard view:} Special relativity: a fast-moving clock ticks slowly; $c$ is the speed limit.
+
+\textbf{CH view:} Time and motion are not separate ingredients---both are properties of the \textbf{same} condensate field $\psi$.
+A physical clock is a defect pattern \emph{in} the fluid; ``moving faster'' means carrying that pattern through the superfluid with velocity $\mathbf{v}$.
+Phase advance is then split between \textbf{winding in time} ($\partial S/\partial t$, what a comoving clock counts) and \textbf{winding along the path} ($|\nabla S|$, phase piled up in the direction of motion).
+More motion through space $\Rightarrow$ less phase advance per unit coordinate time at a fixed location---the intuitive ``time slows when you move faster.''
+
+Low-energy excitations (phonon-like disturbances, identified with massless modes at $c_s \to c$) obey the \textbf{acoustic metric} of a flowing medium (Unruh 1981; Visser 1995; analog-gravity program):
+\begin{equation}
+  g_{\mu\nu} = \frac{\rho_{\mathrm{in}}}{c_s}
+  \begin{pmatrix}
+  -(c_s^2 - v^2) & -\mathbf{v}^T \\
+  -\mathbf{v} & \mathbf{I}
+  \end{pmatrix}.
+\end{equation}
+The $-(c_s^2 - v^2)$ entry has the same $(1 - v^2/c^2)$ structure as Minkowski time when $c_s$ is identified with $c$; proper time along a fast worldline is shorter than coordinate time.
+\textbf{Lorentz symmetry is emergent} in the uniform, comoving, low-gradient limit (Paper~1 postulate on covariance)---not postulated as a separate spacetime axiom.
+
+\textbf{Plain English:} You do not sit in space \emph{and} move through time as independent channels.
+You are a pattern in $\psi$; faster motion reallocates the same phase dynamics from ``ticking'' to ``traveling,'' and the fluid geometry enforces the $c$ limit.
+This is a \textbf{tradeoff in one substrate}, not motion ``damaging'' an external clock.
+
+\textbf{Status:} Analog-gravity consistency sketch; Paper~1 does not derive $\gamma = 1/\sqrt{1-v^2/c^2}$ from the GPE in one closed chain.
+Gravitational clock slowing ($\Phi$, depletion) is sketched in \texttt{ch\_clock\_redshift\_from\_gpe.py}; \textbf{lab} Layer~3 would test clock shifts vs the same $\chi(k)$ knob as Casimir ripple at $k_c$.
+Where $|\nabla\rho|$ is large, gradient gating can break exact Lorentz invariance ($\beta_{\mathrm{eff}} = \beta_{\max}\chi$); quiet void paths recover null dispersion tests (Section on GRB methods in Paper~1).
+
 \paragraph{What each symbol means (plain English).}
 \begin{description}[style=nextline, leftmargin=1.5em, font=\normalfont]
   \item[$\psi$ (psi)]
