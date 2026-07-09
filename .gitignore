@@ -27,12 +27,28 @@ docs/overleaf/*.fdb_latexmk
 docs/overleaf/*.fls
 docs/overleaf/*.pdf
 
+# Paper 2 LaTeX build artifacts
+docs/paper-2/overleaf/*.aux
+docs/paper-2/overleaf/*.bbl
+docs/paper-2/overleaf/*.blg
+docs/paper-2/overleaf/*.log
+docs/paper-2/overleaf/*.out
+docs/paper-2/overleaf/*.bcf
+docs/paper-2/overleaf/*.run.xml
+docs/paper-2/overleaf/*.synctex.gz
+docs/paper-2/overleaf/*.fdb_latexmk
+docs/paper-2/overleaf/*.fls
+docs/paper-2/overleaf/*.pdf
+
 # Preprint PDFs (compile from docs/overleaf/main.tex locally)
 /*.pdf
 
-# Local-only: example papers, internal notes, companion drafts
+# Local-only: example papers, internal planning notes
 example-papers/
-docs/paper-2/
+docs/paper-2/CHECKLIST.md
+docs/paper-2/ROADMAP.md
+docs/paper-2/SCOPE.md
+docs/paper-2/coupling-spec.md
 docs/ch-*.md
 docs/supersolid-*.md
 

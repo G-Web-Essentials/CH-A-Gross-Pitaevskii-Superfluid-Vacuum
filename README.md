@@ -22,6 +22,16 @@ The **discriminating near-term test** is **Prediction #7**: compare **flat** (QF
 
 Compile with **pdfLaTeX + Biber**. Preprint PDF: build locally or use arXiv once submitted.
 
+## Paper 2 (companion)
+
+EM–GPE derivation of the gated Casimir ripple — motivates \(\alpha_{\max}\) and \(a_{\mathrm{vac}}\) cited in Paper 1.
+
+| Item | Path |
+|------|------|
+| LaTeX source | [`docs/paper-2/overleaf/main.tex`](docs/paper-2/overleaf/main.tex) |
+| Scripts + outputs | [`simulations/ch_paper2_*.py`](simulations/), [`simulations/output/paper2/`](simulations/output/paper2/) |
+| Build notes | [`docs/paper-2/overleaf/README.md`](docs/paper-2/overleaf/README.md) |
+
 ## Code
 
 | Directory | Contents |
