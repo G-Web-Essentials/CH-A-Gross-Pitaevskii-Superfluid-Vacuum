@@ -50,7 +50,7 @@
   \small Independent Researcher\\[0.15em]
   \small \href{mailto:george@web-essentials.ie}{george@web-essentials.ie}%
 }
-\date{8 July 2026}
+\date{9 July 2026}
 
 \begin{document}
 
@@ -67,7 +67,7 @@ Analysis of real Fermi LAT data for GRB~090510 yields null quadratic dispersion 
 
 The \textbf{primary CH-specific test} is Prediction~\#7: scan a laboratory knob that raises $|\nabla\rho|$ (Casimir gap $d$, sphere radius $R$) and compare \textbf{flat} (QFT) vs \textbf{threshold} (CH) models for Casimir ripple amplitude $\alpha_{\mathrm{eff}}$ and interferometric visibility dip $\Delta V$.
 We provide GPE boundary simulations, a pre-registered lab protocol, and open-source analysis code that returns confirm\,/\,rule-out\,/\,inconclusive verdicts from $(k, O, \sigma)$ data.
-Companion Paper~2~\cite{CHPaper2} (in preparation) derives gradient gating in a perturbative EM--GPE bridge and favours $\alpha_{\max} \sim 0.1$--$0.2\%$ from grain microphysics; the $12\%$ and $\kappa=0.12$ defaults here remain upper sensitivity cases for the power study.
+Companion Paper~2~\cite{CHPaper2} (LaTeX source on GitHub; preprint in preparation) derives gradient gating in a perturbative EM--GPE bridge and favours $\alpha_{\max} \sim 0.1$--$0.2\%$ from grain microphysics; the $12\%$ and $\kappa=0.12$ defaults here remain upper sensitivity cases for the power study.
 \end{abstract}
 
 \noindent\textbf{Keywords:} Chronos-Hydrodynamics; emergent gravity; emergent spacetime; Gross--Pitaevskii equation; Bose--Einstein condensate; Madelung hydrodynamics; superfluid vacuum; analog gravity; acoustic metric; gradient gating; supersolid; Casimir effect; Mach--Zehnder interferometry; Lorentz invariance violation; cosmological constant problem; gradient threshold; falsifiability
@@ -491,8 +491,8 @@ Figure~\ref{fig:gpe} shows the resulting wall vs bulk $\chi(d)$ at $\xi = \SI{50
 Laptop forecasts and the power study need numerical inputs before any collaboration measures $\sigma_\alpha$ or $k_c$.
 CH does not fix $\xi$, $\alpha_{\max}$, or per-shot ripple uncertainty from first principles; the values below are \textbf{planning defaults} to be replaced once pilot $F/F_{\mathrm{Cas}}$ fits are registered.
 
-\textbf{Companion Paper 2 (in preparation).}
-A separate manuscript~\cite{CHPaper2} couples GPE boundary profiles to a perturbative Casimir mode sum and \textbf{motivates gradient gating} ($\delta F/F_{\mathrm{Cas}} \propto \chi_{\mathrm{bulk}}$ with corr $\approx 0.94$ at $\xi = \SI{50}{nm}$).
+\textbf{Companion Paper 2.}
+A separate manuscript~\cite{CHPaper2} (LaTeX source on GitHub; preprint in preparation) couples GPE boundary profiles to a perturbative Casimir mode sum and \textbf{motivates gradient gating} ($\delta F/F_{\mathrm{Cas}} \propto \chi_{\mathrm{bulk}}$ with corr $\approx 0.94$ at $\xi = \SI{50}{nm}$).
 Grain-scale EM estimates give a \textbf{preferred} ripple band $\alpha_{\max} \sim 0.1$--$0.2\%$ (classical polarizability, $\kappa \sim 0.01$--$0.02$).
 The values $\kappa = 0.12$ and $\alpha_{\max} = 0.12$ used in this paper for power studies and practice fits are \textbf{upper sensitivity cases}, not microphysics-derived predictions.
 Paper~2 does \textbf{not} change the Prediction~\#7 protocol here; it tightens priors on amplitude and period before data collection.
@@ -634,7 +634,7 @@ Nested flat and threshold models with a fixed $\Delta\chi^2$ cut make that disti
   \item $\Delta\chi^2$ cut $= 9$; $k_c$ agreement factor $= 2$; control pass: $\Delta\chi^2 < 9$.
 \end{itemize}
 
-Full printable checklist: companion document \texttt{ch-lab-protocol-checklist.md}~\cite{CHSpaceFabric2026}.
+Full printable checklist: Section~\ref{sec:protocol} and Appendix~\ref{app:collab} (repository scripts: \texttt{control\_channel\_analysis.py})~\cite{CHSpaceFabric2026}.
 
 \subsection{Systematics and limitations}
 \label{sec:systematics}
@@ -773,7 +773,7 @@ The hydrostatic coupling has a natural grain-scale reference (not a Newton fit):
 Far-field Newton factors must be evaluated on $r \geq r_{\mathrm{join}}$ only; interior join gradients can falsely imply $N_{\mathrm{hydro}} \sim 10^2$ overshoot if the full grid is used.
 With exterior evaluation, the v3 matched solve gives $N_{\mathrm{hydro}}(\alpha_G^{\mathrm{hydro,ref}}) \approx 0.98$ at $\xi = \SI{50}{nm}$ (\texttt{ch\_alpha\_g\_grain\_estimate.py})---the primary laptop result.
 An optional profile consistency trim $f = 1/N_{\mathrm{hydro}}(\alpha_G^{\mathrm{hydro,ref}})$ brings $|a|/(GM/r^2)$ to unity in the fit band when needed ($f \approx 1.02$; \texttt{ch\_alpha\_g\_profile\_correction.py}).
-Full $\mathcal{L}_{\mathrm{int,grav}}$, dynamical $\Phi$, and metric routes are deferred to companion note \texttt{gravity-sketches.tex} and \texttt{docs/ch-gravity-roadmap-g7-g11.md}~\cite{CHSpaceFabric2026}.
+Full $\mathcal{L}_{\mathrm{int,grav}}$, dynamical $\Phi$, and metric routes are deferred to companion note \texttt{gravity-sketches.tex} in the same repository~\cite{CHSpaceFabric2026}.
 
 \textbf{End-to-end pipeline.}
 \texttt{ch\_lab\_pipeline\_demo.py} runs protocol verdict $\to$ $k_c$ $\to$ $\xi$ $\to$ gravity v3 $\to$ $\alpha_G^{\mathrm{hydro,ref}}$ (optional $f$-trim) on demo CSVs.
