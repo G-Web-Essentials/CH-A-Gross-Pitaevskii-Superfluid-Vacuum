@@ -1,0 +1,24 @@
+Chronos-Hydrodynamics Paper 1 — Zenodo upload package
+====================================================
+
+Published: 10 July 2026 (v1)
+DOI: https://doi.org/10.5281/zenodo.21296947
+Record: https://zenodo.org/records/21296947
+
+Files in this folder (and parent docs/paper-1/):
+
+  zenodo/Chronos-Hydrodynamics-Paper-1.pdf     — preprint PDF (upload as primary file)
+  ../Chronos-Hydrodynamics-Paper-1-source.zip  — LaTeX source + figures + bib
+  ../Chronos-Hydrodynamics-Paper-1-zenodo-bundle.zip — PDF + source zip together
+
+Source zip contents:
+  main.tex, references.bib, README.md, figures/*.png (6 figures)
+
+Not included (companion docs, not required for Paper 1 preprint):
+  gravity-sketches.tex, universal-laws.tex
+
+Code repository (link in Zenodo metadata, do not zip entire repo):
+  https://github.com/G-Web-Essentials/CH-A-Gross-Pitaevskii-Superfluid-Vacuum
+
+Rebuild source zip after editing main.tex:
+  cd docs/paper-1/zenodo && see parent README or run zip command in ZENODO steps online.

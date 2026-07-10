@@ -11,6 +11,8 @@
 \usepackage{booktabs}
 \usepackage{enumitem}
 \usepackage{xcolor}
+\usepackage{xurl}
+\usepackage{tabularx}
 \usepackage{hyperref}
 \usepackage{siunitx}
 \usepackage[backend=biber,style=numeric,sorting=none,maxbibnames=99]{biblatex}
@@ -28,6 +30,9 @@
   citecolor=blue!60!black,
   urlcolor=blue!60!black
 }
+
+% Breakable monospaced script names and URLs (Overleaf/pdfLaTeX line overflow)
+\newcommand{\py}[1]{\nolinkurl{#1}}
 
 \addbibresource{references.bib}
 
@@ -55,6 +60,10 @@
 \begin{document}
 
 \maketitle
+\begin{center}
+  \small Zenodo preprint (v1): \url{https://doi.org/10.5281/zenodo.21296947}
+\end{center}
+\vspace{0.75em}
 
 \begin{abstract}
 We present \textbf{Chronos-Hydrodynamics (CH)}, a speculative framework in which space is a physical Bose--Einstein condensate obeying the Gross--Pitaevskii equation (GPE).
@@ -258,6 +267,12 @@ Tidal gradients from a lead brick are $\sim 10^{-22}$ of this scale; Casimir wal
   \beta_{\mathrm{eff}} = \beta_{\max}\,\chi.
   \label{eq:gated}
 \end{equation}
+
+\textbf{Quantum potential $Q$ vs gradient gate $\chi$:}
+The Madelung quantum potential $Q$ (Eq.~\ref{eq:quantum-potential}) is part of the hydrodynamic response of $\rho$ around defects and steep profiles; it is \textbf{not} multiplied by $\chi$.
+Gradient gating applies to laboratory \textbf{observables} via Eq.~\ref{eq:gated}, not to $Q$ directly.
+Where $|\nabla\rho|$ is large, $|Q|$ typically peaks as well (e.g.\ defect join layers), because both follow from $\rho$ geometry---but whether $Q$ stabilizes or drives moving defect patterns is \textbf{not derived} here.
+Kinematic time dilation is sketched through phase $S$ and the acoustic metric (Section~\ref{sec:roadmap}, Layer~3), not through a gated $Q$ channel; full $Q$--defect dynamics belongs in the gravity companion (\texttt{gravity-sketches.tex}) and future work.
 
 \textbf{Dispersion ceiling} (Prediction~\#4):
 \begin{equation}
@@ -523,8 +538,8 @@ The default $0.35$ gives an $\mathcal{O}(1)$-decade turn-on in $\log_{10}$ gradi
 \subsection{GPE forecasts linked to Prediction~\#7}
 \label{sec:gpe-p7-forecasts}
 
-With $\xi = \SI{50}{nm}$ and gap scan $d = 40$--$600$~nm ($k = 10^9/d_{[\mathrm{m}]}$), the GPE pipeline (\texttt{ch\_gpe\_to\_threshold\_demo.py}) maps $d \to \chi_{\mathrm{bulk}}$ and $\chi_{\mathrm{wall}}$ and generates synthetic $(k, \alpha, \sigma)$ and $(k, \Delta V, \sigma)$ CSVs.
-Flat vs threshold fits (\texttt{gradient\_threshold\_analysis.py}) on that synthetic data yield $\Delta\chi^2 \approx 274$ ($\alpha$) and $\Delta\chi^2 \approx 429$ ($\Delta V$)---well above the detection cut $\Delta\chi^2 = 9$.
+With $\xi = \SI{50}{nm}$ and gap scan $d = 40$--$600$~nm ($k = 10^9/d_{[\mathrm{m}]}$), the GPE pipeline (\py{ch_gpe_to_threshold_demo.py}) maps $d \to \chi_{\mathrm{bulk}}$ and $\chi_{\mathrm{wall}}$ and generates synthetic $(k, \alpha, \sigma)$ and $(k, \Delta V, \sigma)$ CSVs.
+Flat vs threshold fits (\py{gradient_threshold_analysis.py}) on that synthetic data yield $\Delta\chi^2 \approx 274$ ($\alpha$) and $\Delta\chi^2 \approx 429$ ($\Delta V$)---well above the detection cut $\Delta\chi^2 = 9$.
 This demonstrates that \textbf{if} CH gated amplitudes track GPE $\chi$ vs $d$ under the bulk coupling of Section~\ref{sec:probe-coupling}, the protocol has statistical power; it is \textbf{not} a substitute for real lab data.
 GPE $\chi_{\mathrm{bulk}}(d)$ peaks near $d \sim 2\xi$ and falls at both large $d$ (decoupled walls) and the smallest gaps ($d \lesssim \xi$, overlapping boundary layers), whereas the threshold fit in $k$ (Eq.~\ref{eq:threshold-fit}) uses a single monotonic step.
 A downturn at minimum $d$ would not by itself falsify CH but may favor a refined $O(k)$ template if seen in real data.
@@ -607,10 +622,11 @@ No CH-specific hardware is required---only a registered scan plan, a control run
   \item \textbf{Run control} on the registered non-gradient knob (e.g.\ temperature series at fixed $d$) and export a second CSV the same way.
   Without a flat control, a threshold in $\alpha(k)$ is inconclusive (Table~\ref{tab:verdict}).
 
-  \item \textbf{Analyze} with \texttt{control\_channel\_analysis.py} (flat vs threshold on signal; flat mandatory on control).
+  \item \textbf{Analyze} with \py{control_channel_analysis.py} (flat vs threshold on signal; flat mandatory on control).
   The script returns a discrete verdict so interpretation is not negotiated after the fact.
 
-  \item \textbf{Optional follow-up:} if a threshold is detected, run \texttt{gradient\_threshold\_analysis.py --joint} when Tier~B adds $\Delta V$, then the four-step $\xi$ route in Section~\ref{sec:xi-lab-route} (\texttt{ch\_xi\_lab\_bridge.py}).
+  \item \textbf{Optional follow-up:} if a threshold is detected, run \py{gradient_threshold_analysis.py --joint} when Tier~B adds $\Delta V$;\\
+  then the four-step $\xi$ route in Section~\ref{sec:xi-lab-route} (\py{ch_xi_lab_bridge.py}).
   Turn-on gap $d_c$ is the immediate laboratory output; a unique $\xi$ additionally requires ripple period $a_{\mathrm{vac}}$ from Prediction~\#3 and the cross-check $d_c \approx a_{\mathrm{vac}}/(2\pi)$.
 \end{enumerate}
 
@@ -625,7 +641,7 @@ Nested flat and threshold models with a fixed $\Delta\chi^2$ cut make that disti
   \chi^2_{\mathrm{thr}} &= \sum_i \frac{[O_i - O_{\mathrm{CH}}(k_i; c_0, A, k_c)]^2}{\sigma_i^2}.
 \end{align}
 \textbf{Detection:} $\Delta\chi^2 = \chi^2_{\mathrm{flat}} - \chi^2_{\mathrm{thr}} \geq 9$ (two extra parameters: amplitude $A$ and $k_c$; $\approx 3\sigma$ rule of thumb).
-\textbf{Joint fit:} when both $\alpha$ and $\Delta V$ are available, refit with a \textbf{shared} $k_c$ and separate amplitudes per channel (\texttt{gradient\_threshold\_analysis.py --joint}).
+\textbf{Joint fit:} when both $\alpha$ and $\Delta V$ are available, refit with a \textbf{shared} $k_c$ and separate amplitudes per channel (\py{gradient_threshold_analysis.py --joint}).
 
 \textbf{Pre-registered requirements} (complete before data collection):
 \begin{itemize}[leftmargin=*]
@@ -720,8 +736,8 @@ It is \textbf{optional} for Tier~A pass/fail (which needs only $k_c$ and gating 
 
 \begin{enumerate}[label=\textbf{\arabic*.}, leftmargin=*]
   \item \textbf{Tier~A Casimir gap scan $\to$ threshold fit $\to$ $k_c$ and $d_c$.}
-  Complete the workflow of Section~\ref{sec:protocol} through \texttt{control\_channel\_analysis.py}.
-  Extract a shared $k_c$ with \texttt{gradient\_threshold\_analysis.py --joint} when both $\alpha$ and $\Delta V$ are available.
+  Complete the workflow of Section~\ref{sec:protocol} through \py{control_channel_analysis.py}.
+  Extract a shared $k_c$ with \py{gradient_threshold_analysis.py --joint} when both $\alpha$ and $\Delta V$ are available.
   For gap scans ($k = 1/d_{\mathrm{nm}}$; Table~\ref{tab:knobs}), the fitted $k_c$ implies turn-on gap
   \begin{equation}
     d_c \approx \frac{1}{k_c}\,\mathrm{nm} = \frac{1}{k_c \times 10^9}\,\mathrm{m}.
@@ -737,12 +753,12 @@ It is \textbf{optional} for Tier~A pass/fail (which needs only $k_c$ and gating 
   Equivalently, the two $\xi$ estimates ($\xi \approx d_c$ and $\xi = a_{\mathrm{vac}}/(2\pi)$) should agree within the pre-registered factor of 2 used elsewhere for $k_c$ consistency.
   Agreement supports one healing length; disagreement flags wrong identification, systematics, or need for refined templates---not a laptop fix.
 
-  \item \textbf{Run \texttt{ch\_xi\_lab\_bridge.py}} on lab CSVs with measured $a_{\mathrm{vac}}$ (command below).
+  \item \textbf{Run \py{ch_xi_lab_bridge.py}} on lab CSVs with measured $a_{\mathrm{vac}}$ (command below).
   The script returns consensus $\xi$ (geometric mean when both IDs agree), dispersion/$\beta_{\max}$ consistency checks, and an optional gravity v3 forecast at grain $\alpha_G^{\mathrm{hydro,ref}}$ (Step~3 below).
-  Demo: \texttt{ch\_xi\_lab\_bridge.py --demo}; end-to-end: \texttt{ch\_lab\_pipeline\_demo.py}.
+  Demo: \py{ch_xi_lab_bridge.py --demo}; end-to-end: \py{ch_lab_pipeline_demo.py}.
 \end{enumerate}
 
-\noindent\textbf{Example \texttt{ch\_xi\_lab\_bridge.py} command} (replace paths with lab exports):
+\noindent\textbf{Example \py{ch_xi_lab_bridge.py} command} (replace paths with lab exports):
 \begin{verbatim}
 python3 ch_xi_lab_bridge.py \
   --csv-alpha lab/run001_alpha.csv \
@@ -751,7 +767,7 @@ python3 ch_xi_lab_bridge.py \
 \end{verbatim}
 
 \textbf{Step 1 --- extract $k_c$ (detail).}
-After threshold detection, the joint fit (\texttt{gradient\_threshold\_analysis.py --joint}) returns a shared $k_c$ with per-channel amplitudes; Eq.~\ref{eq:dc-from-kc} maps it to $d_c$.
+After threshold detection, the joint fit (\py{gradient_threshold_analysis.py --joint}) returns a shared $k_c$ with per-channel amplitudes; Eq.~\ref{eq:dc-from-kc} maps it to $d_c$.
 
 \textbf{Step 2 --- $\xi$ hypotheses (detail).}
 Two mechanisms are cross-checked in \texttt{ch\_xi\_prediction.py} and \texttt{ch\_xi\_lab\_bridge.py}:
@@ -785,26 +801,29 @@ Casimir-lattice $\xi$ from $a_{\mathrm{vac}} = 150$~nm ($\xi \approx 24$~nm) dis
 \section{Software and reproducibility}
 \label{sec:software}
 
-Every number quoted in this paper is produced by a named script in the open GitHub repository \url{https://github.com/G-Web-Essentials/CH-A-Gross-Pitaevskii-Superfluid-Vacuum}~\cite{CHSpaceFabric2026}.
+Every number quoted in this paper is produced by a named script in the open GitHub repository\\
+\url{https://github.com/G-Web-Essentials/CH-A-Gross-Pitaevskii-Superfluid-Vacuum}~\cite{CHSpaceFabric2026}.
 The order below runs from the completed GRB reanalysis through GPE forecasts, the protocol demo, and the power study.
 
 \textbf{Recommended reproduction order}:
 \begin{enumerate}[label=\arabic*., leftmargin=*]
-  \item \texttt{fermi\_grb090510\_lat\_extended\_beta\_limit.py} --- download/query LAT extended events, fit $\beta$, reproduce Fig.~\ref{fig:grb}.
-  \item \texttt{ch\_gpe\_casimir\_gap.py} --- wall vs bulk $\chi$ vs $d$ at $\xi = \SI{50}{nm}$ (Fig.~\ref{fig:gpe}).
-  \item \texttt{ch\_gpe\_to\_threshold\_demo.py} --- GPE $\to$ CSV $\to$ $\Delta\chi^2$ for gap knob.
-  \item \texttt{control\_channel\_analysis.py --demo} --- full protocol verdict (Fig.~\ref{fig:protocol}).
-  \item \texttt{ch\_lab\_pipeline\_demo.py} --- $k_c \to \xi$ $\to$ gravity v3 sketch (Section~\ref{sec:lab-xi-bridge}).
-  \item \texttt{ch\_threshold\_power\_study.py} --- Monte Carlo 90\% power vs $\alpha_{\max}$, $n_k$, $\sigma_\alpha$ (Section~\ref{sec:power-study}).
+  \item \py{fermi_grb090510_lat_extended_beta_limit.py}\\
+    Download/query LAT extended events, fit $\beta$, reproduce Fig.~\ref{fig:grb}.
+  \item \py{ch_gpe_casimir_gap.py} --- wall vs bulk $\chi$ vs $d$ at $\xi = \SI{50}{nm}$ (Fig.~\ref{fig:gpe}).
+  \item \py{ch_gpe_to_threshold_demo.py} --- GPE $\to$ CSV $\to$ $\Delta\chi^2$ for gap knob.
+  \item \py{control_channel_analysis.py --demo}\\
+    Full protocol verdict (Fig.~\ref{fig:protocol}).
+  \item \py{ch_lab_pipeline_demo.py} --- $k_c \to \xi$ $\to$ gravity v3 sketch (Section~\ref{sec:lab-xi-bridge}).
+  \item \py{ch_threshold_power_study.py} --- Monte Carlo 90\% power vs $\alpha_{\max}$, $n_k$, $\sigma_\alpha$ (Section~\ref{sec:power-study}).
 \end{enumerate}
 
 \textbf{Protocol and analysis scripts} (collaborators need only the first four for Tier~A):
 \begin{itemize}[leftmargin=*]
-  \item \texttt{gradient\_threshold\_analysis.py} --- flat vs threshold fits; \texttt{--joint} for shared $k_c$;
-  \item \texttt{control\_channel\_analysis.py} --- signal + control verdict;
-  \item \texttt{ch\_gpe\_sphere\_to\_threshold\_demo.py} --- curvature $R$ pipeline;
-  \item \texttt{ch\_xi\_lab\_bridge.py} --- protocol CSVs $\to$ $\xi$ hypotheses;
-  \item \texttt{casimir\_ripple\_sim.py} --- practice ripple extraction from $F/F_{\mathrm{Cas}}$.
+  \item \py{gradient_threshold_analysis.py} --- flat vs threshold fits; \texttt{--joint} for shared $k_c$;
+  \item \py{control_channel_analysis.py} --- signal + control verdict;
+  \item \py{ch_gpe_sphere_to_threshold_demo.py} --- curvature $R$ pipeline;
+  \item \py{ch_xi_lab_bridge.py} --- protocol CSVs $\to$ $\xi$ hypotheses;
+  \item \py{casimir_ripple_sim.py} --- practice ripple extraction from $F/F_{\mathrm{Cas}}$.
 \end{itemize}
 Gravity numerics beyond the Step~3 sketch live in \texttt{gravity-sketches.tex} and the repository; they are not required to run the Prediction~\#7 protocol.
 
@@ -1108,7 +1127,12 @@ Confirmation requires collaborative Casimir (and ideally interferometric) data w
 \section*{Acknowledgments}
 
 Computations used open-source Python (\texttt{numpy}, \texttt{matplotlib}) on a laptop workstation.
-Code and protocol scripts: \url{https://github.com/G-Web-Essentials/CH-A-Gross-Pitaevskii-Superfluid-Vacuum}~\cite{CHSpaceFabric2026}.
+
+\noindent Zenodo preprint (v1):\\
+\url{https://doi.org/10.5281/zenodo.21296947}.
+
+\noindent Code and protocol scripts:\\
+\url{https://github.com/G-Web-Essentials/CH-A-Gross-Pitaevskii-Superfluid-Vacuum}~\cite{CHSpaceFabric2026}.
 
 \printbibliography
 
@@ -1120,29 +1144,48 @@ Code and protocol scripts: \url{https://github.com/G-Web-Essentials/CH-A-Gross-P
 \begin{table}[htbp]
   \centering
   \small
-  \begin{tabular}{@{}ll@{}}
+  \begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X@{}}
     \toprule
     Symbol & Meaning \\
     \midrule
-    $\psi$ & Vacuum order parameter; $\rho = |\psi|^2$ \\
+    $\psi$ & Vacuum order parameter (complex BEC field) \\
+    $\rho$ & Vacuum condensate density; $\rho = |\psi|^2$ (Eq.~\ref{eq:madelung}) \\
+    $S$ & Madelung phase; $\psi = \sqrt{\rho}\,e^{iS/\hbar}$ \\
+    $\mathbf{v}$ & Superfluid velocity; $\mathbf{v} = \nabla S/\rho$ (Eq.~\ref{eq:madelung}) \\
+    $|\nabla\rho|$ & Magnitude of the spatial gradient of $\rho$; large near boundaries/defects, $\approx 0$ in uniform void \\
+    \midrule
     $\rho_{\mathrm{in}}$ & Inertial superfluid density (GPE bulk scale) \\
-    $|\nabla\rho|$ & Magnitude of $\nabla\rho$; how sharply $\rho$ varies in space (Eq.~\ref{eq:madelung}; gradient-gate subsection) \\
     $\xi$ & Healing length; hypothesized $\mathcal{O}(10)$--$100$~nm in lab forecasts \\
     $m_{\mathrm{grain}}$ & $\hbar c_s/(c^2\xi)$; inertial mass of a vacuum grain \\
-    $|\nabla\rho|_c$ & $\rho_{\mathrm{in}}/\xi \approx c^2/G$; gradient gate scale \\
+    $c_s$ & Condensate sound speed; $c$ in the low-energy limit (Eq.~\ref{eq:grain}) \\
+    $G$ & Emergent Newton constant; $G = \alpha_G c_s^2 \xi / \rho_{\mathrm{in}}$ (Eq.~\ref{eq:G}) \\
+    $\alpha_G$ & Dimensionless gravity coupling in Eq.~\ref{eq:G}; often unity in sketches \\
+    \midrule
+    $|\nabla\rho|_c$ & $\rho_{\mathrm{in}}/\xi \approx c^2/G$; gradient-gate turn-on scale \\
     $\chi$ & Gradient gate $\in [0,1]$ (Eq.~\ref{eq:chi}) \\
     $w$ & Gate width in $\log_{10}(|\nabla\rho|/|\nabla\rho|_c)$; default $\approx 0.35$ (Section~\ref{sec:forecast-defaults}) \\
-    $\alpha_{\max}$, $\Delta V_{\max}$ & Gated observable ceilings before $\chi$; $\alpha_{\max}=0.12$ is an upper sensitivity default (preferred $\sim 0.1$--$0.2\%$ in Paper~2~\cite{CHPaper2}) \\
+    \midrule
+    $\alpha$ & Casimir ripple amplitude from $F/F_{\mathrm{Cas}}$ oscillatory fit (Prediction~\#3) \\
+    $\alpha_{\max}$, $\Delta V_{\max}$ & Gated observable ceilings before $\chi$; $\alpha_{\max}=0.12$ is an upper sensitivity default\\
+    & (preferred $\sim 0.1$--$0.2\%$ in Paper~2~\cite{CHPaper2}) \\
     $\alpha_{\mathrm{eff}}$, $\Delta V$ & $\alpha_{\max}\chi$, $\Delta V_{\max}\chi$ \\
-    $\beta_{\max}$ & $(3/2)\xi^2/\hbar^2$; dispersion ceiling \\
+    $\beta_{\max}$ & $(3/2)\xi^2/\hbar^2$; dispersion ceiling (Prediction~\#4) \\
     $\beta_{\mathrm{eff}}$ & $\beta_{\max}\chi$; used in GRB fits \\
-    $k$ & Experimental knob; $10^9/d_{[\mathrm{m}]}$ or $10^6/R_{[\mathrm{m}]}$ \\
+    $a_{\mathrm{vac}}$ & Ripple period in Eq.~\ref{eq:casimir-ripple}; lattice-scale fit parameter \\
+    \midrule
+    $d$, $d_c$ & Casimir plate gap (signal knob); turn-on gap $d_c \approx 1/k_c$~nm (Eq.~\ref{eq:dc-from-kc}) \\
+    $R$ & Sphere radius (curvature knob); $k = 1/R_{\mu\mathrm{m}}$ \\
+    $k$ & Dimensionless experimental knob; $1/d_{\mathrm{nm}}$ or $1/R_{\mu\mathrm{m}}$ \\
     $k_c$ & Threshold knob value in Eq.~\ref{eq:threshold-fit} \\
     $O(k)$ & Scalar observable at knob $k$ ($\alpha$ or $\Delta V$ after extraction) \\
+    $\sigma$ & Uncertainty on $O$ at each $k$ (CSV column \texttt{sigma}) \\
+    $c_0$, $A$ & Flat baseline and threshold amplitude in Eq.~\ref{eq:threshold-fit} \\
+    $\Delta\chi^2$ & $\chi^2_{\mathrm{flat}} - \chi^2_{\mathrm{thr}}$; detection if $\geq 9$ \\
+  \midrule
     $\Gamma$ & Environmental decoherence rate in MZ envelope \\
     $\varepsilon$ & Fraction of $\rho_{\mathrm{in}}$ that gravitates cosmologically \\
     \bottomrule
-  \end{tabular}
+  \end{tabularx}
 \end{table}
 
 \section{Fit models and verdict rules}
@@ -1172,7 +1215,7 @@ with $\delta k = \max[0.08\,(k_{\max}-k_{\min}),\,10^{-12}]$.
 
 \textbf{Seeking:} Existing or new $F(d)$ Casimir data, $\geq 10$ gap settings, ripple amplitude $\alpha$; optional temperature series as control.
 
-\textbf{Offering:} Pre-registered analysis (\texttt{control\_channel\_analysis.py}), open repository, co-authorship.
+\textbf{Offering:} Pre-registered analysis (\py{control_channel_analysis.py}), open repository, co-authorship.
 
 \textbf{Not required from lab:} New theory development---only measurements and metadata.
 

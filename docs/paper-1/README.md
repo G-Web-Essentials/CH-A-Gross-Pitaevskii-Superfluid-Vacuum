@@ -4,6 +4,10 @@ Preprint source for **Chronos-Hydrodynamics (CH)**: a Gross–Pitaevskii superfl
 
 **Status:** Research framework, not established physics. Laptop work designs a falsifiable lab test; Casimir hardware is required for a verdict.
 
+**Zenodo preprint (v1, 10 July 2026):** [https://doi.org/10.5281/zenodo.21296947](https://doi.org/10.5281/zenodo.21296947)
+
+> McNally, G. M. (2026). *Chronos-Hydrodynamics: A Gross–Pitaevskii Superfluid Vacuum — Flat vs Threshold Turn-On in Casimir Ripple and Interferometric Visibility*. Zenodo. https://doi.org/10.5281/zenodo.21296947
+
 ## What this paper contains
 
 `overleaf/main.tex` (~25 pp submission build) walks from CH postulates to a **pre-registered laboratory protocol**. A collaborator can use the protocol and analysis code without accepting the full ontological program.
