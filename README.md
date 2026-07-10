@@ -66,7 +66,7 @@ python fermi_grb090510_lat_extended_beta_limit.py   # needs network
 
 ```bibtex
 @misc{mcnally2026ch,
-  author       = {McNally, George},
+  author       = {McNally, George Michael},
   title        = {Chronos-Hydrodynamics: A Gross--Pitaevskii Superfluid Vacuum---
                   Flat vs Threshold Turn-On in Casimir Ripple and Interferometric Visibility},
   year         = {2026},
@@ -79,4 +79,4 @@ Replace with an arXiv ID once submitted.
 
 ## License
 
-[MIT License](LICENSE) — Copyright (c) 2026 George McNally.
+[MIT License](LICENSE) — Copyright (c) 2026 George Michael McNally.
