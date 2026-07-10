@@ -46,7 +46,7 @@ pdflatex main
 pdflatex main
 ```
 
-Companion gravity note:
+Companion gravity note (Biber):
 
 ```bash
 pdflatex gravity-sketches
@@ -54,13 +54,10 @@ biber gravity-sketches
 pdflatex gravity-sketches
 ```
 
-Requires TeX Live with `biblatex-biber`.
-
-Companion documents (pdfLaTeX only, no Biber):
+Universal laws companion (pdfLaTeX only):
 
 ```bash
 pdflatex universal-laws
-pdflatex gravity-sketches
-biber gravity-sketches
-pdflatex gravity-sketches
 ```
+
+Requires TeX Live with `biblatex-biber` for `main.tex` and `gravity-sketches.tex`.
