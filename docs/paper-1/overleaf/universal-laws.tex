@@ -7,10 +7,10 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{booktabs}
+\usepackage{array}
 \usepackage{enumitem}
 \usepackage{xcolor}
 \usepackage{hyperref}
-\usepackage{siunitx}
 
 \hypersetup{
   colorlinks=true,
@@ -72,7 +72,7 @@ That is what the lab program tests.
     \midrule
     Air, water, rock & Ordinary matter = \textbf{defect patterns} (depletion) in the vacuum fluid \\
     Vacuum & Bulk superfluid at $\rho \approx \rho_{\mathrm{in}}$ \\
-    $\rho_{\mathrm{in}}$ scale & $\sim 10^{19}$--$10^{24}\,\si{\kilogram\per\meter\cubed}$ depending on $\xi$---\textbf{far denser than neutron stars} \\
+    $\rho_{\mathrm{in}}$ scale & $\sim 10^{19}$--$10^{24}\,\mathrm{kg\,m^{-3}}$ depending on $\xi$---\textbf{far denser than neutron stars} \\
     What the lab measures & \textbf{How fast $\rho$ changes} near boundaries ($|\nabla\rho|$), not object weight \\
     \bottomrule
   \end{tabular}
@@ -157,13 +157,11 @@ More motion through space $\Rightarrow$ less phase advance per unit coordinate t
 
 Low-energy excitations (phonon-like disturbances, identified with massless modes at $c_s \to c$) obey the \textbf{acoustic metric} of a flowing medium (Unruh 1981; Visser 1995; analog-gravity program):
 \begin{equation}
-  g_{\mu\nu} = \frac{\rho_{\mathrm{in}}}{c_s}
-  \begin{pmatrix}
-  -(c_s^2 - v^2) & -\mathbf{v}^T \\
-  -\mathbf{v} & \mathbf{I}
-  \end{pmatrix}.
+  ds^2 = \frac{\rho_{\mathrm{in}}}{c_s}\left[
+    -(c_s^2 - |\mathbf{v}|^2)\,dt^2 - 2\,\mathbf{v}\cdot d\mathbf{x}\,dt + |d\mathbf{x}|^2
+  \right].
 \end{equation}
-The $-(c_s^2 - v^2)$ entry has the same $(1 - v^2/c^2)$ structure as Minkowski time when $c_s$ is identified with $c$; proper time along a fast worldline is shorter than coordinate time.
+The $-(c_s^2 - |\mathbf{v}|^2)$ coefficient has the same $(1 - v^2/c^2)$ structure as Minkowski time when $c_s$ is identified with $c$; proper time along a fast worldline is shorter than coordinate time.
 \textbf{Lorentz symmetry is emergent} in the uniform, comoving, low-gradient limit (Paper~1 postulate on covariance)---not postulated as a separate spacetime axiom.
 
 \textbf{Plain English:} You do not sit in space \emph{and} move through time as independent channels.
@@ -175,7 +173,7 @@ Gravitational clock slowing ($\Phi$, depletion) is sketched in \texttt{ch\_clock
 Where $|\nabla\rho|$ is large, gradient gating can break exact Lorentz invariance ($\beta_{\mathrm{eff}} = \beta_{\max}\chi$); quiet void paths recover null dispersion tests (Section on GRB methods in Paper~1).
 
 \paragraph{What each symbol means (plain English).}
-\begin{description}[style=nextline, leftmargin=1.5em, font=\normalfont]
+\begin{description}[style=nextline, leftmargin=1.5em]
   \item[$\psi$ (psi)]
     The \textbf{vacuum order parameter}: a complex field that describes the state of the condensate at each point in space (and time).
     Think of it as the ``wavefunction of space itself'' in CH---not a particle sitting in space, but the medium's quantum state.
@@ -237,7 +235,7 @@ This is a \textbf{correspondence sketch}, not derived from the lab GPE code.
 
 \subsection{Cosmological constant / dark energy}
 
-\textbf{Standard view:} $\Lambda$ or dark energy with $\rho_\Lambda \sim 10^{-26}\,\si{\kilogram\per\meter\cubed}$.
+\textbf{Standard view:} $\Lambda$ or dark energy with $\rho_\Lambda \sim 10^{-26}\,\mathrm{kg\,m^{-3}}$.
 
 \textbf{CH view:} Vacuum has enormous $\rho_{\mathrm{in}}$, but only a fraction \textbf{$\varepsilon \ll 1$} gravitates cosmologically:
 \begin{equation}

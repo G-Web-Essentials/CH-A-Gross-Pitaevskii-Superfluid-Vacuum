@@ -6,7 +6,7 @@
 |------|---------|
 | `main.tex` | Paper 1 preprint source — Prediction #7 protocol, GPE forecasts, lab bridge (~25 pp) |
 | `gravity-sketches.tex` | Companion note — G1–G11 gravity routes (κ-level sketches; not in Paper 1) |
-| `universal-laws.tex` | Universal laws companion — pdfLaTeX only |
+| `universal-laws.tex` | Universal laws companion — pdfLaTeX only (no Biber) |
 | `references.bib` | Bibliography |
 
 ## Upload to Overleaf
@@ -55,3 +55,12 @@ pdflatex gravity-sketches
 ```
 
 Requires TeX Live with `biblatex-biber`.
+
+Companion documents (pdfLaTeX only, no Biber):
+
+```bash
+pdflatex universal-laws
+pdflatex gravity-sketches
+biber gravity-sketches
+pdflatex gravity-sketches
+```
